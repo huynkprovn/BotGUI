@@ -1,4 +1,5 @@
-﻿using PoGo.NecroBot.GUI.Utils;
+﻿using PoGo.NecroBot.GUI.Util;
+using PoGo.NecroBot.GUI.Utils;
 using PoGo.NecroBot.Logic.Event;
 using PoGo.NecroBot.Logic.Logging;
 using PoGo.NecroBot.Logic.PoGoUtils;
@@ -43,7 +44,7 @@ namespace PoGo.NecroBot.GUI.Tasks
                 {
                     Message = "Starting to powerup pokemons"
                 });
-                await ManualTransferPokemon.TransferPokemonTask.AsyncStart(Bot._Session, pokemonsToPowerUp, default(CancellationToken));
+                await ManualPowerUpPokemon.PowerUpPokemonTask.AsyncStart(Bot._Session, pokemonsToPowerUp, default(CancellationToken));
 
                 //UpdateMyPokemons();
                 Bot._Session.EventDispatcher.Send(new WarnEvent
@@ -89,6 +90,9 @@ namespace PoGo.NecroBot.GUI.Tasks
                         Logger.Write("Pokemon Upgraded:" + session.Translation.GetPokemonTranslation(upgradeResult.UpgradedPokemon.PokemonId) + ":" +
                                         upgradeResult.UpgradedPokemon.Cp);
                         upgradedNumber++;
+
+                        GUIPokemons.ChangePokemon(upgradeResult.UpgradedPokemon);
+                        //GUIPokemons.AddPokemon(upgradeResult.UpgradedPokemon);
                     }
 
                     if (upgradedNumber >= session.LogicSettings.AmountOfTimesToUpgradeLoop)

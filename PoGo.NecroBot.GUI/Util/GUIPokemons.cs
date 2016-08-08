@@ -56,14 +56,40 @@ namespace PoGo.NecroBot.GUI.Util
             }
         }
 
-        public void AddPokemon(PokemonData pokemon)
+        public static void AddPokemon(PokemonData pokemon)
         {
             PokemonData pokeData;
             if (Bot.MyPokemons.TryGetValue(pokemon.Id,out pokeData) == false)
                 Bot.MyPokemons.Add(pokemon.Id, pokemon);
+
+            UpdatePokemons();
         }
 
-        public void UpdatePokemons()
+        public static void RemovePokemon(PokemonData pokemon)
+        {
+            PokemonData pokeData;
+            if (Bot.MyPokemons.TryGetValue(pokemon.Id, out pokeData) == true)
+                Bot.MyPokemons.Remove(pokemon.Id);
+
+            UpdatePokemons();
+        }
+
+        public static void ChangePokemon(PokemonData pokemon)
+        {
+            var currentPokemonList = Bot.GUI.DataGridMyPokemons.Rows.OfType<DataGridViewRow>().ToArray();
+
+            foreach (var line in currentPokemonList)
+            {
+                if (pokemon.Id == (ulong)line.Cells[0].Value)
+                {
+                    Bot.GUI.DataGridMyPokemons.Invoke(new Action(() => line.Cells["dataGridMyPokemonColCP"].Value = pokemon.Cp));
+                    Bot.GUI.DataGridMyPokemons.Invoke(new Action(() => line.Cells["dataGridMyPokemonColMaxCP"].Value = PokemonInfo.CalculateMaxCp(pokemon)));
+                    Bot.GUI.DataGridMyPokemons.Invoke(new Action(() => line.Cells["dataGridMyPokemonColLvl"].Value = PokemonInfo.GetLevel(pokemon)));
+                }
+            }
+        }
+
+        public static void UpdatePokemons()
         {
             var currentPokemonList = Bot.GUI.DataGridMyPokemons.Rows.OfType<DataGridViewRow>().ToArray();
 

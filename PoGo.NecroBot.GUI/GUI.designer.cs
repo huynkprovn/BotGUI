@@ -71,17 +71,6 @@ namespace PoGo.NecroBot.GUI
             this.cmdEvolveSelected = new System.Windows.Forms.Button();
             this.cmdTransferSelected = new System.Windows.Forms.Button();
             this.dataMyPokemons = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Move1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Move2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabLiveMap = new System.Windows.Forms.TabPage();
             this.checkShowPath = new System.Windows.Forms.CheckBox();
             this.checkShowPokegyms = new System.Windows.Forms.CheckBox();
@@ -111,6 +100,17 @@ namespace PoGo.NecroBot.GUI
             this.itemSettingsControl = new PoGo.NecroBot.GUI.UserControls.ItemSettingsControl();
             this.toolTransferSelected = new System.Windows.Forms.ToolTip(this.components);
             this.toolEvolveSelected = new System.Windows.Forms.ToolTip(this.components);
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridMyPokemonColCP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridMyPokemonColMaxCP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridMyPokemonColLvl = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Move1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Move2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridConsole)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.grpPlayer.SuspendLayout();
@@ -577,10 +577,10 @@ namespace PoGo.NecroBot.GUI
             this.dataGridViewImageColumn1,
             this.dataGridViewTextBoxColumn1,
             this.Column10,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
+            this.dataGridMyPokemonColCP,
+            this.dataGridMyPokemonColMaxCP,
             this.dataGridViewTextBoxColumn5,
-            this.dataGridViewTextBoxColumn6,
+            this.dataGridMyPokemonColLvl,
             this.Move1,
             this.Move2,
             this.Column9});
@@ -592,82 +592,6 @@ namespace PoGo.NecroBot.GUI
             this.dataMyPokemons.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataMyPokemons.Size = new System.Drawing.Size(688, 451);
             this.dataMyPokemons.TabIndex = 11;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "ID";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            this.dataGridViewTextBoxColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataGridViewTextBoxColumn4.Visible = false;
-            // 
-            // dataGridViewImageColumn1
-            // 
-            this.dataGridViewImageColumn1.HeaderText = "";
-            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
-            this.dataGridViewImageColumn1.ReadOnly = true;
-            this.dataGridViewImageColumn1.Width = 30;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Pokemon";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // Column10
-            // 
-            this.Column10.HeaderText = "ID";
-            this.Column10.Name = "Column10";
-            this.Column10.ReadOnly = true;
-            this.Column10.Width = 40;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "CP";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "Max CP";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.HeaderText = "IV";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            this.dataGridViewTextBoxColumn5.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.HeaderText = "Level";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
-            this.dataGridViewTextBoxColumn6.Width = 50;
-            // 
-            // Move1
-            // 
-            this.Move1.HeaderText = "Move1";
-            this.Move1.Name = "Move1";
-            this.Move1.ReadOnly = true;
-            this.Move1.Width = 65;
-            // 
-            // Move2
-            // 
-            this.Move2.HeaderText = "Move2";
-            this.Move2.Name = "Move2";
-            this.Move2.ReadOnly = true;
-            this.Move2.Width = 65;
-            // 
-            // Column9
-            // 
-            this.Column9.HeaderText = "Power";
-            this.Column9.Name = "Column9";
-            this.Column9.ReadOnly = true;
             // 
             // tabLiveMap
             // 
@@ -994,6 +918,82 @@ namespace PoGo.NecroBot.GUI
             this.itemSettingsControl.Size = new System.Drawing.Size(0, 0);
             this.itemSettingsControl.TabIndex = 0;
             // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "ID";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            this.dataGridViewTextBoxColumn4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn4.Visible = false;
+            // 
+            // dataGridViewImageColumn1
+            // 
+            this.dataGridViewImageColumn1.HeaderText = "";
+            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
+            this.dataGridViewImageColumn1.ReadOnly = true;
+            this.dataGridViewImageColumn1.Width = 30;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Pokemon";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // Column10
+            // 
+            this.Column10.HeaderText = "ID";
+            this.Column10.Name = "Column10";
+            this.Column10.ReadOnly = true;
+            this.Column10.Width = 40;
+            // 
+            // dataGridMyPokemonColCP
+            // 
+            this.dataGridMyPokemonColCP.HeaderText = "CP";
+            this.dataGridMyPokemonColCP.Name = "dataGridMyPokemonColCP";
+            this.dataGridMyPokemonColCP.ReadOnly = true;
+            this.dataGridMyPokemonColCP.Width = 50;
+            // 
+            // dataGridMyPokemonColMaxCP
+            // 
+            this.dataGridMyPokemonColMaxCP.HeaderText = "Max CP";
+            this.dataGridMyPokemonColMaxCP.Name = "dataGridMyPokemonColMaxCP";
+            this.dataGridMyPokemonColMaxCP.ReadOnly = true;
+            this.dataGridMyPokemonColMaxCP.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.HeaderText = "IV";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5.Width = 50;
+            // 
+            // dataGridMyPokemonColLvl
+            // 
+            this.dataGridMyPokemonColLvl.HeaderText = "Level";
+            this.dataGridMyPokemonColLvl.Name = "dataGridMyPokemonColLvl";
+            this.dataGridMyPokemonColLvl.ReadOnly = true;
+            this.dataGridMyPokemonColLvl.Width = 50;
+            // 
+            // Move1
+            // 
+            this.Move1.HeaderText = "Move1";
+            this.Move1.Name = "Move1";
+            this.Move1.ReadOnly = true;
+            this.Move1.Width = 65;
+            // 
+            // Move2
+            // 
+            this.Move2.HeaderText = "Move2";
+            this.Move2.Name = "Move2";
+            this.Move2.ReadOnly = true;
+            this.Move2.Width = 65;
+            // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "Power";
+            this.Column9.Name = "Column9";
+            this.Column9.ReadOnly = true;
+            // 
             // GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1093,17 +1093,6 @@ namespace PoGo.NecroBot.GUI
         private System.Windows.Forms.Button cmdTransferSelected;
         private System.Windows.Forms.ToolTip toolEvolveSelected;
         private System.Windows.Forms.ToolTip toolTransferSelected;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Move1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Move2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
         private ItemSettingsControl itemSettingsControl;
         private PokemonSettingsControl pokemonSettingsControl;
         private System.Windows.Forms.CheckBox checkDoPokemons;
@@ -1112,6 +1101,17 @@ namespace PoGo.NecroBot.GUI
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.Button cmdPowerupSelected;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridMyPokemonColCP;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridMyPokemonColMaxCP;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridMyPokemonColLvl;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Move1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Move2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
     }
 }
 
