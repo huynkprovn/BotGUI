@@ -780,7 +780,7 @@ namespace PoGo.NecroBot.GUI
             this.gMap.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMap.ShowTileGridLines = false;
-            this.gMap.Size = new System.Drawing.Size(180, 14);
+            this.gMap.Size = new System.Drawing.Size(0, 0);
             this.gMap.TabIndex = 0;
             this.gMap.Zoom = 0D;
             // 
@@ -861,7 +861,7 @@ namespace PoGo.NecroBot.GUI
             this.textPokemonSnipeList.Location = new System.Drawing.Point(9, 101);
             this.textPokemonSnipeList.Multiline = true;
             this.textPokemonSnipeList.Name = "textPokemonSnipeList";
-            this.textPokemonSnipeList.Size = new System.Drawing.Size(178, 0);
+            this.textPokemonSnipeList.Size = new System.Drawing.Size(0, 0);
             this.textPokemonSnipeList.TabIndex = 1;
             // 
             // label8
@@ -907,7 +907,7 @@ namespace PoGo.NecroBot.GUI
             this.tabControlSettings.Location = new System.Drawing.Point(3, 39);
             this.tabControlSettings.Name = "tabControlSettings";
             this.tabControlSettings.SelectedIndex = 0;
-            this.tabControlSettings.Size = new System.Drawing.Size(183, 29);
+            this.tabControlSettings.Size = new System.Drawing.Size(0, 0);
             this.tabControlSettings.TabIndex = 13;
             // 
             // tabPageSettingsGlobal
@@ -917,7 +917,7 @@ namespace PoGo.NecroBot.GUI
             this.tabPageSettingsGlobal.Location = new System.Drawing.Point(4, 22);
             this.tabPageSettingsGlobal.Name = "tabPageSettingsGlobal";
             this.tabPageSettingsGlobal.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSettingsGlobal.Size = new System.Drawing.Size(175, 3);
+            this.tabPageSettingsGlobal.Size = new System.Drawing.Size(0, 0);
             this.tabPageSettingsGlobal.TabIndex = 0;
             this.tabPageSettingsGlobal.Text = "Global";
             this.tabPageSettingsGlobal.UseVisualStyleBackColor = true;
@@ -928,7 +928,7 @@ namespace PoGo.NecroBot.GUI
             this.globalSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.globalSettingsControl.Location = new System.Drawing.Point(3, 3);
             this.globalSettingsControl.Name = "globalSettingsControl";
-            this.globalSettingsControl.Size = new System.Drawing.Size(169, 0);
+            this.globalSettingsControl.Size = new System.Drawing.Size(0, 0);
             this.globalSettingsControl.TabIndex = 36;
             // 
             // tabPageSettingsSniping
@@ -938,7 +938,7 @@ namespace PoGo.NecroBot.GUI
             this.tabPageSettingsSniping.Location = new System.Drawing.Point(4, 22);
             this.tabPageSettingsSniping.Name = "tabPageSettingsSniping";
             this.tabPageSettingsSniping.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSettingsSniping.Size = new System.Drawing.Size(175, 3);
+            this.tabPageSettingsSniping.Size = new System.Drawing.Size(0, 0);
             this.tabPageSettingsSniping.TabIndex = 3;
             this.tabPageSettingsSniping.Text = "Sniping";
             this.tabPageSettingsSniping.UseVisualStyleBackColor = true;
@@ -949,7 +949,7 @@ namespace PoGo.NecroBot.GUI
             this.snipingSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.snipingSettingsControl.Location = new System.Drawing.Point(3, 3);
             this.snipingSettingsControl.Name = "snipingSettingsControl";
-            this.snipingSettingsControl.Size = new System.Drawing.Size(169, 0);
+            this.snipingSettingsControl.Size = new System.Drawing.Size(0, 0);
             this.snipingSettingsControl.TabIndex = 0;
             // 
             // tabPageSettingsPokemons
@@ -959,7 +959,7 @@ namespace PoGo.NecroBot.GUI
             this.tabPageSettingsPokemons.Location = new System.Drawing.Point(4, 22);
             this.tabPageSettingsPokemons.Name = "tabPageSettingsPokemons";
             this.tabPageSettingsPokemons.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSettingsPokemons.Size = new System.Drawing.Size(175, 3);
+            this.tabPageSettingsPokemons.Size = new System.Drawing.Size(0, 0);
             this.tabPageSettingsPokemons.TabIndex = 1;
             this.tabPageSettingsPokemons.Text = "Pokemons";
             this.tabPageSettingsPokemons.UseVisualStyleBackColor = true;
@@ -970,7 +970,7 @@ namespace PoGo.NecroBot.GUI
             this.pokemonSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pokemonSettingsControl.Location = new System.Drawing.Point(3, 3);
             this.pokemonSettingsControl.Name = "pokemonSettingsControl";
-            this.pokemonSettingsControl.Size = new System.Drawing.Size(169, 0);
+            this.pokemonSettingsControl.Size = new System.Drawing.Size(0, 0);
             this.pokemonSettingsControl.TabIndex = 0;
             // 
             // tabPageSettingsItems
@@ -980,7 +980,7 @@ namespace PoGo.NecroBot.GUI
             this.tabPageSettingsItems.Location = new System.Drawing.Point(4, 22);
             this.tabPageSettingsItems.Name = "tabPageSettingsItems";
             this.tabPageSettingsItems.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSettingsItems.Size = new System.Drawing.Size(175, 3);
+            this.tabPageSettingsItems.Size = new System.Drawing.Size(0, 0);
             this.tabPageSettingsItems.TabIndex = 2;
             this.tabPageSettingsItems.Text = "Items";
             this.tabPageSettingsItems.UseVisualStyleBackColor = true;
@@ -991,7 +991,7 @@ namespace PoGo.NecroBot.GUI
             this.itemSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.itemSettingsControl.Location = new System.Drawing.Point(3, 3);
             this.itemSettingsControl.Name = "itemSettingsControl";
-            this.itemSettingsControl.Size = new System.Drawing.Size(169, 0);
+            this.itemSettingsControl.Size = new System.Drawing.Size(0, 0);
             this.itemSettingsControl.TabIndex = 0;
             // 
             // GUI
