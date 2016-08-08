@@ -22,11 +22,44 @@ using System.Globalization;
 using PoGo.NecroBot.Logic.PoGoUtils;
 using POGOProtos.Map.Pokemon;
 using PoGo.NecroBot.Logic.Common;
+using POGOProtos.Data;
 
 namespace PoGo.NecroBot.GUI.Tasks
 {
     class ManualSnipePokemon
     {
+        public async static void Execute(SniperInfo snipeFromFeed)
+        {
+            Bot._Session.GUISettings.isSniping = true;
+            Dictionary<PokemonId, PointLatLng> snipeList = new Dictionary<PokemonId, PointLatLng>();
+            snipeList.Add((PokemonId)Enum.Parse(typeof(PokemonId), snipeFromFeed.Id.ToString()), new PointLatLng(snipeFromFeed.Latitude, snipeFromFeed.Longitude));
+
+            if (snipeList.Count > 0 && Bot._Session.GUISettings.isStarted)
+            {
+                Bot._Session.EventDispatcher.Send(new WarnEvent
+                {
+                    Message = "Waiting on last task to finish before we start sniping"
+                });
+                Bot._Session.GUISettings.isAwaitingPaused = true;
+                while (Bot._Session.GUISettings.isAwaitingPaused == true)
+                {
+                    await Task.Delay(1000);
+                }
+                Bot._Session.EventDispatcher.Send(new WarnEvent
+                {
+                    Message = "Starting to snipe list"
+                });
+                await ManualSnipePokemon.SnipePokemonTask.AsyncStart(Bot._Session, snipeList, default(CancellationToken));
+                Bot._Session.EventDispatcher.Send(new WarnEvent
+                {
+                    Message = "Done sniping"
+                });
+                Bot._Session.GUISettings.isPaused = false;
+            }
+
+            Bot._Session.GUISettings.isSniping = false;
+        }
+
         public async static void Execute()
         {
             Bot._Session.GUISettings.isSniping = true;

@@ -77,6 +77,10 @@ namespace PoGo.NecroBot.GUI.Utils
         // Quick Search
         public static List<PokemonSettings> PokemonSettings = new List<PokemonSettings>();
 
+        // SnipingFeed
+        public static bool PokemonSnipeFeedActive = false;
+        public static List<Tasks.SniperInfo> PokemonSnipeFeed = new List<Tasks.SniperInfo>();
+
         public async static void StartBotting()
         {
             if (_Session.GUISettings.isStarted == true)

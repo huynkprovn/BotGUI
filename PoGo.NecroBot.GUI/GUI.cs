@@ -39,6 +39,7 @@ namespace PoGo.NecroBot.GUI
 {
     public partial class GUI : Form
     {
+        private Task discordTask;
         public GUI()
         {
             InitializeComponent();
@@ -171,6 +172,40 @@ namespace PoGo.NecroBot.GUI
             ManualPowerUpPokemon.Execute();
         }
 
+        private void checkDoPokestops_CheckedChanged(object sender, EventArgs e)
+        {
+            Bot._Session.GUISettings.ExecutePokestops = checkDoPokestops.Checked;
+        }
+
+        private void checkDoPokemons_CheckedChanged(object sender, EventArgs e)
+        {
+            Bot._Session.GUISettings.ExecutePokemons = checkDoPokemons.Checked;
+        }
+
+        private void bntStartSnipingFeed_Click(object sender, EventArgs e)
+        {
+            if (Bot.PokemonSnipeFeedActive == true)
+            {
+                Bot.PokemonSnipeFeedActive = false;
+            }
+            else
+            {
+                Bot.PokemonSnipeFeedActive = true;
+                discordTask = GetPokemonToSnipe.DiscordWebReader.TryStartDiscordReader();
+            }
+        }
+
+        private void dataSnipingFeeder_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var senderGrid = (DataGridView)sender;
+
+            if (senderGrid.Columns["dataSnipingFeederColBtnSnipe"] is DataGridViewButtonColumn &&
+                e.RowIndex >= 0)
+            {
+                MessageBox.Show("We clicked to snipe");
+            }
+        }
+
         private void GUI_FormClosing(object sender, FormClosingEventArgs e)
         {
             Bot.ProfileSettings.LastLat = Bot._Session.Client.CurrentLatitude;
@@ -205,6 +240,8 @@ namespace PoGo.NecroBot.GUI
 
         public DataGridView DataGridConsole { get { return dataGridConsole; } set { dataGridConsole = value; } }
 
+        public DataGridView DataGridSnipePokemons { get { return dataSnipingFeeder; } set { dataSnipingFeeder = value; } }
+
         public GlobalSettingsControl GlobalSettingsTab { get { return globalSettingsControl; } set { globalSettingsControl = value; } }
         public ItemSettingsControl ItemSettingsTab { get { return itemSettingsControl; } set { itemSettingsControl = value; } }
         public PokemonSettingsControl PokemonSettingsTab { get { return pokemonSettingsControl; } set { pokemonSettingsControl = value; } }
@@ -213,17 +250,5 @@ namespace PoGo.NecroBot.GUI
         public TextBox SnipingTextBox { get { return textPokemonSnipeList; } set { textPokemonSnipeList = value; } }
         public bool SnipeOptionAll { get { return radioSnipeGetAll.Checked; } set { radioSnipeGetAll.Checked = value; } }
         public bool SnipeOptionUseSettings { get { return radioSnipeUseSettings.Checked; } set { radioSnipeUseSettings.Checked = value; } }
-
-        private void checkDoPokestops_CheckedChanged(object sender, EventArgs e)
-        {
-            Bot._Session.GUISettings.ExecutePokestops = checkDoPokestops.Checked;
-        }
-
-        private void checkDoPokemons_CheckedChanged(object sender, EventArgs e)
-        {
-            Bot._Session.GUISettings.ExecutePokemons = checkDoPokemons.Checked;
-        }
-
-
     }
 }
