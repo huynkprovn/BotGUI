@@ -75,9 +75,24 @@ namespace PoGo.NecroBot.GUI.Util
                 {
                     sniperInfo.ExpirationTimestamp = DateTime.Now.AddSeconds(Convert.ToDouble(match.Groups[1].Value));
                 }
+
+                // If DateTime is clearly wrong, put expiration at 5 mins from now
+                if(sniperInfo.ExpirationTimestamp > DateTime.Now.AddMinutes(15))
+                {
+                    // Add 5 minutes to now if no expiration found
+                    sniperInfo.ExpirationTimestamp = DateTime.Now.AddMinutes(5);
+                }
+
+                if (!match.Success)
+                {
+                    // Add 5 minutes to now if no expiration found
+                    sniperInfo.ExpirationTimestamp = DateTime.Now.AddMinutes(5);
+                }
             }
             catch (ArgumentOutOfRangeException)
             {
+                // Add 5 minutes to now if no expiration found
+                sniperInfo.ExpirationTimestamp = DateTime.Now.AddMinutes(5);
             }
         }
     }

@@ -106,10 +106,6 @@ namespace PoGo.NecroBot.GUI.Util
                 if (currentPokemonList.Where(p => (ulong)p.Cells[0].Value == pokemon.Value.Id).Count() == 0)
                 {
                     string power = pokemon.Value.IndividualAttack.ToString() + "a/" + pokemon.Value.IndividualDefense.ToString() + "d/" + pokemon.Value.IndividualStamina.ToString() + "s";
-                    Bitmap evolve = new Bitmap(40, 30);
-                    Bot.imagesList.TryGetValue("evolve", out evolve);
-                    Bitmap transfer = new Bitmap(40, 30);
-                    Bot.imagesList.TryGetValue("transfer", out transfer);
                     Bitmap bmp = new Bitmap(40, 30);
                     if (Bot.imagesList.TryGetValue("pokemon_" + ((int)pokemon.Value.PokemonId).ToString(), out bmp))
                         Bot.GUI.DataGridMyPokemons.Invoke(new Action(() => Bot.GUI.DataGridMyPokemons.Rows.Add(pokemon.Value.Id, bmp, pokemon.Value.PokemonId.ToString(), (int)pokemon.Value.PokemonId, pokemon.Value.Cp, PokemonInfo.CalculateMaxCp(pokemon.Value), Math.Round(PokemonInfo.CalculatePokemonPerfection(pokemon.Value), 1), PokemonInfo.GetLevel(pokemon.Value), pokemon.Value.Move1.ToString(), pokemon.Value.Move2.ToString(), power)));

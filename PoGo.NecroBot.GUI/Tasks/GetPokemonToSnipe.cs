@@ -5,12 +5,14 @@ using PoGo.NecroBot.Logic.Logging;
 using POGOProtos.Enums;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace PoGo.NecroBot.GUI.Tasks
 {
@@ -85,13 +87,28 @@ namespace PoGo.NecroBot.GUI.Tasks
                                 var msgList = newMsg.parseMessage(result.content);
                                 foreach(var msg in msgList)
                                 {
-                                    if(!Bot.PokemonSnipeFeed.Contains(msg))
+                                    // Check name + lat/lng so we don't add same pokemon twice and not add Missingno
+                                    if (Bot.PokemonSnipeFeed.Where(p => p.Id == msg.Id && p.Latitude == msg.Latitude && p.Longitude == msg.Longitude).Count() == 0 && msg.Id != PokemonId.Missingno)
                                     {
                                         int sort = Bot.GUI.DataGridSnipePokemons.Rows.Count + 1;
-                                        Bot.GUI.DataGridSnipePokemons.Invoke(new Action(() => Bot.GUI.DataGridSnipePokemons.Rows.Add(msg.Id, msg.IV, msg.Latitude, msg.Longitude, msg.ExpirationTimestamp, sort)));
-                                        Bot.GUI.DataGridSnipePokemons.Invoke(new Action(() => Bot.GUI.DataGridSnipePokemons.Sort(Bot.GUI.DataGridSnipePokemons.Columns["dataSnipingFeederColSort"],System.ComponentModel.ListSortDirection.Descending)));
+                                        Bitmap bmp = new Bitmap(40, 30);
+                                        Bot.imagesList.TryGetValue("pokemon_" + ((int)msg.Id).ToString(), out bmp);
+                                        Bot.GUI.DataGridSnipePokemons.Invoke(new Action(() => Bot.GUI.DataGridSnipePokemons.Rows.Add(bmp, msg.Id, msg.IV, msg.Latitude, msg.Longitude, msg.ExpirationTimestamp, "Snipe!", sort, msg.EncounterId)));
+                                        Bot.GUI.DataGridSnipePokemons.Invoke(new Action(() => Bot.GUI.DataGridSnipePokemons.Sort(Bot.GUI.DataGridSnipePokemons.Columns["dataSnipingFeederColTimestamp"],System.ComponentModel.ListSortDirection.Descending)));
                                         Bot.PokemonSnipeFeed.Add(msg);
-                                        Logger.Write(msg.ToString(), LogLevel.Warning);
+                                        //Logger.Write(msg.ToString(), LogLevel.Warning);
+                                    }
+
+                                    // Remove pokemons that have expired
+                                    foreach(var pokemon in Bot.PokemonSnipeFeed.ToList())
+                                    {
+                                        if(pokemon.ExpirationTimestamp < DateTime.Now)
+                                        {
+                                            Bot.PokemonSnipeFeed.Remove(pokemon);
+                                            var row = Bot.GUI.DataGridSnipePokemons.Rows.Cast<DataGridViewRow>().FirstOrDefault(p => (PokemonId)p.Cells["dataSnipingFeederColName"].Value == pokemon.Id && (double)p.Cells["dataSnipingFeederColLat"].Value == pokemon.Latitude && (double)p.Cells["dataSnipingFeederColLng"].Value == pokemon.Longitude);
+                                            if(row != null)
+                                                Bot.GUI.DataGridSnipePokemons.Invoke(new Action(() => Bot.GUI.DataGridSnipePokemons.Rows.Remove(row)));
+                                        }
                                     }
                                 }
                             }

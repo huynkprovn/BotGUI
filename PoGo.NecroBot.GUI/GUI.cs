@@ -202,7 +202,15 @@ namespace PoGo.NecroBot.GUI
             if (senderGrid.Columns["dataSnipingFeederColBtnSnipe"] is DataGridViewButtonColumn &&
                 e.RowIndex >= 0)
             {
-                MessageBox.Show("We clicked to snipe");
+                var found = Bot.PokemonSnipeFeed.Find(p => p.Id == (PokemonId)senderGrid.Rows[e.RowIndex].Cells["dataSnipingFeederColName"].Value && p.Latitude == (double)senderGrid.Rows[e.RowIndex].Cells["dataSnipingFeederColLat"].Value && p.Longitude == (double)senderGrid.Rows[e.RowIndex].Cells["dataSnipingFeederColLng"].Value);
+                if (found != null)
+                {
+                    ManualSnipePokemon.Execute(found);
+                    Bot.PokemonSnipeFeed.Remove(found);
+                    var row = Bot.GUI.DataGridSnipePokemons.Rows.Cast<DataGridViewRow>().FirstOrDefault(p => (PokemonId)p.Cells["dataSnipingFeederColName"].Value == found.Id && (double)p.Cells["dataSnipingFeederColLat"].Value == found.Latitude && (double)p.Cells["dataSnipingFeederColLng"].Value == found.Longitude);
+                    if (row != null)
+                        Bot.GUI.DataGridSnipePokemons.Invoke(new Action(() => Bot.GUI.DataGridSnipePokemons.Rows.Remove(row)));
+                }
             }
         }
 
