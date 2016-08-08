@@ -45,10 +45,31 @@ namespace PoGo.NecroBot.Logic.Tasks
             }
 
             var pokestopList = await GetPokeStops(session);
+            session.GUISettings.CurrentPokestopList = pokestopList;
             var stopsHit = 0;
             var rc = new Random(); //initialize pokestop random cleanup counter first time
             storeRI = rc.Next(3, 9);
             var eggWalker = new EggWalker(1000, session);
+
+            if (!session.GUISettings.ExecutePokestops) {
+                if (session.GUISettings.isAwaitingPaused == true)
+                {
+                    session.GUISettings.isAwaitingPaused = false;
+                    session.GUISettings.isPaused = true;
+                    //session.EventDispatcher.Send(new WarnEvent
+                    //{
+                    //    Message = "Pausing before next Pokestop to run manual tasks"
+                    //});
+                    while (session.GUISettings.isPaused == true)
+                    {
+                        await Task.Delay(1000);
+                    }
+                    //session.EventDispatcher.Send(new WarnEvent
+                    //{
+                    //    Message = "Continuing Pokestop run"
+                    //});
+                }
+            }
 
             if (pokestopList.Count <= 0)
             {
@@ -76,22 +97,26 @@ namespace PoGo.NecroBot.Logic.Tasks
                 var distance = LocationUtils.CalculateDistanceInMeters(session.Client.CurrentLatitude,
                     session.Client.CurrentLongitude, pokeStop.Latitude, pokeStop.Longitude);
                 var fortInfo = await session.Client.Fort.GetFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
-
-                session.EventDispatcher.Send(new FortTargetEvent {Name = fortInfo.Name, Distance = distance});
-
-                    await session.Navigation.Move(new GeoCoordinate(pokeStop.Latitude, pokeStop.Longitude, LocationUtils.getElevation(pokeStop.Latitude, pokeStop.Longitude)),
+                if (session.GUISettings.ExecutePokestops)
+                {
+                    session.EventDispatcher.Send(new FortTargetEvent { Name = fortInfo.Name, Distance = distance });
+                }
+                await session.Navigation.Move(new GeoCoordinate(pokeStop.Latitude, pokeStop.Longitude, LocationUtils.getElevation(pokeStop.Latitude, pokeStop.Longitude)),
                     session.LogicSettings.WalkingSpeedInKilometerPerHour,
                     async () =>
                     {
-                        // Catch normal map Pokemon
-                        await CatchNearbyPokemonsTask.Execute(session, cancellationToken);
-                        //Catch Incense Pokemon
-                        await CatchIncensePokemonsTask.Execute(session, cancellationToken);
+                        if (session.GUISettings.ExecutePokemons)
+                        {
+                            // Catch normal map Pokemon
+                            await CatchNearbyPokemonsTask.Execute(session, cancellationToken);
+                            //Catch Incense Pokemon
+                            await CatchIncensePokemonsTask.Execute(session, cancellationToken);
+                        }
                         return true;
                     }, cancellationToken, session.LogicSettings.DisableHumanWalking);
 
                 //Catch Lure Pokemon
-                if (pokeStop.LureInfo != null)
+                if (pokeStop.LureInfo != null && session.GUISettings.ExecutePokemons)
                 {
                     await CatchLurePokemonsTask.Execute(session, pokeStop, cancellationToken);
                 }
@@ -154,6 +179,24 @@ namespace PoGo.NecroBot.Logic.Tasks
                 //Stop trying if softban is cleaned earlier or if 40 times fort looting failed.
 
                 await eggWalker.ApplyDistance(distance, cancellationToken);
+
+                if (session.GUISettings.isAwaitingPaused == true)
+                {
+                    session.GUISettings.isAwaitingPaused = false;
+                    session.GUISettings.isPaused = true;
+                    //session.EventDispatcher.Send(new WarnEvent
+                    //{
+                    //    Message = "Pausing before next Pokestop to run manual tasks"
+                    //});
+                    while (session.GUISettings.isPaused == true)
+                    {
+                        await Task.Delay(1000);
+                    }
+                    //session.EventDispatcher.Send(new WarnEvent
+                    //{
+                    //    Message = "Continuing Pokestop run"
+                    //});
+                }
 
                 if (++stopsHit >= storeRI) //TODO: OR item/pokemon bag is full //check stopsHit against storeRI random without dividing.
                 {

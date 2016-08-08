@@ -23,7 +23,7 @@ using System.Security.Cryptography;
 
 namespace PoGo.NecroBot.Logic
 {
-    internal class AuthSettings
+    public class AuthSettings
     {
         [JsonIgnore]
         private string _filePath;
@@ -176,6 +176,22 @@ namespace PoGo.NecroBot.Logic
             }
         }
 
+        public void NewProfile(string username, string password, AuthType type, string path)
+        {
+            AuthType = type;
+            if (type == AuthType.Ptc)
+            {
+                PtcUsername = username;
+                PtcPassword = password;
+            }
+            else
+            {
+                GoogleUsername = username;
+                GooglePassword = password;
+            }
+
+            Save(path);
+        }
         private string RandomString(int length, string alphabet = "abcdefghijklmnopqrstuvwxyz0123456789")
         {
             var outOfRange = Byte.MaxValue + 1 - (Byte.MaxValue + 1) % alphabet.Length;
@@ -455,6 +471,12 @@ namespace PoGo.NecroBot.Logic
         {
             new KeyValuePair<ItemId, int>(ItemId.ItemUnknown, 0),
             new KeyValuePair<ItemId, int>(ItemId.ItemLuckyEgg, 200),
+            new KeyValuePair<ItemId, int>(ItemId.ItemPokeBall, 25),
+            new KeyValuePair<ItemId, int>(ItemId.ItemGreatBall, 50),
+            new KeyValuePair<ItemId, int>(ItemId.ItemUltraBall, 100),
+            new KeyValuePair<ItemId, int>(ItemId.ItemMasterBall, 100),
+            new KeyValuePair<ItemId, int>(ItemId.ItemMaxRevive, 50),
+            new KeyValuePair<ItemId, int>(ItemId.ItemSuperPotion, 50),
             new KeyValuePair<ItemId, int>(ItemId.ItemIncenseOrdinary, 100),
             new KeyValuePair<ItemId, int>(ItemId.ItemIncenseSpicy, 100),
             new KeyValuePair<ItemId, int>(ItemId.ItemIncenseCool, 100),

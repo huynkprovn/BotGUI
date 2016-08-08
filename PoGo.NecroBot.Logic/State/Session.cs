@@ -19,6 +19,7 @@ namespace PoGo.NecroBot.Logic.State
         ILogicSettings LogicSettings { get; }
         ITranslation Translation { get; }
         IEventDispatcher EventDispatcher { get; }
+        GUISettings GUISettings { get; set; }
     }
 
 
@@ -31,6 +32,7 @@ namespace PoGo.NecroBot.Logic.State
             EventDispatcher = new EventDispatcher();
             Translation = Common.Translation.Load(logicSettings);
             Reset(settings, LogicSettings);
+            GUISettings = new GUISettings();
         }
 
         public ISettings Settings { get; }
@@ -56,5 +58,6 @@ namespace PoGo.NecroBot.Logic.State
             Inventory = new Inventory(Client, logicSettings);
             Navigation = new Navigation(Client);
         }
+        public GUISettings GUISettings { get; set; }
     }
 }

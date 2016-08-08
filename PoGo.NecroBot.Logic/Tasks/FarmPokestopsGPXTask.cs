@@ -61,6 +61,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                         }
 
                         var pokestopList = await GetPokeStops(session);
+                        session.GUISettings.CurrentPokestopList = pokestopList;
                         session.EventDispatcher.Send(new PokeStopListEvent {Forts = pokestopList});
 
                         while (pokestopList.Any())
@@ -108,6 +109,24 @@ namespace PoGo.NecroBot.Logic.Tasks
                             if (fortSearch.ItemsAwarded.Count > 0)
                             {
                                 await session.Inventory.RefreshCachedInventory();
+                            }
+
+                            if (session.GUISettings.isAwaitingPaused == true)
+                            {
+                                session.GUISettings.isAwaitingPaused = false;
+                                session.GUISettings.isPaused = true;
+                                //session.EventDispatcher.Send(new WarnEvent
+                                //{
+                                //    Message = "Pausing before next Pokestop to run manual tasks"
+                                //});
+                                while (session.GUISettings.isPaused == true)
+                                {
+                                    await Task.Delay(1000);
+                                }
+                                //session.EventDispatcher.Send(new WarnEvent
+                                //{
+                                //    Message = "Continuing Pokestop run"
+                                //});
                             }
                         }
 
