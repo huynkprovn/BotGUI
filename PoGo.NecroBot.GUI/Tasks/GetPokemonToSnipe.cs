@@ -80,7 +80,7 @@ namespace PoGo.NecroBot.GUI.Tasks
                                     {
                                         Bitmap bmp = new Bitmap(40, 30);
                                         Bot.imagesList.TryGetValue("pokemon_" + ((int)pokemon.PokemonId).ToString(), out bmp);
-                                        Bot.GUI.DataGridSnipeCaught.Invoke(new Action(() => Bot.GUI.DataGridSnipeCaught.Rows.Add(bmp, (PokemonId)pokemon.Id, pokemon.Cp, PokemonInfo.CalculateMaxCp(pokemon), Math.Round(PokemonInfo.CalculatePokemonPerfection(pokemon)), PokemonInfo.GetLevel(pokemon), DateTime.Now)));
+                                        Bot.GUI.DataGridSnipeCaught.Invoke(new Action(() => Bot.GUI.DataGridSnipeCaught.Rows.Add(bmp, pokemon.PokemonId.ToString(), pokemon.Cp, PokemonInfo.CalculateMaxCp(pokemon), Math.Round(PokemonInfo.CalculatePokemonPerfection(pokemon)), PokemonInfo.GetLevel(pokemon), DateTime.Now)));
                                         Bot._Session.GUISettings.PokemonSnipeCaught.Remove(pokemon);
                                     }
                                 }
