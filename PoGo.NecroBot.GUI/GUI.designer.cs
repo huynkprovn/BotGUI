@@ -1226,7 +1226,7 @@ namespace PoGo.NecroBot.GUI
             this.tabPageSettingsItems.Location = new System.Drawing.Point(4, 22);
             this.tabPageSettingsItems.Name = "tabPageSettingsItems";
             this.tabPageSettingsItems.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSettingsItems.Size = new System.Drawing.Size(0, 0);
+            this.tabPageSettingsItems.Size = new System.Drawing.Size(678, 426);
             this.tabPageSettingsItems.TabIndex = 2;
             this.tabPageSettingsItems.Text = "Items";
             this.tabPageSettingsItems.UseVisualStyleBackColor = true;
@@ -1237,7 +1237,7 @@ namespace PoGo.NecroBot.GUI
             this.itemSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.itemSettingsControl.Location = new System.Drawing.Point(3, 3);
             this.itemSettingsControl.Name = "itemSettingsControl";
-            this.itemSettingsControl.Size = new System.Drawing.Size(0, 0);
+            this.itemSettingsControl.Size = new System.Drawing.Size(672, 420);
             this.itemSettingsControl.TabIndex = 0;
             // 
             // GUI

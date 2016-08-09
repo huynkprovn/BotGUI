@@ -70,6 +70,16 @@ namespace PoGo.NecroBot.GUI.Util
                 Bot.MyItems.Add(itemId, count);
         }
 
+        public void UpdateCandyValue(PokemonId pokemonid, int value, Session session)
+        {
+            var setting = Bot.PokemonSettings.Single(q => q.PokemonId == pokemonid);
+
+            if (Bot.MyCandies.ContainsKey(setting.FamilyId))
+                Bot.MyCandies[setting.FamilyId] = value;
+            else
+                Bot.MyCandies.Add(setting.FamilyId, value);
+        }
+
         public void UpdateCandyByValue(PokemonId pokemonid, int value, Session session)
         {
             var setting = Bot.PokemonSettings.Single(q => q.PokemonId == pokemonid);

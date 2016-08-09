@@ -53,7 +53,7 @@ namespace PoGo.NecroBot.GUI.Aggregators
 
         public void HandleEvent(TransferPokemonEvent evt, Session session)
         {
-            _guiItems.UpdateCandyByValue(evt.Id, evt.FamilyCandies, session);
+            _guiItems.UpdateCandyValue(evt.Id, evt.FamilyCandies, session);
             _guiItems.Dirty(session.Inventory);
         }
 
@@ -96,7 +96,7 @@ namespace PoGo.NecroBot.GUI.Aggregators
 
             if (evt.Status == CatchPokemonResponse.Types.CatchStatus.CatchSuccess)
             {
-                _guiItems.UpdateCandyByValue(evt.Id, evt.FamilyCandies, session);
+                _guiItems.UpdateCandyByValue(evt.Id, 3, session);
             }
 
             _guiItems.Dirty(session.Inventory);
