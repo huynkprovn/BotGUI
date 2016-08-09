@@ -88,7 +88,8 @@ namespace PoGo.NecroBot.GUI.Tasks
                                 foreach(var msg in msgList)
                                 {
                                     // Check name + lat/lng so we don't add same pokemon twice and not add Missingno
-                                    if (Bot.PokemonSnipeFeed.Where(p => p.Id == msg.Id && p.Latitude == msg.Latitude && p.Longitude == msg.Longitude).Count() == 0 && msg.Id != PokemonId.Missingno)
+                                    if ((Bot.PokemonSnipeFeed.Where(p => p.Id == msg.Id && Math.Round(p.Latitude,5) == Math.Round(msg.Latitude,5) && Math.Round(p.Longitude,5) == Math.Round(msg.Longitude,5)).Count() == 0 && msg.Id != PokemonId.Missingno) &&
+                                        (Bot.PokemonSnipeFeedDeleted.Where(p => p.Id == msg.Id && Math.Round(p.Latitude, 5) == Math.Round(msg.Latitude, 5) && Math.Round(p.Longitude, 5) == Math.Round(msg.Longitude, 5)).Count() == 0 && msg.Id != PokemonId.Missingno))
                                     {
                                         int sort = Bot.GUI.DataGridSnipePokemons.Rows.Count + 1;
                                         Bitmap bmp = new Bitmap(40, 30);
@@ -105,6 +106,7 @@ namespace PoGo.NecroBot.GUI.Tasks
                                         if(pokemon.ExpirationTimestamp < DateTime.Now)
                                         {
                                             Bot.PokemonSnipeFeed.Remove(pokemon);
+                                            Bot.PokemonSnipeFeedDeleted.Add(pokemon);
                                             var row = Bot.GUI.DataGridSnipePokemons.Rows.Cast<DataGridViewRow>().FirstOrDefault(p => (PokemonId)p.Cells["dataSnipingFeederColName"].Value == pokemon.Id && (double)p.Cells["dataSnipingFeederColLat"].Value == pokemon.Latitude && (double)p.Cells["dataSnipingFeederColLng"].Value == pokemon.Longitude);
                                             if(row != null)
                                                 Bot.GUI.DataGridSnipePokemons.Invoke(new Action(() => Bot.GUI.DataGridSnipePokemons.Rows.Remove(row)));
