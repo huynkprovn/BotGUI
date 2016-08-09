@@ -24,6 +24,7 @@ namespace PoGo.NecroBot.Logic
         public bool ExecutePokemons = true;
         public List<FortData> CurrentPokestopList = new List<FortData>();
         public List<MapPokemon> CurrentMapPokemonList = new List<MapPokemon>();
+        public List<Tasks.SniperInfo> PokemonSnipeAuto = new List<Tasks.SniperInfo>();
     }
 
     public class ProfileSettings

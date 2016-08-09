@@ -180,6 +180,11 @@ namespace PoGo.NecroBot.Logic.Tasks
 
                 await eggWalker.ApplyDistance(distance, cancellationToken);
 
+                if(session.GUISettings.PokemonSnipeAuto.Count > 0)
+                {
+                    await AutoSnipePokemonFromList.Execute(session);
+                }
+
                 if (session.GUISettings.isAwaitingPaused == true)
                 {
                     session.GUISettings.isAwaitingPaused = false;

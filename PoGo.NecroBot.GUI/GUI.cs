@@ -257,7 +257,8 @@ namespace PoGo.NecroBot.GUI
         public SnipingSettingsControl SnipingSettingsTab { get { return snipingSettingsControl; } set { snipingSettingsControl = value; } }
 
         public TextBox SnipingTextBox { get { return textPokemonSnipeList; } set { textPokemonSnipeList = value; } }
-        public bool SnipeOptionAll { get { return radioSnipeGetAll.Checked; } set { radioSnipeGetAll.Checked = value; } }
-        public bool SnipeOptionUseSettings { get { return radioSnipeUseSettings.Checked; } set { radioSnipeUseSettings.Checked = value; } }
+
+        public bool AutoSnipe { get { return checkAutoSnipeFromSettings.Checked; } set { checkAutoSnipeFromSettings.Checked = value; } }
+        public double MinSnipeIV { get { return (double)numMinSnipeIV.Value; } set { numMinSnipeIV.Value = (decimal)value; } }
     }
 }

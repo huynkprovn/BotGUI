@@ -102,8 +102,6 @@ namespace PoGo.NecroBot.GUI
             this.dataSnipingFeederColSort = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataSnipingFeederColEncounterId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bntStartSnipingFeed = new System.Windows.Forms.Button();
-            this.radioSnipeGetAll = new System.Windows.Forms.RadioButton();
-            this.radioSnipeUseSettings = new System.Windows.Forms.RadioButton();
             this.label14 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.cmdSnipeList = new System.Windows.Forms.Button();
@@ -122,6 +120,9 @@ namespace PoGo.NecroBot.GUI
             this.snipingSettingsControl = new PoGo.NecroBot.GUI.UserControls.SnipingSettingsControl();
             this.pokemonSettingsControl = new PoGo.NecroBot.GUI.UserControls.PokemonSettingsControl();
             this.itemSettingsControl = new PoGo.NecroBot.GUI.UserControls.ItemSettingsControl();
+            this.checkAutoSnipeFromSettings = new System.Windows.Forms.CheckBox();
+            this.numMinSnipeIV = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridConsole)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.grpPlayer.SuspendLayout();
@@ -142,6 +143,7 @@ namespace PoGo.NecroBot.GUI
             this.tabPageSettingsSniping.SuspendLayout();
             this.tabPageSettingsPokemons.SuspendLayout();
             this.tabPageSettingsItems.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numMinSnipeIV)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridConsole
@@ -798,10 +800,11 @@ namespace PoGo.NecroBot.GUI
             // 
             // tabManualSniping
             // 
+            this.tabManualSniping.Controls.Add(this.label6);
+            this.tabManualSniping.Controls.Add(this.numMinSnipeIV);
+            this.tabManualSniping.Controls.Add(this.checkAutoSnipeFromSettings);
             this.tabManualSniping.Controls.Add(this.dataSnipingFeeder);
             this.tabManualSniping.Controls.Add(this.bntStartSnipingFeed);
-            this.tabManualSniping.Controls.Add(this.radioSnipeGetAll);
-            this.tabManualSniping.Controls.Add(this.radioSnipeUseSettings);
             this.tabManualSniping.Controls.Add(this.label14);
             this.tabManualSniping.Controls.Add(this.label10);
             this.tabManualSniping.Controls.Add(this.cmdSnipeList);
@@ -924,29 +927,6 @@ namespace PoGo.NecroBot.GUI
             this.bntStartSnipingFeed.UseVisualStyleBackColor = true;
             this.bntStartSnipingFeed.Click += new System.EventHandler(this.bntStartSnipingFeed_Click);
             // 
-            // radioSnipeGetAll
-            // 
-            this.radioSnipeGetAll.AutoSize = true;
-            this.radioSnipeGetAll.Checked = true;
-            this.radioSnipeGetAll.Location = new System.Drawing.Point(300, 78);
-            this.radioSnipeGetAll.Name = "radioSnipeGetAll";
-            this.radioSnipeGetAll.Size = new System.Drawing.Size(145, 17);
-            this.radioSnipeGetAll.TabIndex = 8;
-            this.radioSnipeGetAll.TabStop = true;
-            this.radioSnipeGetAll.Text = "Get all pokemons from list";
-            this.radioSnipeGetAll.UseVisualStyleBackColor = true;
-            // 
-            // radioSnipeUseSettings
-            // 
-            this.radioSnipeUseSettings.AutoSize = true;
-            this.radioSnipeUseSettings.Location = new System.Drawing.Point(300, 58);
-            this.radioSnipeUseSettings.Name = "radioSnipeUseSettings";
-            this.radioSnipeUseSettings.Size = new System.Drawing.Size(342, 17);
-            this.radioSnipeUseSettings.TabIndex = 7;
-            this.radioSnipeUseSettings.Text = "Use Pokemons in Sniping list from settings + KeepMinIVPercentage";
-            this.radioSnipeUseSettings.UseVisualStyleBackColor = true;
-            this.radioSnipeUseSettings.Visible = false;
-            // 
             // label14
             // 
             this.label14.AutoSize = true;
@@ -1049,7 +1029,7 @@ namespace PoGo.NecroBot.GUI
             this.tabPageSettingsSniping.Location = new System.Drawing.Point(4, 22);
             this.tabPageSettingsSniping.Name = "tabPageSettingsSniping";
             this.tabPageSettingsSniping.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSettingsSniping.Size = new System.Drawing.Size(178, 3);
+            this.tabPageSettingsSniping.Size = new System.Drawing.Size(677, 429);
             this.tabPageSettingsSniping.TabIndex = 3;
             this.tabPageSettingsSniping.Text = "Sniping";
             this.tabPageSettingsSniping.UseVisualStyleBackColor = true;
@@ -1061,7 +1041,7 @@ namespace PoGo.NecroBot.GUI
             this.tabPageSettingsPokemons.Location = new System.Drawing.Point(4, 22);
             this.tabPageSettingsPokemons.Name = "tabPageSettingsPokemons";
             this.tabPageSettingsPokemons.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSettingsPokemons.Size = new System.Drawing.Size(178, 3);
+            this.tabPageSettingsPokemons.Size = new System.Drawing.Size(677, 429);
             this.tabPageSettingsPokemons.TabIndex = 1;
             this.tabPageSettingsPokemons.Text = "Pokemons";
             this.tabPageSettingsPokemons.UseVisualStyleBackColor = true;
@@ -1073,7 +1053,7 @@ namespace PoGo.NecroBot.GUI
             this.tabPageSettingsItems.Location = new System.Drawing.Point(4, 22);
             this.tabPageSettingsItems.Name = "tabPageSettingsItems";
             this.tabPageSettingsItems.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSettingsItems.Size = new System.Drawing.Size(178, 3);
+            this.tabPageSettingsItems.Size = new System.Drawing.Size(677, 429);
             this.tabPageSettingsItems.TabIndex = 2;
             this.tabPageSettingsItems.Text = "Items";
             this.tabPageSettingsItems.UseVisualStyleBackColor = true;
@@ -1093,7 +1073,7 @@ namespace PoGo.NecroBot.GUI
             this.snipingSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.snipingSettingsControl.Location = new System.Drawing.Point(3, 3);
             this.snipingSettingsControl.Name = "snipingSettingsControl";
-            this.snipingSettingsControl.Size = new System.Drawing.Size(172, 0);
+            this.snipingSettingsControl.Size = new System.Drawing.Size(671, 423);
             this.snipingSettingsControl.TabIndex = 0;
             // 
             // pokemonSettingsControl
@@ -1102,7 +1082,7 @@ namespace PoGo.NecroBot.GUI
             this.pokemonSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pokemonSettingsControl.Location = new System.Drawing.Point(3, 3);
             this.pokemonSettingsControl.Name = "pokemonSettingsControl";
-            this.pokemonSettingsControl.Size = new System.Drawing.Size(172, 0);
+            this.pokemonSettingsControl.Size = new System.Drawing.Size(671, 423);
             this.pokemonSettingsControl.TabIndex = 0;
             // 
             // itemSettingsControl
@@ -1111,8 +1091,34 @@ namespace PoGo.NecroBot.GUI
             this.itemSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.itemSettingsControl.Location = new System.Drawing.Point(3, 3);
             this.itemSettingsControl.Name = "itemSettingsControl";
-            this.itemSettingsControl.Size = new System.Drawing.Size(172, 0);
+            this.itemSettingsControl.Size = new System.Drawing.Size(671, 423);
             this.itemSettingsControl.TabIndex = 0;
+            // 
+            // checkAutoSnipeFromSettings
+            // 
+            this.checkAutoSnipeFromSettings.AutoSize = true;
+            this.checkAutoSnipeFromSettings.Location = new System.Drawing.Point(261, 182);
+            this.checkAutoSnipeFromSettings.Name = "checkAutoSnipeFromSettings";
+            this.checkAutoSnipeFromSettings.Size = new System.Drawing.Size(184, 17);
+            this.checkAutoSnipeFromSettings.TabIndex = 18;
+            this.checkAutoSnipeFromSettings.Text = "Auto snipe (pokemon to snipe list)";
+            this.checkAutoSnipeFromSettings.UseVisualStyleBackColor = true;
+            // 
+            // numMinSnipeIV
+            // 
+            this.numMinSnipeIV.Location = new System.Drawing.Point(579, 181);
+            this.numMinSnipeIV.Name = "numMinSnipeIV";
+            this.numMinSnipeIV.Size = new System.Drawing.Size(60, 20);
+            this.numMinSnipeIV.TabIndex = 19;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(465, 183);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(108, 13);
+            this.label6.TabIndex = 20;
+            this.label6.Text = "Min IV (unknown = 0)";
             // 
             // GUI
             // 
@@ -1148,6 +1154,7 @@ namespace PoGo.NecroBot.GUI
             this.tabPageSettingsSniping.ResumeLayout(false);
             this.tabPageSettingsPokemons.ResumeLayout(false);
             this.tabPageSettingsItems.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numMinSnipeIV)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1208,8 +1215,6 @@ namespace PoGo.NecroBot.GUI
         private System.Windows.Forms.TextBox textPokemonSnipeList;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.RadioButton radioSnipeGetAll;
-        private System.Windows.Forms.RadioButton radioSnipeUseSettings;
         private System.Windows.Forms.Button cmdEvolveSelected;
         private System.Windows.Forms.Button cmdTransferSelected;
         private System.Windows.Forms.ToolTip toolEvolveSelected;
@@ -1244,6 +1249,9 @@ namespace PoGo.NecroBot.GUI
         private System.Windows.Forms.DataGridViewButtonColumn dataSnipingFeederColBtnSnipe;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataSnipingFeederColSort;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataSnipingFeederColEncounterId;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown numMinSnipeIV;
+        private System.Windows.Forms.CheckBox checkAutoSnipeFromSettings;
     }
 }
 

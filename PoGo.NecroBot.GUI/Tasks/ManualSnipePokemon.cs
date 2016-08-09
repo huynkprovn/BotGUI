@@ -28,6 +28,43 @@ namespace PoGo.NecroBot.GUI.Tasks
 {
     class ManualSnipePokemon
     {
+        public async static void Execute(List<Logic.Tasks.SniperInfo> snipeAuto)
+        {
+            Bot._Session.GUISettings.isSniping = true;
+            Dictionary<PokemonId, PointLatLng> snipeList = new Dictionary<PokemonId, PointLatLng>();
+ 
+            if (Bot._Session.GUISettings.isStarted)
+            {
+                Bot._Session.EventDispatcher.Send(new WarnEvent
+                {
+                    Message = "Waiting on last task to finish before we start sniping"
+                });
+                Bot._Session.GUISettings.isAwaitingPaused = true;
+                while (Bot._Session.GUISettings.isAwaitingPaused == true)
+                {
+                    await Task.Delay(1000);
+                }
+                Bot._Session.EventDispatcher.Send(new WarnEvent
+                {
+                    Message = "Starting to snipe list"
+                });
+                foreach(var pokeSnipe in snipeAuto)
+                {
+                    snipeList.Clear();
+                    snipeList.Add((PokemonId)Enum.Parse(typeof(PokemonId), pokeSnipe.Id.ToString()), new PointLatLng(pokeSnipe.Latitude, pokeSnipe.Longitude));
+                    await ManualSnipePokemon.SnipePokemonTask.AsyncStart(Bot._Session, snipeList, default(CancellationToken));
+                }
+                
+                Bot._Session.EventDispatcher.Send(new WarnEvent
+                {
+                    Message = "Done sniping"
+                });
+                Bot._Session.GUISettings.isPaused = false;
+            }
+
+            Bot._Session.GUISettings.isSniping = false;
+        }
+
         public async static void Execute(SniperInfo snipeFromFeed)
         {
             Bot._Session.GUISettings.isSniping = true;
@@ -75,20 +112,9 @@ namespace PoGo.NecroBot.GUI.Tasks
                     double lng = Convert.ToDouble(splitString[2]);
                     string name = splitString[0];
                     int IV = Convert.ToInt16(splitString[3]);
-
   
-                    if (Bot.GUI.SnipeOptionAll)
-                    {
-                        snipeList.Add((PokemonId)Enum.Parse(typeof(PokemonId), name), new PointLatLng(lat, lng));
-                    }
-                    else
-                    {
-                        if (Bot.GlobalSettings.PokemonToSnipe.Pokemon.Where(p => p == (PokemonId)Enum.Parse(typeof(PokemonId), name)).ToList().Count > 0 && IV >= Bot.GlobalSettings.KeepMinIvPercentage)
-                        {
-                            snipeList.Add((PokemonId)Enum.Parse(typeof(PokemonId), name), new PointLatLng(lat, lng));
-                        }
-                    }
-                }
+                    snipeList.Add((PokemonId)Enum.Parse(typeof(PokemonId), name), new PointLatLng(lat, lng));
+                  }
                 catch
                 {
                     //UpdateMyPokemons();

@@ -53,6 +53,10 @@
       <HintPath>$(SolutionDir)\packages\C5.2.2.5073.27396\lib\portable-net40+sl50+wp80+win\C5.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="GMap.NET.Core, Version=1.7.0.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\GMap.NET.WindowsForms.1.7.1\lib\net40\GMap.NET.Core.dll</HintPath>
+    </Reference>
     <Reference Include="GMap.NET.WindowsForms">
       <HintPath>..\packages\GMap.NET.WindowsForms.1.7.1\lib\net40\GMap.NET.WindowsForms.dll</HintPath>
     </Reference>
@@ -118,6 +122,7 @@
     <Compile Include="PoGoUtils\PokemonInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\BotService.cs" />
+    <Compile Include="Tasks\AutoSnipePokemonFromList.cs" />
     <Compile Include="Tasks\EggsListTask.cs" />
     <Compile Include="Tasks\EvolveSpecificPokemonTask.cs" />
     <Compile Include="Tasks\FavoritePokemonTask.cs" />
