@@ -1,15 +1,21 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using PoGo.NecroBot.GUI.Util;
 using PoGo.NecroBot.GUI.Utils;
+using PoGo.NecroBot.Logic.Event;
 using PoGo.NecroBot.Logic.Logging;
 using PoGo.NecroBot.Logic.PoGoUtils;
+using PoGo.NecroBot.Logic.State;
+using PoGo.NecroBot.Logic.Tasks;
 using POGOProtos.Enums;
+using Quobject.SocketIoClientDotNet.Client;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -38,12 +44,12 @@ namespace PoGo.NecroBot.GUI.Tasks
                 try
                 {
                     var response = request.GetResponse();
-                    Logger.Write($"Connection established. Waiting for data...",LogLevel.Warning);
+                    Logger.Write($"Connection established to Pogo-feed. Waiting for data...", LogLevel.Warning);
                     stream = response.GetResponseStream();
                 }
                 catch (WebException)
                 {
-                    Logger.Write($"Experiencing connection issues. Throttling...", LogLevel.Warning);
+                    Logger.Write($"Experiencing connection issues. Throttling Pogo-feed...", LogLevel.Warning);
                     Task.Delay(30 * 1000);
                 }
                 catch (Exception e)
@@ -62,24 +68,23 @@ namespace PoGo.NecroBot.GUI.Tasks
                 const int delay = 10 * 1000;
                 while (true)
                 {
-                    if(Bot._Session.GUISettings.PokemonSnipeCaught.Count>0)
-                    {
-                        foreach(var pokemon in Bot._Session.GUISettings.PokemonSnipeCaught.ToList())
-                        {
-                            Bitmap bmp = new Bitmap(40, 30);
-                            Bot.imagesList.TryGetValue("pokemon_" + ((int)pokemon.Id).ToString(), out bmp);
-                            Bot.GUI.DataGridSnipeCaught.Invoke(new Action(() => Bot.GUI.DataGridSnipeCaught.Rows.Add(bmp, pokemon.Id.ToString(), pokemon.Cp, PokemonInfo.CalculateMaxCp(pokemon), Math.Round(PokemonInfo.CalculatePokemonPerfection(pokemon)))));
-                            Bot._Session.GUISettings.PokemonSnipeCaught.Remove(pokemon);
-                        }
-                    }
-
-
                     for (var retrys = 0; retrys <= 3; retrys++)
                     {
                         foreach (var line in ReadLines(new StreamReader(stream)))
                         {
                             try
                             {
+                                if (Bot._Session.GUISettings.PokemonSnipeCaught.Count > 0)
+                                {
+                                    foreach (var pokemon in Bot._Session.GUISettings.PokemonSnipeCaught.ToList())
+                                    {
+                                        Bitmap bmp = new Bitmap(40, 30);
+                                        Bot.imagesList.TryGetValue("pokemon_" + ((int)pokemon.PokemonId).ToString(), out bmp);
+                                        Bot.GUI.DataGridSnipeCaught.Invoke(new Action(() => Bot.GUI.DataGridSnipeCaught.Rows.Add(bmp, (PokemonId)pokemon.Id, pokemon.Cp, PokemonInfo.CalculateMaxCp(pokemon), Math.Round(PokemonInfo.CalculatePokemonPerfection(pokemon)), PokemonInfo.GetLevel(pokemon), DateTime.Now)));
+                                        Bot._Session.GUISettings.PokemonSnipeCaught.Remove(pokemon);
+                                    }
+                                }
+
                                 var splitted = line.Split(new[] { ':' }, 2, StringSplitOptions.RemoveEmptyEntries);
 
                                 if (splitted.Length != 2 || splitted[0] != "data") continue;
@@ -107,7 +112,7 @@ namespace PoGo.NecroBot.GUI.Tasks
                                         {
                                             if (Bot._Session.LogicSettings.PokemonToSnipe.Pokemon.Contains(msg.Id) && msg.IV >= Bot.GUI.MinSnipeIV)
                                             {
-                                                Logger.Write("Auto Sniping:" + msg.ToString(), LogLevel.Warning);
+                                                Logger.Write("Auto Sniping (Pogo-Feed): " + msg.ToString(), LogLevel.Warning);
                                                 Logic.Tasks.SniperInfo pokeSnipeInfo = new Logic.Tasks.SniperInfo();
                                                 pokeSnipeInfo.Id = msg.Id;
                                                 pokeSnipeInfo.IV = msg.IV;

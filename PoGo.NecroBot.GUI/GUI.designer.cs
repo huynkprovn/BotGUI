@@ -91,6 +91,23 @@ namespace PoGo.NecroBot.GUI
             this.label5 = new System.Windows.Forms.Label();
             this.gMap = new GMap.NET.WindowsForms.GMapControl();
             this.tabManualSniping = new System.Windows.Forms.TabPage();
+            this.tabControlAutoSniping = new System.Windows.Forms.TabControl();
+            this.tabAutoSnipeList = new System.Windows.Forms.TabPage();
+            this.dataSnipingFeeder = new System.Windows.Forms.DataGridView();
+            this.dataSnipingFeederColImg = new System.Windows.Forms.DataGridViewImageColumn();
+            this.dataSnipingFeederColName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataSnipingFeederColIV = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataSnipingFeederColLat = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataSnipingFeederColLng = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataSnipingFeederColTimestamp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataSnipingFeederColBtnSnipe = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataSnipingFeederColSort = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataSnipingFeederColEncounterId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabAutoSnipeCaught = new System.Windows.Forms.TabPage();
+            this.dataSnipingCaught = new System.Windows.Forms.DataGridView();
+            this.label6 = new System.Windows.Forms.Label();
+            this.numMinSnipeIV = new System.Windows.Forms.NumericUpDown();
+            this.checkAutoSnipeFromSettings = new System.Windows.Forms.CheckBox();
             this.bntStartSnipingFeed = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -106,33 +123,17 @@ namespace PoGo.NecroBot.GUI
             this.tabPageSettingsItems = new System.Windows.Forms.TabPage();
             this.toolTransferSelected = new System.Windows.Forms.ToolTip(this.components);
             this.toolEvolveSelected = new System.Windows.Forms.ToolTip(this.components);
-            this.checkAutoSnipeFromSettings = new System.Windows.Forms.CheckBox();
-            this.numMinSnipeIV = new System.Windows.Forms.NumericUpDown();
-            this.label6 = new System.Windows.Forms.Label();
             this.globalSettingsControl = new PoGo.NecroBot.GUI.UserControls.GlobalSettingsControl();
             this.snipingSettingsControl = new PoGo.NecroBot.GUI.UserControls.SnipingSettingsControl();
             this.pokemonSettingsControl = new PoGo.NecroBot.GUI.UserControls.PokemonSettingsControl();
             this.itemSettingsControl = new PoGo.NecroBot.GUI.UserControls.ItemSettingsControl();
-            this.tabControlAutoSniping = new System.Windows.Forms.TabControl();
-            this.tabAutoSnipeList = new System.Windows.Forms.TabPage();
-            this.tabAutoSnipeCaught = new System.Windows.Forms.TabPage();
-            this.dataSnipingFeeder = new System.Windows.Forms.DataGridView();
-            this.dataSnipingFeederColImg = new System.Windows.Forms.DataGridViewImageColumn();
-            this.dataSnipingFeederColName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataSnipingFeederColIV = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataSnipingFeederColLat = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataSnipingFeederColLng = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataSnipingFeederColTimestamp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataSnipingFeederColBtnSnipe = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.dataSnipingFeederColSort = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataSnipingFeederColEncounterId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataSnipingCaught = new System.Windows.Forms.DataGridView();
             this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridConsole)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.grpPlayer.SuspendLayout();
@@ -146,18 +147,18 @@ namespace PoGo.NecroBot.GUI
             ((System.ComponentModel.ISupportInitialize)(this.dataMyPokemons)).BeginInit();
             this.tabLiveMap.SuspendLayout();
             this.tabManualSniping.SuspendLayout();
+            this.tabControlAutoSniping.SuspendLayout();
+            this.tabAutoSnipeList.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSnipingFeeder)).BeginInit();
+            this.tabAutoSnipeCaught.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSnipingCaught)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMinSnipeIV)).BeginInit();
             this.tabSettings.SuspendLayout();
             this.tabControlSettings.SuspendLayout();
             this.tabPageSettingsGlobal.SuspendLayout();
             this.tabPageSettingsSniping.SuspendLayout();
             this.tabPageSettingsPokemons.SuspendLayout();
             this.tabPageSettingsItems.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numMinSnipeIV)).BeginInit();
-            this.tabControlAutoSniping.SuspendLayout();
-            this.tabAutoSnipeList.SuspendLayout();
-            this.tabAutoSnipeCaught.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSnipingFeeder)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSnipingCaught)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridConsole
@@ -808,7 +809,7 @@ namespace PoGo.NecroBot.GUI
             this.gMap.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMap.ShowTileGridLines = false;
-            this.gMap.Size = new System.Drawing.Size(682, 437);
+            this.gMap.Size = new System.Drawing.Size(180, 14);
             this.gMap.TabIndex = 0;
             this.gMap.Zoom = 0D;
             // 
@@ -832,211 +833,6 @@ namespace PoGo.NecroBot.GUI
             this.tabManualSniping.Text = "Pokemon Sniper";
             this.tabManualSniping.UseVisualStyleBackColor = true;
             // 
-            // bntStartSnipingFeed
-            // 
-            this.bntStartSnipingFeed.Location = new System.Drawing.Point(9, 178);
-            this.bntStartSnipingFeed.Name = "bntStartSnipingFeed";
-            this.bntStartSnipingFeed.Size = new System.Drawing.Size(246, 23);
-            this.bntStartSnipingFeed.TabIndex = 16;
-            this.bntStartSnipingFeed.Text = "Start Sniper Feed";
-            this.bntStartSnipingFeed.UseVisualStyleBackColor = true;
-            this.bntStartSnipingFeed.Click += new System.EventHandler(this.bntStartSnipingFeed_Click);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 41);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(317, 13);
-            this.label14.TabIndex = 5;
-            this.label14.Text = "Example: 51.502251182719,-0.12680284541418 Porygon 78% IV";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 21);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(642, 13);
-            this.label10.TabIndex = 4;
-            this.label10.Text = "Example: [248 seconds remaining] 78% IV - Porygon at 51.502251182719,-0.126802845" +
-    "41418 [ Moveset: QuickAttackFast/Psybeam ]";
-            // 
-            // cmdSnipeList
-            // 
-            this.cmdSnipeList.Location = new System.Drawing.Point(9, 72);
-            this.cmdSnipeList.Name = "cmdSnipeList";
-            this.cmdSnipeList.Size = new System.Drawing.Size(246, 23);
-            this.cmdSnipeList.TabIndex = 2;
-            this.cmdSnipeList.Text = "Snipe List!";
-            this.cmdSnipeList.UseVisualStyleBackColor = true;
-            this.cmdSnipeList.Click += new System.EventHandler(this.cmdSnipeList_Click);
-            // 
-            // textPokemonSnipeList
-            // 
-            this.textPokemonSnipeList.Location = new System.Drawing.Point(9, 101);
-            this.textPokemonSnipeList.Multiline = true;
-            this.textPokemonSnipeList.Name = "textPokemonSnipeList";
-            this.textPokemonSnipeList.Size = new System.Drawing.Size(679, 71);
-            this.textPokemonSnipeList.TabIndex = 1;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 4);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(333, 13);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "Add sniping location and pokemon in the following format (1 per line): ";
-            // 
-            // tabSettings
-            // 
-            this.tabSettings.Controls.Add(this.cmdSaveSettings);
-            this.tabSettings.Controls.Add(this.tabControlSettings);
-            this.tabSettings.Location = new System.Drawing.Point(4, 22);
-            this.tabSettings.Name = "tabSettings";
-            this.tabSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSettings.Size = new System.Drawing.Size(694, 497);
-            this.tabSettings.TabIndex = 1;
-            this.tabSettings.Text = "Profile settings";
-            this.tabSettings.UseVisualStyleBackColor = true;
-            // 
-            // cmdSaveSettings
-            // 
-            this.cmdSaveSettings.Location = new System.Drawing.Point(7, 6);
-            this.cmdSaveSettings.Name = "cmdSaveSettings";
-            this.cmdSaveSettings.Size = new System.Drawing.Size(100, 23);
-            this.cmdSaveSettings.TabIndex = 37;
-            this.cmdSaveSettings.Text = "Save Settings";
-            this.cmdSaveSettings.UseVisualStyleBackColor = true;
-            this.cmdSaveSettings.Click += new System.EventHandler(this.cmdSaveSettings_Click);
-            // 
-            // tabControlSettings
-            // 
-            this.tabControlSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControlSettings.Controls.Add(this.tabPageSettingsGlobal);
-            this.tabControlSettings.Controls.Add(this.tabPageSettingsSniping);
-            this.tabControlSettings.Controls.Add(this.tabPageSettingsPokemons);
-            this.tabControlSettings.Controls.Add(this.tabPageSettingsItems);
-            this.tabControlSettings.Location = new System.Drawing.Point(3, 39);
-            this.tabControlSettings.Name = "tabControlSettings";
-            this.tabControlSettings.SelectedIndex = 0;
-            this.tabControlSettings.Size = new System.Drawing.Size(685, 455);
-            this.tabControlSettings.TabIndex = 13;
-            // 
-            // tabPageSettingsGlobal
-            // 
-            this.tabPageSettingsGlobal.AutoScroll = true;
-            this.tabPageSettingsGlobal.Controls.Add(this.globalSettingsControl);
-            this.tabPageSettingsGlobal.Location = new System.Drawing.Point(4, 22);
-            this.tabPageSettingsGlobal.Name = "tabPageSettingsGlobal";
-            this.tabPageSettingsGlobal.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSettingsGlobal.Size = new System.Drawing.Size(677, 429);
-            this.tabPageSettingsGlobal.TabIndex = 0;
-            this.tabPageSettingsGlobal.Text = "Global";
-            this.tabPageSettingsGlobal.UseVisualStyleBackColor = true;
-            // 
-            // tabPageSettingsSniping
-            // 
-            this.tabPageSettingsSniping.AutoScroll = true;
-            this.tabPageSettingsSniping.Controls.Add(this.snipingSettingsControl);
-            this.tabPageSettingsSniping.Location = new System.Drawing.Point(4, 22);
-            this.tabPageSettingsSniping.Name = "tabPageSettingsSniping";
-            this.tabPageSettingsSniping.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSettingsSniping.Size = new System.Drawing.Size(677, 429);
-            this.tabPageSettingsSniping.TabIndex = 3;
-            this.tabPageSettingsSniping.Text = "Sniping";
-            this.tabPageSettingsSniping.UseVisualStyleBackColor = true;
-            // 
-            // tabPageSettingsPokemons
-            // 
-            this.tabPageSettingsPokemons.AutoScroll = true;
-            this.tabPageSettingsPokemons.Controls.Add(this.pokemonSettingsControl);
-            this.tabPageSettingsPokemons.Location = new System.Drawing.Point(4, 22);
-            this.tabPageSettingsPokemons.Name = "tabPageSettingsPokemons";
-            this.tabPageSettingsPokemons.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSettingsPokemons.Size = new System.Drawing.Size(677, 429);
-            this.tabPageSettingsPokemons.TabIndex = 1;
-            this.tabPageSettingsPokemons.Text = "Pokemons";
-            this.tabPageSettingsPokemons.UseVisualStyleBackColor = true;
-            // 
-            // tabPageSettingsItems
-            // 
-            this.tabPageSettingsItems.AutoScroll = true;
-            this.tabPageSettingsItems.Controls.Add(this.itemSettingsControl);
-            this.tabPageSettingsItems.Location = new System.Drawing.Point(4, 22);
-            this.tabPageSettingsItems.Name = "tabPageSettingsItems";
-            this.tabPageSettingsItems.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSettingsItems.Size = new System.Drawing.Size(677, 429);
-            this.tabPageSettingsItems.TabIndex = 2;
-            this.tabPageSettingsItems.Text = "Items";
-            this.tabPageSettingsItems.UseVisualStyleBackColor = true;
-            // 
-            // checkAutoSnipeFromSettings
-            // 
-            this.checkAutoSnipeFromSettings.AutoSize = true;
-            this.checkAutoSnipeFromSettings.Checked = true;
-            this.checkAutoSnipeFromSettings.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkAutoSnipeFromSettings.Location = new System.Drawing.Point(261, 182);
-            this.checkAutoSnipeFromSettings.Name = "checkAutoSnipeFromSettings";
-            this.checkAutoSnipeFromSettings.Size = new System.Drawing.Size(184, 17);
-            this.checkAutoSnipeFromSettings.TabIndex = 18;
-            this.checkAutoSnipeFromSettings.Text = "Auto snipe (pokemon to snipe list)";
-            this.checkAutoSnipeFromSettings.UseVisualStyleBackColor = true;
-            // 
-            // numMinSnipeIV
-            // 
-            this.numMinSnipeIV.Location = new System.Drawing.Point(579, 181);
-            this.numMinSnipeIV.Name = "numMinSnipeIV";
-            this.numMinSnipeIV.Size = new System.Drawing.Size(60, 20);
-            this.numMinSnipeIV.TabIndex = 19;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(465, 183);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(108, 13);
-            this.label6.TabIndex = 20;
-            this.label6.Text = "Min IV (unknown = 0)";
-            // 
-            // globalSettingsControl
-            // 
-            this.globalSettingsControl.AutoScroll = true;
-            this.globalSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.globalSettingsControl.Location = new System.Drawing.Point(3, 3);
-            this.globalSettingsControl.Name = "globalSettingsControl";
-            this.globalSettingsControl.Size = new System.Drawing.Size(671, 423);
-            this.globalSettingsControl.TabIndex = 36;
-            // 
-            // snipingSettingsControl
-            // 
-            this.snipingSettingsControl.AutoScroll = true;
-            this.snipingSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.snipingSettingsControl.Location = new System.Drawing.Point(3, 3);
-            this.snipingSettingsControl.Name = "snipingSettingsControl";
-            this.snipingSettingsControl.Size = new System.Drawing.Size(671, 423);
-            this.snipingSettingsControl.TabIndex = 0;
-            // 
-            // pokemonSettingsControl
-            // 
-            this.pokemonSettingsControl.AutoScroll = true;
-            this.pokemonSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pokemonSettingsControl.Location = new System.Drawing.Point(3, 3);
-            this.pokemonSettingsControl.Name = "pokemonSettingsControl";
-            this.pokemonSettingsControl.Size = new System.Drawing.Size(671, 423);
-            this.pokemonSettingsControl.TabIndex = 0;
-            // 
-            // itemSettingsControl
-            // 
-            this.itemSettingsControl.AutoScroll = true;
-            this.itemSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.itemSettingsControl.Location = new System.Drawing.Point(3, 3);
-            this.itemSettingsControl.Name = "itemSettingsControl";
-            this.itemSettingsControl.Size = new System.Drawing.Size(671, 423);
-            this.itemSettingsControl.TabIndex = 0;
-            // 
             // tabControlAutoSniping
             // 
             this.tabControlAutoSniping.Controls.Add(this.tabAutoSnipeList);
@@ -1055,19 +851,8 @@ namespace PoGo.NecroBot.GUI
             this.tabAutoSnipeList.Padding = new System.Windows.Forms.Padding(3);
             this.tabAutoSnipeList.Size = new System.Drawing.Size(671, 258);
             this.tabAutoSnipeList.TabIndex = 0;
-            this.tabAutoSnipeList.Text = "Available pokemons to snipe";
+            this.tabAutoSnipeList.Text = "Available to snipe";
             this.tabAutoSnipeList.UseVisualStyleBackColor = true;
-            // 
-            // tabAutoSnipeCaught
-            // 
-            this.tabAutoSnipeCaught.Controls.Add(this.dataSnipingCaught);
-            this.tabAutoSnipeCaught.Location = new System.Drawing.Point(4, 22);
-            this.tabAutoSnipeCaught.Name = "tabAutoSnipeCaught";
-            this.tabAutoSnipeCaught.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAutoSnipeCaught.Size = new System.Drawing.Size(671, 258);
-            this.tabAutoSnipeCaught.TabIndex = 1;
-            this.tabAutoSnipeCaught.Text = "Caught";
-            this.tabAutoSnipeCaught.UseVisualStyleBackColor = true;
             // 
             // dataSnipingFeeder
             // 
@@ -1166,6 +951,17 @@ namespace PoGo.NecroBot.GUI
             this.dataSnipingFeederColEncounterId.Visible = false;
             this.dataSnipingFeederColEncounterId.Width = 90;
             // 
+            // tabAutoSnipeCaught
+            // 
+            this.tabAutoSnipeCaught.Controls.Add(this.dataSnipingCaught);
+            this.tabAutoSnipeCaught.Location = new System.Drawing.Point(4, 22);
+            this.tabAutoSnipeCaught.Name = "tabAutoSnipeCaught";
+            this.tabAutoSnipeCaught.Padding = new System.Windows.Forms.Padding(3);
+            this.tabAutoSnipeCaught.Size = new System.Drawing.Size(671, 258);
+            this.tabAutoSnipeCaught.TabIndex = 1;
+            this.tabAutoSnipeCaught.Text = "Caught";
+            this.tabAutoSnipeCaught.UseVisualStyleBackColor = true;
+            // 
             // dataSnipingCaught
             // 
             this.dataSnipingCaught.AllowUserToAddRows = false;
@@ -1179,7 +975,8 @@ namespace PoGo.NecroBot.GUI
             this.dataGridViewTextBoxColumn6,
             this.Column7,
             this.dataGridViewTextBoxColumn3,
-            this.Column11});
+            this.Column11,
+            this.Column12});
             this.dataSnipingCaught.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataSnipingCaught.Location = new System.Drawing.Point(3, 3);
             this.dataSnipingCaught.Name = "dataSnipingCaught";
@@ -1188,6 +985,211 @@ namespace PoGo.NecroBot.GUI
             this.dataSnipingCaught.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataSnipingCaught.Size = new System.Drawing.Size(665, 252);
             this.dataSnipingCaught.TabIndex = 19;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(465, 183);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(108, 13);
+            this.label6.TabIndex = 20;
+            this.label6.Text = "Min IV (unknown = 0)";
+            // 
+            // numMinSnipeIV
+            // 
+            this.numMinSnipeIV.Location = new System.Drawing.Point(579, 181);
+            this.numMinSnipeIV.Name = "numMinSnipeIV";
+            this.numMinSnipeIV.Size = new System.Drawing.Size(60, 20);
+            this.numMinSnipeIV.TabIndex = 19;
+            // 
+            // checkAutoSnipeFromSettings
+            // 
+            this.checkAutoSnipeFromSettings.AutoSize = true;
+            this.checkAutoSnipeFromSettings.Checked = true;
+            this.checkAutoSnipeFromSettings.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkAutoSnipeFromSettings.Location = new System.Drawing.Point(261, 182);
+            this.checkAutoSnipeFromSettings.Name = "checkAutoSnipeFromSettings";
+            this.checkAutoSnipeFromSettings.Size = new System.Drawing.Size(184, 17);
+            this.checkAutoSnipeFromSettings.TabIndex = 18;
+            this.checkAutoSnipeFromSettings.Text = "Auto snipe (pokemon to snipe list)";
+            this.checkAutoSnipeFromSettings.UseVisualStyleBackColor = true;
+            // 
+            // bntStartSnipingFeed
+            // 
+            this.bntStartSnipingFeed.Location = new System.Drawing.Point(9, 178);
+            this.bntStartSnipingFeed.Name = "bntStartSnipingFeed";
+            this.bntStartSnipingFeed.Size = new System.Drawing.Size(246, 23);
+            this.bntStartSnipingFeed.TabIndex = 16;
+            this.bntStartSnipingFeed.Text = "Start Sniper Feed";
+            this.bntStartSnipingFeed.UseVisualStyleBackColor = true;
+            this.bntStartSnipingFeed.Click += new System.EventHandler(this.bntStartSnipingFeed_Click);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(6, 41);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(317, 13);
+            this.label14.TabIndex = 5;
+            this.label14.Text = "Example: 51.502251182719,-0.12680284541418 Porygon 78% IV";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(6, 21);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(642, 13);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "Example: [248 seconds remaining] 78% IV - Porygon at 51.502251182719,-0.126802845" +
+    "41418 [ Moveset: QuickAttackFast/Psybeam ]";
+            // 
+            // cmdSnipeList
+            // 
+            this.cmdSnipeList.Location = new System.Drawing.Point(9, 72);
+            this.cmdSnipeList.Name = "cmdSnipeList";
+            this.cmdSnipeList.Size = new System.Drawing.Size(246, 23);
+            this.cmdSnipeList.TabIndex = 2;
+            this.cmdSnipeList.Text = "Snipe List!";
+            this.cmdSnipeList.UseVisualStyleBackColor = true;
+            this.cmdSnipeList.Click += new System.EventHandler(this.cmdSnipeList_Click);
+            // 
+            // textPokemonSnipeList
+            // 
+            this.textPokemonSnipeList.Location = new System.Drawing.Point(9, 101);
+            this.textPokemonSnipeList.Multiline = true;
+            this.textPokemonSnipeList.Name = "textPokemonSnipeList";
+            this.textPokemonSnipeList.Size = new System.Drawing.Size(679, 71);
+            this.textPokemonSnipeList.TabIndex = 1;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 4);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(333, 13);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Add sniping location and pokemon in the following format (1 per line): ";
+            // 
+            // tabSettings
+            // 
+            this.tabSettings.Controls.Add(this.cmdSaveSettings);
+            this.tabSettings.Controls.Add(this.tabControlSettings);
+            this.tabSettings.Location = new System.Drawing.Point(4, 22);
+            this.tabSettings.Name = "tabSettings";
+            this.tabSettings.Padding = new System.Windows.Forms.Padding(3);
+            this.tabSettings.Size = new System.Drawing.Size(694, 497);
+            this.tabSettings.TabIndex = 1;
+            this.tabSettings.Text = "Profile settings";
+            this.tabSettings.UseVisualStyleBackColor = true;
+            // 
+            // cmdSaveSettings
+            // 
+            this.cmdSaveSettings.Location = new System.Drawing.Point(7, 6);
+            this.cmdSaveSettings.Name = "cmdSaveSettings";
+            this.cmdSaveSettings.Size = new System.Drawing.Size(100, 23);
+            this.cmdSaveSettings.TabIndex = 37;
+            this.cmdSaveSettings.Text = "Save Settings";
+            this.cmdSaveSettings.UseVisualStyleBackColor = true;
+            this.cmdSaveSettings.Click += new System.EventHandler(this.cmdSaveSettings_Click);
+            // 
+            // tabControlSettings
+            // 
+            this.tabControlSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControlSettings.Controls.Add(this.tabPageSettingsGlobal);
+            this.tabControlSettings.Controls.Add(this.tabPageSettingsSniping);
+            this.tabControlSettings.Controls.Add(this.tabPageSettingsPokemons);
+            this.tabControlSettings.Controls.Add(this.tabPageSettingsItems);
+            this.tabControlSettings.Location = new System.Drawing.Point(3, 39);
+            this.tabControlSettings.Name = "tabControlSettings";
+            this.tabControlSettings.SelectedIndex = 0;
+            this.tabControlSettings.Size = new System.Drawing.Size(183, 32);
+            this.tabControlSettings.TabIndex = 13;
+            // 
+            // tabPageSettingsGlobal
+            // 
+            this.tabPageSettingsGlobal.AutoScroll = true;
+            this.tabPageSettingsGlobal.Controls.Add(this.globalSettingsControl);
+            this.tabPageSettingsGlobal.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSettingsGlobal.Name = "tabPageSettingsGlobal";
+            this.tabPageSettingsGlobal.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSettingsGlobal.Size = new System.Drawing.Size(175, 6);
+            this.tabPageSettingsGlobal.TabIndex = 0;
+            this.tabPageSettingsGlobal.Text = "Global";
+            this.tabPageSettingsGlobal.UseVisualStyleBackColor = true;
+            // 
+            // tabPageSettingsSniping
+            // 
+            this.tabPageSettingsSniping.AutoScroll = true;
+            this.tabPageSettingsSniping.Controls.Add(this.snipingSettingsControl);
+            this.tabPageSettingsSniping.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSettingsSniping.Name = "tabPageSettingsSniping";
+            this.tabPageSettingsSniping.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSettingsSniping.Size = new System.Drawing.Size(175, 6);
+            this.tabPageSettingsSniping.TabIndex = 3;
+            this.tabPageSettingsSniping.Text = "Sniping";
+            this.tabPageSettingsSniping.UseVisualStyleBackColor = true;
+            // 
+            // tabPageSettingsPokemons
+            // 
+            this.tabPageSettingsPokemons.AutoScroll = true;
+            this.tabPageSettingsPokemons.Controls.Add(this.pokemonSettingsControl);
+            this.tabPageSettingsPokemons.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSettingsPokemons.Name = "tabPageSettingsPokemons";
+            this.tabPageSettingsPokemons.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSettingsPokemons.Size = new System.Drawing.Size(175, 6);
+            this.tabPageSettingsPokemons.TabIndex = 1;
+            this.tabPageSettingsPokemons.Text = "Pokemons";
+            this.tabPageSettingsPokemons.UseVisualStyleBackColor = true;
+            // 
+            // tabPageSettingsItems
+            // 
+            this.tabPageSettingsItems.AutoScroll = true;
+            this.tabPageSettingsItems.Controls.Add(this.itemSettingsControl);
+            this.tabPageSettingsItems.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSettingsItems.Name = "tabPageSettingsItems";
+            this.tabPageSettingsItems.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSettingsItems.Size = new System.Drawing.Size(175, 6);
+            this.tabPageSettingsItems.TabIndex = 2;
+            this.tabPageSettingsItems.Text = "Items";
+            this.tabPageSettingsItems.UseVisualStyleBackColor = true;
+            // 
+            // globalSettingsControl
+            // 
+            this.globalSettingsControl.AutoScroll = true;
+            this.globalSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.globalSettingsControl.Location = new System.Drawing.Point(3, 3);
+            this.globalSettingsControl.Name = "globalSettingsControl";
+            this.globalSettingsControl.Size = new System.Drawing.Size(169, 0);
+            this.globalSettingsControl.TabIndex = 36;
+            // 
+            // snipingSettingsControl
+            // 
+            this.snipingSettingsControl.AutoScroll = true;
+            this.snipingSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.snipingSettingsControl.Location = new System.Drawing.Point(3, 3);
+            this.snipingSettingsControl.Name = "snipingSettingsControl";
+            this.snipingSettingsControl.Size = new System.Drawing.Size(169, 0);
+            this.snipingSettingsControl.TabIndex = 0;
+            // 
+            // pokemonSettingsControl
+            // 
+            this.pokemonSettingsControl.AutoScroll = true;
+            this.pokemonSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pokemonSettingsControl.Location = new System.Drawing.Point(3, 3);
+            this.pokemonSettingsControl.Name = "pokemonSettingsControl";
+            this.pokemonSettingsControl.Size = new System.Drawing.Size(169, 0);
+            this.pokemonSettingsControl.TabIndex = 0;
+            // 
+            // itemSettingsControl
+            // 
+            this.itemSettingsControl.AutoScroll = true;
+            this.itemSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.itemSettingsControl.Location = new System.Drawing.Point(3, 3);
+            this.itemSettingsControl.Name = "itemSettingsControl";
+            this.itemSettingsControl.Size = new System.Drawing.Size(169, 0);
+            this.itemSettingsControl.TabIndex = 0;
             // 
             // dataGridViewImageColumn2
             // 
@@ -1201,16 +1203,14 @@ namespace PoGo.NecroBot.GUI
             this.dataGridViewTextBoxColumn2.HeaderText = "Pokemon";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataGridViewTextBoxColumn2.Width = 58;
+            this.dataGridViewTextBoxColumn2.Width = 77;
             // 
             // dataGridViewTextBoxColumn6
             // 
             this.dataGridViewTextBoxColumn6.HeaderText = "CP";
             this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
             this.dataGridViewTextBoxColumn6.ReadOnly = true;
-            this.dataGridViewTextBoxColumn6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataGridViewTextBoxColumn6.Width = 27;
+            this.dataGridViewTextBoxColumn6.Width = 46;
             // 
             // Column7
             // 
@@ -1224,8 +1224,7 @@ namespace PoGo.NecroBot.GUI
             this.dataGridViewTextBoxColumn3.HeaderText = "IV";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataGridViewTextBoxColumn3.Width = 23;
+            this.dataGridViewTextBoxColumn3.Width = 42;
             // 
             // Column11
             // 
@@ -1233,6 +1232,13 @@ namespace PoGo.NecroBot.GUI
             this.Column11.Name = "Column11";
             this.Column11.ReadOnly = true;
             this.Column11.Width = 58;
+            // 
+            // Column12
+            // 
+            this.Column12.HeaderText = "DateTime";
+            this.Column12.Name = "Column12";
+            this.Column12.ReadOnly = true;
+            this.Column12.Width = 78;
             // 
             // GUI
             // 
@@ -1261,18 +1267,18 @@ namespace PoGo.NecroBot.GUI
             this.tabLiveMap.PerformLayout();
             this.tabManualSniping.ResumeLayout(false);
             this.tabManualSniping.PerformLayout();
+            this.tabControlAutoSniping.ResumeLayout(false);
+            this.tabAutoSnipeList.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataSnipingFeeder)).EndInit();
+            this.tabAutoSnipeCaught.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataSnipingCaught)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMinSnipeIV)).EndInit();
             this.tabSettings.ResumeLayout(false);
             this.tabControlSettings.ResumeLayout(false);
             this.tabPageSettingsGlobal.ResumeLayout(false);
             this.tabPageSettingsSniping.ResumeLayout(false);
             this.tabPageSettingsPokemons.ResumeLayout(false);
             this.tabPageSettingsItems.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numMinSnipeIV)).EndInit();
-            this.tabControlAutoSniping.ResumeLayout(false);
-            this.tabAutoSnipeList.ResumeLayout(false);
-            this.tabAutoSnipeCaught.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataSnipingFeeder)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSnipingCaught)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1380,6 +1386,7 @@ namespace PoGo.NecroBot.GUI
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
     }
 }
 

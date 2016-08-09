@@ -251,9 +251,9 @@ namespace PoGo.NecroBot.Logic.Tasks
                 // Add to pokemons caught while sniping
                 if (session.GUISettings.isSniping && caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchSuccess)
                 {
-                    PokemonData pokeData = new PokemonData();
-                    pokeData.Id = (ulong)evt.Id;
-                    pokeData.Cp = evt.Cp;
+                    var pokeData = encounter is EncounterResponse
+                            ? encounter.WildPokemon?.PokemonData
+                            : encounter?.PokemonData;
                     session.GUISettings.PokemonSnipeCaught.Add(pokeData);
                 }
 

@@ -39,7 +39,6 @@ namespace PoGo.NecroBot.GUI
 {
     public partial class GUI : Form
     {
-        private Task discordTask;
         public GUI()
         {
             InitializeComponent();
@@ -191,7 +190,7 @@ namespace PoGo.NecroBot.GUI
             else
             {
                 Bot.PokemonSnipeFeedActive = true;
-                discordTask = GetPokemonToSnipe.DiscordWebReader.TryStartDiscordReader();
+                var discordTask = GetPokemonToSnipe.DiscordWebReader.TryStartDiscordReader();
             }
         }
 
