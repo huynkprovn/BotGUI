@@ -63,6 +63,12 @@ namespace PoGo.NecroBot.GUI.Aggregators
             _guiItems.Dirty(session.Inventory);
         }
 
+        public void HandleEvent(InventoryListEvent evt, Session session)
+        {
+            _guiItems.SetItems(session.Inventory);
+            _guiItems.Dirty(session.Inventory);
+        }
+
         public void HandleEvent(EggIncubatorStatusEvent evt, Session session)
         {
   
@@ -87,7 +93,12 @@ namespace PoGo.NecroBot.GUI.Aggregators
         public void HandleEvent(PokemonCaptureEvent evt, Session session)
         {
             _guiItems.UpdateItemByValue(evt.Pokeball, -1);
-            _guiItems.UpdateCandyByValue(evt.Id, evt.FamilyCandies, session);
+
+            if (evt.Status == CatchPokemonResponse.Types.CatchStatus.CatchSuccess)
+            {
+                _guiItems.UpdateCandyByValue(evt.Id, evt.FamilyCandies, session);
+            }
+
             _guiItems.Dirty(session.Inventory);
         }
 

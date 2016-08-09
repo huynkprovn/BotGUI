@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using PoGo.NecroBot.Logic.Logging;
+using POGOProtos.Data;
 using POGOProtos.Map.Fort;
 using POGOProtos.Map.Pokemon;
 using System;
@@ -25,6 +26,7 @@ namespace PoGo.NecroBot.Logic
         public List<FortData> CurrentPokestopList = new List<FortData>();
         public List<MapPokemon> CurrentMapPokemonList = new List<MapPokemon>();
         public List<Tasks.SniperInfo> PokemonSnipeAuto = new List<Tasks.SniperInfo>();
+        public List<PokemonData> PokemonSnipeCaught = new List<PokemonData>();
     }
 
     public class ProfileSettings

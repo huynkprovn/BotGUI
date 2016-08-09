@@ -14,6 +14,8 @@ using POGOProtos.Map.Pokemon;
 using POGOProtos.Networking.Responses;
 using System.Threading;
 using PoGo.NecroBot.Logic.Logging;
+using POGOProtos.Data;
+using POGOProtos.Enums;
 
 #endregion
 
@@ -22,7 +24,7 @@ namespace PoGo.NecroBot.Logic.Tasks
     public static class CatchPokemonTask
     {
         private static Random Random => new Random((int)DateTime.Now.Ticks);
-
+        
         public static async Task Execute(ISession session, CancellationToken cancellationToken, dynamic encounter, MapPokemon pokemon,
             FortData currentFortData = null, ulong encounterId = 0)
         {
@@ -245,6 +247,15 @@ namespace PoGo.NecroBot.Logic.Tasks
                 session.EventDispatcher.Send(evt);
 
                 attemptCounter++;
+
+                // Add to pokemons caught while sniping
+                if (session.GUISettings.isSniping && caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchSuccess)
+                {
+                    PokemonData pokeData = new PokemonData();
+                    pokeData.Id = (ulong)evt.Id;
+                    pokeData.Cp = evt.Cp;
+                    session.GUISettings.PokemonSnipeCaught.Add(pokeData);
+                }
 
                 DelayingUtils.Delay(session.LogicSettings.DelayBetweenPokemonCatch, 2000);
             } while (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed ||

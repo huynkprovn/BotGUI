@@ -2,6 +2,7 @@
 using PoGo.NecroBot.GUI.Util;
 using PoGo.NecroBot.GUI.Utils;
 using PoGo.NecroBot.Logic.Logging;
+using PoGo.NecroBot.Logic.PoGoUtils;
 using POGOProtos.Enums;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,6 @@ namespace PoGo.NecroBot.GUI.Tasks
             {
                 InitializeWebClient();
             }
-
             //private WebClient Wc { get; set; }
 
             public void InitializeWebClient()
@@ -62,6 +62,18 @@ namespace PoGo.NecroBot.GUI.Tasks
                 const int delay = 10 * 1000;
                 while (true)
                 {
+                    if(Bot._Session.GUISettings.PokemonSnipeCaught.Count>0)
+                    {
+                        foreach(var pokemon in Bot._Session.GUISettings.PokemonSnipeCaught.ToList())
+                        {
+                            Bitmap bmp = new Bitmap(40, 30);
+                            Bot.imagesList.TryGetValue("pokemon_" + ((int)pokemon.Id).ToString(), out bmp);
+                            Bot.GUI.DataGridSnipeCaught.Invoke(new Action(() => Bot.GUI.DataGridSnipeCaught.Rows.Add(bmp, pokemon.Id.ToString(), pokemon.Cp, PokemonInfo.CalculateMaxCp(pokemon), Math.Round(PokemonInfo.CalculatePokemonPerfection(pokemon)))));
+                            Bot._Session.GUISettings.PokemonSnipeCaught.Remove(pokemon);
+                        }
+                    }
+
+
                     for (var retrys = 0; retrys <= 3; retrys++)
                     {
                         foreach (var line in ReadLines(new StreamReader(stream)))

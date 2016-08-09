@@ -46,13 +46,14 @@ namespace PoGo.NecroBot.GUI.Util
         public void UpdateProfile()
         {
             Bot.GUI.Invoke(new Action(() => Bot.GUI.StatsPlayerName = Bot._ProfilePlayerName));
-            Bot.GUI.Invoke(new Action(() => Bot.GUI.StatsPlayerLevel = Bot._ProfilePlayerLevel.ToString()));
-            Bot.GUI.Invoke(new Action(() => Bot.GUI.StatsPlayerStardust = Bot._ProfilePlayerStardust.ToString()));
-            Bot.GUI.Invoke(new Action(() => Bot.GUI.StatsPlayerPokecoins = Bot._ProfilePlayerPokecoins.ToString()));
         }
 
         public void UpdateStats()
         {
+            Bot.GUI.Invoke(new Action(() => Bot.GUI.StatsPlayerLevel = Bot._ProfilePlayerLevel.ToString()));
+            Bot.GUI.Invoke(new Action(() => Bot.GUI.StatsPlayerStardust = Bot._ProfilePlayerStardust.ToString()));
+            Bot.GUI.Invoke(new Action(() => Bot.GUI.StatsPlayerPokecoins = Bot._ProfilePlayerPokecoins.ToString()));
+
             int max = (int)Bot._StatsNextLevelXp - (int)Bot._StatsPrevLevelXp - GetXpDiff(Bot._ProfilePlayerLevel);
             int current = (int)Bot._StatsExperience - (int)Bot._StatsPrevLevelXp - GetXpDiff(Bot._ProfilePlayerLevel);
 

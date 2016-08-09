@@ -23,7 +23,7 @@ namespace PoGo.NecroBot.GUI.Util
     {
         public async void SetItems(Inventory inventory)
         {
-            if(Bot.PokemonSettings == null)
+            if(Bot.PokemonSettings.Count == 0)
             {
                 var settings = await Bot._Session.Inventory.GetPokemonSettings();
                 Bot.PokemonSettings = settings.ToList(); 
@@ -75,7 +75,7 @@ namespace PoGo.NecroBot.GUI.Util
             var setting = Bot.PokemonSettings.Single(q => q.PokemonId == pokemonid);
 
             if (Bot.MyCandies.ContainsKey(setting.FamilyId))
-                Bot.MyCandies[setting.FamilyId] = value;
+                Bot.MyCandies[setting.FamilyId] += value;
             else
                 Bot.MyCandies.Add(setting.FamilyId, value);
         }
@@ -125,7 +125,7 @@ namespace PoGo.NecroBot.GUI.Util
                 {
                     DataGridViewRow row = currentItemList.Where(p => (ItemId)p.Cells[0].Value == item.Key).FirstOrDefault();
                     if (row != null)
-                        Bot.GUI.DataGridMyItems.Invoke(new Action(() => Bot.GUI.DataGridMyItems[3, row.Index].Value = item.Value));
+                        Bot.GUI.DataGridMyItems.Invoke(new Action(() => Bot.GUI.DataGridMyItems[3, row.Index].Value = item.Value < 0 ? 0:item.Value));
                 }
                 total += item.Value;
             }

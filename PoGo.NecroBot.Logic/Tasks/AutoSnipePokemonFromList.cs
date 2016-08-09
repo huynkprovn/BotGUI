@@ -26,10 +26,6 @@ namespace PoGo.NecroBot.Logic.Tasks
             {
                 session.EventDispatcher.Send(new WarnEvent
                 {
-                    Message = "Waiting on last task to finish before we start sniping"
-                });
-                 session.EventDispatcher.Send(new WarnEvent
-                {
                     Message = "Starting to snipe list"
                 });
                 int count = 0, total = session.GUISettings.PokemonSnipeAuto.Count;
@@ -45,11 +41,6 @@ namespace PoGo.NecroBot.Logic.Tasks
                     await SnipePokemonTask.AsyncStart(session, snipeList, default(CancellationToken));
                     session.GUISettings.PokemonSnipeAuto.Remove(pokeSnipe);
                 }
-                
-                session.EventDispatcher.Send(new WarnEvent
-                {
-                    Message = "Done sniping"
-                });
             }
             session.GUISettings.isSniping = false;
         }
@@ -89,12 +80,22 @@ namespace PoGo.NecroBot.Logic.Tasks
                                 .Where(q => pokemonToSnipe.Key == q.PokemonId)
                                 .OrderByDescending(pokemon => PokemonInfo.CalculateMaxCpMultiplier(pokemonToSnipe.Key))
                                 .ToList();
+
+                        if (catchablePokemon.Count == 0)
+                        {
+                            session.EventDispatcher.Send(new ErrorEvent
+                            {
+                                Message = pokemonToSnipe.Key + " (" + pokemonToSnipe.Value.Lat.ToString() + "," + pokemonToSnipe.Value.Lng.ToString() + ") NOT FOUND"
+                            });
+                        }
                     }
                     finally
                     {
                         await
                             session.Client.Player.UpdatePlayerLocation(currentLatitude, currentLongitude, session.Client.CurrentAltitude);
                     }
+
+ 
 
                     foreach (var pokemon in catchablePokemon)
                     {

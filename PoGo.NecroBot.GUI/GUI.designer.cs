@@ -91,16 +91,6 @@ namespace PoGo.NecroBot.GUI
             this.label5 = new System.Windows.Forms.Label();
             this.gMap = new GMap.NET.WindowsForms.GMapControl();
             this.tabManualSniping = new System.Windows.Forms.TabPage();
-            this.dataSnipingFeeder = new System.Windows.Forms.DataGridView();
-            this.dataSnipingFeederColImg = new System.Windows.Forms.DataGridViewImageColumn();
-            this.dataSnipingFeederColName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataSnipingFeederColIV = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataSnipingFeederColLat = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataSnipingFeederColLng = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataSnipingFeederColTimestamp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataSnipingFeederColBtnSnipe = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.dataSnipingFeederColSort = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataSnipingFeederColEncounterId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bntStartSnipingFeed = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -116,13 +106,33 @@ namespace PoGo.NecroBot.GUI
             this.tabPageSettingsItems = new System.Windows.Forms.TabPage();
             this.toolTransferSelected = new System.Windows.Forms.ToolTip(this.components);
             this.toolEvolveSelected = new System.Windows.Forms.ToolTip(this.components);
+            this.checkAutoSnipeFromSettings = new System.Windows.Forms.CheckBox();
+            this.numMinSnipeIV = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
             this.globalSettingsControl = new PoGo.NecroBot.GUI.UserControls.GlobalSettingsControl();
             this.snipingSettingsControl = new PoGo.NecroBot.GUI.UserControls.SnipingSettingsControl();
             this.pokemonSettingsControl = new PoGo.NecroBot.GUI.UserControls.PokemonSettingsControl();
             this.itemSettingsControl = new PoGo.NecroBot.GUI.UserControls.ItemSettingsControl();
-            this.checkAutoSnipeFromSettings = new System.Windows.Forms.CheckBox();
-            this.numMinSnipeIV = new System.Windows.Forms.NumericUpDown();
-            this.label6 = new System.Windows.Forms.Label();
+            this.tabControlAutoSniping = new System.Windows.Forms.TabControl();
+            this.tabAutoSnipeList = new System.Windows.Forms.TabPage();
+            this.tabAutoSnipeCaught = new System.Windows.Forms.TabPage();
+            this.dataSnipingFeeder = new System.Windows.Forms.DataGridView();
+            this.dataSnipingFeederColImg = new System.Windows.Forms.DataGridViewImageColumn();
+            this.dataSnipingFeederColName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataSnipingFeederColIV = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataSnipingFeederColLat = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataSnipingFeederColLng = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataSnipingFeederColTimestamp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataSnipingFeederColBtnSnipe = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataSnipingFeederColSort = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataSnipingFeederColEncounterId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataSnipingCaught = new System.Windows.Forms.DataGridView();
+            this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridConsole)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.grpPlayer.SuspendLayout();
@@ -136,7 +146,6 @@ namespace PoGo.NecroBot.GUI
             ((System.ComponentModel.ISupportInitialize)(this.dataMyPokemons)).BeginInit();
             this.tabLiveMap.SuspendLayout();
             this.tabManualSniping.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSnipingFeeder)).BeginInit();
             this.tabSettings.SuspendLayout();
             this.tabControlSettings.SuspendLayout();
             this.tabPageSettingsGlobal.SuspendLayout();
@@ -144,6 +153,11 @@ namespace PoGo.NecroBot.GUI
             this.tabPageSettingsPokemons.SuspendLayout();
             this.tabPageSettingsItems.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numMinSnipeIV)).BeginInit();
+            this.tabControlAutoSniping.SuspendLayout();
+            this.tabAutoSnipeList.SuspendLayout();
+            this.tabAutoSnipeCaught.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSnipingFeeder)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSnipingCaught)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridConsole
@@ -800,10 +814,10 @@ namespace PoGo.NecroBot.GUI
             // 
             // tabManualSniping
             // 
+            this.tabManualSniping.Controls.Add(this.tabControlAutoSniping);
             this.tabManualSniping.Controls.Add(this.label6);
             this.tabManualSniping.Controls.Add(this.numMinSnipeIV);
             this.tabManualSniping.Controls.Add(this.checkAutoSnipeFromSettings);
-            this.tabManualSniping.Controls.Add(this.dataSnipingFeeder);
             this.tabManualSniping.Controls.Add(this.bntStartSnipingFeed);
             this.tabManualSniping.Controls.Add(this.label14);
             this.tabManualSniping.Controls.Add(this.label10);
@@ -817,105 +831,6 @@ namespace PoGo.NecroBot.GUI
             this.tabManualSniping.TabIndex = 4;
             this.tabManualSniping.Text = "Pokemon Sniper";
             this.tabManualSniping.UseVisualStyleBackColor = true;
-            // 
-            // dataSnipingFeeder
-            // 
-            this.dataSnipingFeeder.AllowUserToAddRows = false;
-            this.dataSnipingFeeder.AllowUserToDeleteRows = false;
-            this.dataSnipingFeeder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.dataSnipingFeeder.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataSnipingFeeder.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataSnipingFeeder.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataSnipingFeeder.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataSnipingFeederColImg,
-            this.dataSnipingFeederColName,
-            this.dataSnipingFeederColIV,
-            this.dataSnipingFeederColLat,
-            this.dataSnipingFeederColLng,
-            this.dataSnipingFeederColTimestamp,
-            this.dataSnipingFeederColBtnSnipe,
-            this.dataSnipingFeederColSort,
-            this.dataSnipingFeederColEncounterId});
-            this.dataSnipingFeeder.Location = new System.Drawing.Point(9, 207);
-            this.dataSnipingFeeder.Name = "dataSnipingFeeder";
-            this.dataSnipingFeeder.ReadOnly = true;
-            this.dataSnipingFeeder.RowHeadersWidth = 10;
-            this.dataSnipingFeeder.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataSnipingFeeder.Size = new System.Drawing.Size(679, 284);
-            this.dataSnipingFeeder.TabIndex = 17;
-            this.dataSnipingFeeder.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataSnipingFeeder_CellContentClick);
-            // 
-            // dataSnipingFeederColImg
-            // 
-            this.dataSnipingFeederColImg.HeaderText = "";
-            this.dataSnipingFeederColImg.Name = "dataSnipingFeederColImg";
-            this.dataSnipingFeederColImg.ReadOnly = true;
-            this.dataSnipingFeederColImg.Width = 5;
-            // 
-            // dataSnipingFeederColName
-            // 
-            this.dataSnipingFeederColName.HeaderText = "Pokemon";
-            this.dataSnipingFeederColName.Name = "dataSnipingFeederColName";
-            this.dataSnipingFeederColName.ReadOnly = true;
-            this.dataSnipingFeederColName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataSnipingFeederColName.Width = 58;
-            // 
-            // dataSnipingFeederColIV
-            // 
-            this.dataSnipingFeederColIV.HeaderText = "IV";
-            this.dataSnipingFeederColIV.Name = "dataSnipingFeederColIV";
-            this.dataSnipingFeederColIV.ReadOnly = true;
-            this.dataSnipingFeederColIV.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataSnipingFeederColIV.Width = 23;
-            // 
-            // dataSnipingFeederColLat
-            // 
-            this.dataSnipingFeederColLat.HeaderText = "Lat";
-            this.dataSnipingFeederColLat.Name = "dataSnipingFeederColLat";
-            this.dataSnipingFeederColLat.ReadOnly = true;
-            this.dataSnipingFeederColLat.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataSnipingFeederColLat.Width = 28;
-            // 
-            // dataSnipingFeederColLng
-            // 
-            this.dataSnipingFeederColLng.HeaderText = "Lng";
-            this.dataSnipingFeederColLng.Name = "dataSnipingFeederColLng";
-            this.dataSnipingFeederColLng.ReadOnly = true;
-            this.dataSnipingFeederColLng.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataSnipingFeederColLng.Width = 31;
-            // 
-            // dataSnipingFeederColTimestamp
-            // 
-            this.dataSnipingFeederColTimestamp.HeaderText = "TimeStamp";
-            this.dataSnipingFeederColTimestamp.Name = "dataSnipingFeederColTimestamp";
-            this.dataSnipingFeederColTimestamp.ReadOnly = true;
-            this.dataSnipingFeederColTimestamp.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataSnipingFeederColTimestamp.Width = 66;
-            // 
-            // dataSnipingFeederColBtnSnipe
-            // 
-            this.dataSnipingFeederColBtnSnipe.HeaderText = "";
-            this.dataSnipingFeederColBtnSnipe.Name = "dataSnipingFeederColBtnSnipe";
-            this.dataSnipingFeederColBtnSnipe.ReadOnly = true;
-            this.dataSnipingFeederColBtnSnipe.Text = "Snipe!";
-            this.dataSnipingFeederColBtnSnipe.Width = 5;
-            // 
-            // dataSnipingFeederColSort
-            // 
-            this.dataSnipingFeederColSort.HeaderText = "Sort";
-            this.dataSnipingFeederColSort.Name = "dataSnipingFeederColSort";
-            this.dataSnipingFeederColSort.ReadOnly = true;
-            this.dataSnipingFeederColSort.Visible = false;
-            this.dataSnipingFeederColSort.Width = 51;
-            // 
-            // dataSnipingFeederColEncounterId
-            // 
-            this.dataSnipingFeederColEncounterId.HeaderText = "EncounterId";
-            this.dataSnipingFeederColEncounterId.Name = "dataSnipingFeederColEncounterId";
-            this.dataSnipingFeederColEncounterId.ReadOnly = true;
-            this.dataSnipingFeederColEncounterId.Visible = false;
-            this.dataSnipingFeederColEncounterId.Width = 90;
             // 
             // bntStartSnipingFeed
             // 
@@ -1058,6 +973,34 @@ namespace PoGo.NecroBot.GUI
             this.tabPageSettingsItems.Text = "Items";
             this.tabPageSettingsItems.UseVisualStyleBackColor = true;
             // 
+            // checkAutoSnipeFromSettings
+            // 
+            this.checkAutoSnipeFromSettings.AutoSize = true;
+            this.checkAutoSnipeFromSettings.Checked = true;
+            this.checkAutoSnipeFromSettings.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkAutoSnipeFromSettings.Location = new System.Drawing.Point(261, 182);
+            this.checkAutoSnipeFromSettings.Name = "checkAutoSnipeFromSettings";
+            this.checkAutoSnipeFromSettings.Size = new System.Drawing.Size(184, 17);
+            this.checkAutoSnipeFromSettings.TabIndex = 18;
+            this.checkAutoSnipeFromSettings.Text = "Auto snipe (pokemon to snipe list)";
+            this.checkAutoSnipeFromSettings.UseVisualStyleBackColor = true;
+            // 
+            // numMinSnipeIV
+            // 
+            this.numMinSnipeIV.Location = new System.Drawing.Point(579, 181);
+            this.numMinSnipeIV.Name = "numMinSnipeIV";
+            this.numMinSnipeIV.Size = new System.Drawing.Size(60, 20);
+            this.numMinSnipeIV.TabIndex = 19;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(465, 183);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(108, 13);
+            this.label6.TabIndex = 20;
+            this.label6.Text = "Min IV (unknown = 0)";
+            // 
             // globalSettingsControl
             // 
             this.globalSettingsControl.AutoScroll = true;
@@ -1094,31 +1037,202 @@ namespace PoGo.NecroBot.GUI
             this.itemSettingsControl.Size = new System.Drawing.Size(671, 423);
             this.itemSettingsControl.TabIndex = 0;
             // 
-            // checkAutoSnipeFromSettings
+            // tabControlAutoSniping
             // 
-            this.checkAutoSnipeFromSettings.AutoSize = true;
-            this.checkAutoSnipeFromSettings.Location = new System.Drawing.Point(261, 182);
-            this.checkAutoSnipeFromSettings.Name = "checkAutoSnipeFromSettings";
-            this.checkAutoSnipeFromSettings.Size = new System.Drawing.Size(184, 17);
-            this.checkAutoSnipeFromSettings.TabIndex = 18;
-            this.checkAutoSnipeFromSettings.Text = "Auto snipe (pokemon to snipe list)";
-            this.checkAutoSnipeFromSettings.UseVisualStyleBackColor = true;
+            this.tabControlAutoSniping.Controls.Add(this.tabAutoSnipeList);
+            this.tabControlAutoSniping.Controls.Add(this.tabAutoSnipeCaught);
+            this.tabControlAutoSniping.Location = new System.Drawing.Point(9, 207);
+            this.tabControlAutoSniping.Name = "tabControlAutoSniping";
+            this.tabControlAutoSniping.SelectedIndex = 0;
+            this.tabControlAutoSniping.Size = new System.Drawing.Size(679, 284);
+            this.tabControlAutoSniping.TabIndex = 21;
             // 
-            // numMinSnipeIV
+            // tabAutoSnipeList
             // 
-            this.numMinSnipeIV.Location = new System.Drawing.Point(579, 181);
-            this.numMinSnipeIV.Name = "numMinSnipeIV";
-            this.numMinSnipeIV.Size = new System.Drawing.Size(60, 20);
-            this.numMinSnipeIV.TabIndex = 19;
+            this.tabAutoSnipeList.Controls.Add(this.dataSnipingFeeder);
+            this.tabAutoSnipeList.Location = new System.Drawing.Point(4, 22);
+            this.tabAutoSnipeList.Name = "tabAutoSnipeList";
+            this.tabAutoSnipeList.Padding = new System.Windows.Forms.Padding(3);
+            this.tabAutoSnipeList.Size = new System.Drawing.Size(671, 258);
+            this.tabAutoSnipeList.TabIndex = 0;
+            this.tabAutoSnipeList.Text = "Available pokemons to snipe";
+            this.tabAutoSnipeList.UseVisualStyleBackColor = true;
             // 
-            // label6
+            // tabAutoSnipeCaught
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(465, 183);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(108, 13);
-            this.label6.TabIndex = 20;
-            this.label6.Text = "Min IV (unknown = 0)";
+            this.tabAutoSnipeCaught.Controls.Add(this.dataSnipingCaught);
+            this.tabAutoSnipeCaught.Location = new System.Drawing.Point(4, 22);
+            this.tabAutoSnipeCaught.Name = "tabAutoSnipeCaught";
+            this.tabAutoSnipeCaught.Padding = new System.Windows.Forms.Padding(3);
+            this.tabAutoSnipeCaught.Size = new System.Drawing.Size(671, 258);
+            this.tabAutoSnipeCaught.TabIndex = 1;
+            this.tabAutoSnipeCaught.Text = "Caught";
+            this.tabAutoSnipeCaught.UseVisualStyleBackColor = true;
+            // 
+            // dataSnipingFeeder
+            // 
+            this.dataSnipingFeeder.AllowUserToAddRows = false;
+            this.dataSnipingFeeder.AllowUserToDeleteRows = false;
+            this.dataSnipingFeeder.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataSnipingFeeder.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataSnipingFeeder.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataSnipingFeeder.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataSnipingFeederColImg,
+            this.dataSnipingFeederColName,
+            this.dataSnipingFeederColIV,
+            this.dataSnipingFeederColLat,
+            this.dataSnipingFeederColLng,
+            this.dataSnipingFeederColTimestamp,
+            this.dataSnipingFeederColBtnSnipe,
+            this.dataSnipingFeederColSort,
+            this.dataSnipingFeederColEncounterId});
+            this.dataSnipingFeeder.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataSnipingFeeder.Location = new System.Drawing.Point(3, 3);
+            this.dataSnipingFeeder.Name = "dataSnipingFeeder";
+            this.dataSnipingFeeder.ReadOnly = true;
+            this.dataSnipingFeeder.RowHeadersWidth = 10;
+            this.dataSnipingFeeder.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataSnipingFeeder.Size = new System.Drawing.Size(665, 252);
+            this.dataSnipingFeeder.TabIndex = 18;
+            // 
+            // dataSnipingFeederColImg
+            // 
+            this.dataSnipingFeederColImg.HeaderText = "";
+            this.dataSnipingFeederColImg.Name = "dataSnipingFeederColImg";
+            this.dataSnipingFeederColImg.ReadOnly = true;
+            this.dataSnipingFeederColImg.Width = 5;
+            // 
+            // dataSnipingFeederColName
+            // 
+            this.dataSnipingFeederColName.HeaderText = "Pokemon";
+            this.dataSnipingFeederColName.Name = "dataSnipingFeederColName";
+            this.dataSnipingFeederColName.ReadOnly = true;
+            this.dataSnipingFeederColName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataSnipingFeederColName.Width = 58;
+            // 
+            // dataSnipingFeederColIV
+            // 
+            this.dataSnipingFeederColIV.HeaderText = "IV";
+            this.dataSnipingFeederColIV.Name = "dataSnipingFeederColIV";
+            this.dataSnipingFeederColIV.ReadOnly = true;
+            this.dataSnipingFeederColIV.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataSnipingFeederColIV.Width = 23;
+            // 
+            // dataSnipingFeederColLat
+            // 
+            this.dataSnipingFeederColLat.HeaderText = "Lat";
+            this.dataSnipingFeederColLat.Name = "dataSnipingFeederColLat";
+            this.dataSnipingFeederColLat.ReadOnly = true;
+            this.dataSnipingFeederColLat.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataSnipingFeederColLat.Width = 28;
+            // 
+            // dataSnipingFeederColLng
+            // 
+            this.dataSnipingFeederColLng.HeaderText = "Lng";
+            this.dataSnipingFeederColLng.Name = "dataSnipingFeederColLng";
+            this.dataSnipingFeederColLng.ReadOnly = true;
+            this.dataSnipingFeederColLng.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataSnipingFeederColLng.Width = 31;
+            // 
+            // dataSnipingFeederColTimestamp
+            // 
+            this.dataSnipingFeederColTimestamp.HeaderText = "TimeStamp";
+            this.dataSnipingFeederColTimestamp.Name = "dataSnipingFeederColTimestamp";
+            this.dataSnipingFeederColTimestamp.ReadOnly = true;
+            this.dataSnipingFeederColTimestamp.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataSnipingFeederColTimestamp.Width = 66;
+            // 
+            // dataSnipingFeederColBtnSnipe
+            // 
+            this.dataSnipingFeederColBtnSnipe.HeaderText = "";
+            this.dataSnipingFeederColBtnSnipe.Name = "dataSnipingFeederColBtnSnipe";
+            this.dataSnipingFeederColBtnSnipe.ReadOnly = true;
+            this.dataSnipingFeederColBtnSnipe.Text = "Snipe!";
+            this.dataSnipingFeederColBtnSnipe.Width = 5;
+            // 
+            // dataSnipingFeederColSort
+            // 
+            this.dataSnipingFeederColSort.HeaderText = "Sort";
+            this.dataSnipingFeederColSort.Name = "dataSnipingFeederColSort";
+            this.dataSnipingFeederColSort.ReadOnly = true;
+            this.dataSnipingFeederColSort.Visible = false;
+            this.dataSnipingFeederColSort.Width = 51;
+            // 
+            // dataSnipingFeederColEncounterId
+            // 
+            this.dataSnipingFeederColEncounterId.HeaderText = "EncounterId";
+            this.dataSnipingFeederColEncounterId.Name = "dataSnipingFeederColEncounterId";
+            this.dataSnipingFeederColEncounterId.ReadOnly = true;
+            this.dataSnipingFeederColEncounterId.Visible = false;
+            this.dataSnipingFeederColEncounterId.Width = 90;
+            // 
+            // dataSnipingCaught
+            // 
+            this.dataSnipingCaught.AllowUserToAddRows = false;
+            this.dataSnipingCaught.AllowUserToDeleteRows = false;
+            this.dataSnipingCaught.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataSnipingCaught.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataSnipingCaught.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataSnipingCaught.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewImageColumn2,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn6,
+            this.Column7,
+            this.dataGridViewTextBoxColumn3,
+            this.Column11});
+            this.dataSnipingCaught.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataSnipingCaught.Location = new System.Drawing.Point(3, 3);
+            this.dataSnipingCaught.Name = "dataSnipingCaught";
+            this.dataSnipingCaught.ReadOnly = true;
+            this.dataSnipingCaught.RowHeadersWidth = 10;
+            this.dataSnipingCaught.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataSnipingCaught.Size = new System.Drawing.Size(665, 252);
+            this.dataSnipingCaught.TabIndex = 19;
+            // 
+            // dataGridViewImageColumn2
+            // 
+            this.dataGridViewImageColumn2.HeaderText = "";
+            this.dataGridViewImageColumn2.Name = "dataGridViewImageColumn2";
+            this.dataGridViewImageColumn2.ReadOnly = true;
+            this.dataGridViewImageColumn2.Width = 5;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Pokemon";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn2.Width = 58;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.HeaderText = "CP";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            this.dataGridViewTextBoxColumn6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn6.Width = 27;
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "Max CP";
+            this.Column7.Name = "Column7";
+            this.Column7.ReadOnly = true;
+            this.Column7.Width = 69;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "IV";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn3.Width = 23;
+            // 
+            // Column11
+            // 
+            this.Column11.HeaderText = "Level";
+            this.Column11.Name = "Column11";
+            this.Column11.ReadOnly = true;
+            this.Column11.Width = 58;
             // 
             // GUI
             // 
@@ -1147,7 +1261,6 @@ namespace PoGo.NecroBot.GUI
             this.tabLiveMap.PerformLayout();
             this.tabManualSniping.ResumeLayout(false);
             this.tabManualSniping.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSnipingFeeder)).EndInit();
             this.tabSettings.ResumeLayout(false);
             this.tabControlSettings.ResumeLayout(false);
             this.tabPageSettingsGlobal.ResumeLayout(false);
@@ -1155,6 +1268,11 @@ namespace PoGo.NecroBot.GUI
             this.tabPageSettingsPokemons.ResumeLayout(false);
             this.tabPageSettingsItems.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numMinSnipeIV)).EndInit();
+            this.tabControlAutoSniping.ResumeLayout(false);
+            this.tabAutoSnipeList.ResumeLayout(false);
+            this.tabAutoSnipeCaught.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataSnipingFeeder)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSnipingCaught)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1239,6 +1357,11 @@ namespace PoGo.NecroBot.GUI
         private System.Windows.Forms.DataGridViewTextBoxColumn Move2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
         private System.Windows.Forms.Button bntStartSnipingFeed;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown numMinSnipeIV;
+        private System.Windows.Forms.CheckBox checkAutoSnipeFromSettings;
+        private System.Windows.Forms.TabControl tabControlAutoSniping;
+        private System.Windows.Forms.TabPage tabAutoSnipeList;
         private System.Windows.Forms.DataGridView dataSnipingFeeder;
         private System.Windows.Forms.DataGridViewImageColumn dataSnipingFeederColImg;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataSnipingFeederColName;
@@ -1249,9 +1372,14 @@ namespace PoGo.NecroBot.GUI
         private System.Windows.Forms.DataGridViewButtonColumn dataSnipingFeederColBtnSnipe;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataSnipingFeederColSort;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataSnipingFeederColEncounterId;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.NumericUpDown numMinSnipeIV;
-        private System.Windows.Forms.CheckBox checkAutoSnipeFromSettings;
+        private System.Windows.Forms.TabPage tabAutoSnipeCaught;
+        private System.Windows.Forms.DataGridView dataSnipingCaught;
+        private System.Windows.Forms.DataGridViewImageColumn dataGridViewImageColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
     }
 }
 

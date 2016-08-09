@@ -187,6 +187,7 @@ namespace PoGo.NecroBot.GUI.Utils
             newRow.DefaultCellStyle.SelectionForeColor = color;
 
             Bot.GUI.DataGridConsole.Invoke(new Action(() => Bot.GUI.DataGridConsole.Rows.Add(newRow)));
+
             Bot.GUI.DataGridConsole.Invoke(new Action(() => Bot.GUI.DataGridConsole.FirstDisplayedScrollingRowIndex = Bot.GUI.DataGridConsole.RowCount - 1));
             Bot.GUI.DataGridConsole.Invoke(new Action(() => Bot.GUI.DataGridConsole.Refresh()));
         }

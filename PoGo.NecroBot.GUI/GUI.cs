@@ -250,6 +250,7 @@ namespace PoGo.NecroBot.GUI
         public DataGridView DataGridConsole { get { return dataGridConsole; } set { dataGridConsole = value; } }
 
         public DataGridView DataGridSnipePokemons { get { return dataSnipingFeeder; } set { dataSnipingFeeder = value; } }
+        public DataGridView DataGridSnipeCaught { get { return dataSnipingCaught; } set { dataSnipingCaught = value; } }
 
         public GlobalSettingsControl GlobalSettingsTab { get { return globalSettingsControl; } set { globalSettingsControl = value; } }
         public ItemSettingsControl ItemSettingsTab { get { return itemSettingsControl; } set { itemSettingsControl = value; } }
