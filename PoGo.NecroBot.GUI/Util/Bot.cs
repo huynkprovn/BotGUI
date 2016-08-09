@@ -81,6 +81,7 @@ namespace PoGo.NecroBot.GUI.Utils
         public static bool PokemonSnipeFeedActive = false;
         public static List<Tasks.SniperInfo> PokemonSnipeFeed = new List<Tasks.SniperInfo>();
         public static List<Tasks.SniperInfo> PokemonSnipeFeedDeleted = new List<Tasks.SniperInfo>();
+        public static List<Tasks.SniperInfo> PokemonSnipeToDo = new List<Tasks.SniperInfo>();
 
         public async static void StartBotting()
         {
