@@ -174,11 +174,15 @@ namespace PoGo.NecroBot.GUI
         private void checkDoPokestops_CheckedChanged(object sender, EventArgs e)
         {
             Bot._Session.GUISettings.ExecutePokestops = checkDoPokestops.Checked;
+            if (checkDoPokestops.Checked == true)
+                checkMaxPokemons.Checked = false;
         }
 
         private void checkDoPokemons_CheckedChanged(object sender, EventArgs e)
         {
             Bot._Session.GUISettings.ExecutePokemons = checkDoPokemons.Checked;
+            if(checkDoPokemons.Checked == true)
+                checkMaxPokemons.Checked = false;
         }
 
         private void bntStartSnipingFeed_Click(object sender, EventArgs e)
@@ -190,7 +194,16 @@ namespace PoGo.NecroBot.GUI
             else
             {
                 Bot.PokemonSnipeFeedActive = true;
-                var discordTask = GetPokemonToSnipe.DiscordWebReader.TryStartDiscordReader();
+
+                if(checkPogoFeed.Checked == true)
+                {
+                    var discordTask = GetPokemonToSnipe.DiscordWebReader.TryStartDiscordReader();
+                }
+
+                if(checkPokeZZ.Checked == true)
+                {
+                    var pokeZZTask = GetPokemonToSnipePokeZZ.PokeZZWebReader.TryStartPokeZZReader(Bot._Session);
+                }
             }
         }
 
@@ -260,5 +273,16 @@ namespace PoGo.NecroBot.GUI
 
         public bool AutoSnipe { get { return checkAutoSnipeFromSettings.Checked; } set { checkAutoSnipeFromSettings.Checked = value; } }
         public double MinSnipeIV { get { return (double)numMinSnipeIV.Value; } set { numMinSnipeIV.Value = (decimal)value; } }
+        public bool AutoSnipeAll { get { return checkSnipeAllPokemon.Checked; } set { checkSnipeAllPokemon.Checked = value; } }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            Bot._Session.GUISettings.isFarmingMaxPokemons = checkMaxPokemons.Checked;
+            if(checkMaxPokemons.Checked == true)
+            {
+                checkDoPokestops.Checked = false;
+                checkDoPokemons.Checked = false;
+            }
+        }
     }
 }

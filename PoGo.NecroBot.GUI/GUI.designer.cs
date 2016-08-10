@@ -38,6 +38,7 @@ namespace PoGo.NecroBot.GUI
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.grpPlayer = new System.Windows.Forms.GroupBox();
+            this.checkMaxPokemons = new System.Windows.Forms.CheckBox();
             this.checkDoPokemons = new System.Windows.Forms.CheckBox();
             this.checkDoPokestops = new System.Windows.Forms.CheckBox();
             this.cmdStart = new System.Windows.Forms.Button();
@@ -91,6 +92,7 @@ namespace PoGo.NecroBot.GUI
             this.label5 = new System.Windows.Forms.Label();
             this.gMap = new GMap.NET.WindowsForms.GMapControl();
             this.tabManualSniping = new System.Windows.Forms.TabPage();
+            this.checkSnipeAllPokemon = new System.Windows.Forms.CheckBox();
             this.tabControlAutoSniping = new System.Windows.Forms.TabControl();
             this.tabAutoSnipeList = new System.Windows.Forms.TabPage();
             this.dataSnipingFeeder = new System.Windows.Forms.DataGridView();
@@ -125,15 +127,17 @@ namespace PoGo.NecroBot.GUI
             this.cmdSaveSettings = new System.Windows.Forms.Button();
             this.tabControlSettings = new System.Windows.Forms.TabControl();
             this.tabPageSettingsGlobal = new System.Windows.Forms.TabPage();
-            this.globalSettingsControl = new PoGo.NecroBot.GUI.UserControls.GlobalSettingsControl();
             this.tabPageSettingsSniping = new System.Windows.Forms.TabPage();
-            this.snipingSettingsControl = new PoGo.NecroBot.GUI.UserControls.SnipingSettingsControl();
             this.tabPageSettingsPokemons = new System.Windows.Forms.TabPage();
-            this.pokemonSettingsControl = new PoGo.NecroBot.GUI.UserControls.PokemonSettingsControl();
             this.tabPageSettingsItems = new System.Windows.Forms.TabPage();
-            this.itemSettingsControl = new PoGo.NecroBot.GUI.UserControls.ItemSettingsControl();
             this.toolTransferSelected = new System.Windows.Forms.ToolTip(this.components);
             this.toolEvolveSelected = new System.Windows.Forms.ToolTip(this.components);
+            this.checkPokeZZ = new System.Windows.Forms.CheckBox();
+            this.checkPogoFeed = new System.Windows.Forms.CheckBox();
+            this.globalSettingsControl = new PoGo.NecroBot.GUI.UserControls.GlobalSettingsControl();
+            this.snipingSettingsControl = new PoGo.NecroBot.GUI.UserControls.SnipingSettingsControl();
+            this.pokemonSettingsControl = new PoGo.NecroBot.GUI.UserControls.PokemonSettingsControl();
+            this.itemSettingsControl = new PoGo.NecroBot.GUI.UserControls.ItemSettingsControl();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridConsole)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.grpPlayer.SuspendLayout();
@@ -236,6 +240,7 @@ namespace PoGo.NecroBot.GUI
             // 
             // grpPlayer
             // 
+            this.grpPlayer.Controls.Add(this.checkMaxPokemons);
             this.grpPlayer.Controls.Add(this.checkDoPokemons);
             this.grpPlayer.Controls.Add(this.checkDoPokestops);
             this.grpPlayer.Controls.Add(this.cmdStart);
@@ -258,6 +263,17 @@ namespace PoGo.NecroBot.GUI
             this.grpPlayer.TabIndex = 1;
             this.grpPlayer.TabStop = false;
             this.grpPlayer.Text = "Player";
+            // 
+            // checkMaxPokemons
+            // 
+            this.checkMaxPokemons.AutoSize = true;
+            this.checkMaxPokemons.Location = new System.Drawing.Point(177, 100);
+            this.checkMaxPokemons.Name = "checkMaxPokemons";
+            this.checkMaxPokemons.Size = new System.Drawing.Size(124, 17);
+            this.checkMaxPokemons.TabIndex = 29;
+            this.checkMaxPokemons.Text = "Farm max Pokemons";
+            this.checkMaxPokemons.UseVisualStyleBackColor = true;
+            this.checkMaxPokemons.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // checkDoPokemons
             // 
@@ -815,6 +831,9 @@ namespace PoGo.NecroBot.GUI
             // 
             // tabManualSniping
             // 
+            this.tabManualSniping.Controls.Add(this.checkPogoFeed);
+            this.tabManualSniping.Controls.Add(this.checkPokeZZ);
+            this.tabManualSniping.Controls.Add(this.checkSnipeAllPokemon);
             this.tabManualSniping.Controls.Add(this.tabControlAutoSniping);
             this.tabManualSniping.Controls.Add(this.label6);
             this.tabManualSniping.Controls.Add(this.numMinSnipeIV);
@@ -832,6 +851,18 @@ namespace PoGo.NecroBot.GUI
             this.tabManualSniping.TabIndex = 4;
             this.tabManualSniping.Text = "Pokemon Sniper";
             this.tabManualSniping.UseVisualStyleBackColor = true;
+            // 
+            // checkSnipeAllPokemon
+            // 
+            this.checkSnipeAllPokemon.AutoSize = true;
+            this.checkSnipeAllPokemon.Checked = true;
+            this.checkSnipeAllPokemon.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkSnipeAllPokemon.Location = new System.Drawing.Point(261, 200);
+            this.checkSnipeAllPokemon.Name = "checkSnipeAllPokemon";
+            this.checkSnipeAllPokemon.Size = new System.Drawing.Size(144, 17);
+            this.checkSnipeAllPokemon.TabIndex = 22;
+            this.checkSnipeAllPokemon.Text = "Auto snipe all pokemons ";
+            this.checkSnipeAllPokemon.UseVisualStyleBackColor = true;
             // 
             // tabControlAutoSniping
             // 
@@ -1054,8 +1085,6 @@ namespace PoGo.NecroBot.GUI
             // checkAutoSnipeFromSettings
             // 
             this.checkAutoSnipeFromSettings.AutoSize = true;
-            this.checkAutoSnipeFromSettings.Checked = true;
-            this.checkAutoSnipeFromSettings.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkAutoSnipeFromSettings.Location = new System.Drawing.Point(261, 182);
             this.checkAutoSnipeFromSettings.Name = "checkAutoSnipeFromSettings";
             this.checkAutoSnipeFromSettings.Size = new System.Drawing.Size(184, 17);
@@ -1168,6 +1197,64 @@ namespace PoGo.NecroBot.GUI
             this.tabPageSettingsGlobal.Text = "Global";
             this.tabPageSettingsGlobal.UseVisualStyleBackColor = true;
             // 
+            // tabPageSettingsSniping
+            // 
+            this.tabPageSettingsSniping.AutoScroll = true;
+            this.tabPageSettingsSniping.Controls.Add(this.snipingSettingsControl);
+            this.tabPageSettingsSniping.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSettingsSniping.Name = "tabPageSettingsSniping";
+            this.tabPageSettingsSniping.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSettingsSniping.Size = new System.Drawing.Size(178, 6);
+            this.tabPageSettingsSniping.TabIndex = 3;
+            this.tabPageSettingsSniping.Text = "Sniping";
+            this.tabPageSettingsSniping.UseVisualStyleBackColor = true;
+            // 
+            // tabPageSettingsPokemons
+            // 
+            this.tabPageSettingsPokemons.AutoScroll = true;
+            this.tabPageSettingsPokemons.Controls.Add(this.pokemonSettingsControl);
+            this.tabPageSettingsPokemons.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSettingsPokemons.Name = "tabPageSettingsPokemons";
+            this.tabPageSettingsPokemons.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSettingsPokemons.Size = new System.Drawing.Size(178, 6);
+            this.tabPageSettingsPokemons.TabIndex = 1;
+            this.tabPageSettingsPokemons.Text = "Pokemons";
+            this.tabPageSettingsPokemons.UseVisualStyleBackColor = true;
+            // 
+            // tabPageSettingsItems
+            // 
+            this.tabPageSettingsItems.AutoScroll = true;
+            this.tabPageSettingsItems.Controls.Add(this.itemSettingsControl);
+            this.tabPageSettingsItems.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSettingsItems.Name = "tabPageSettingsItems";
+            this.tabPageSettingsItems.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSettingsItems.Size = new System.Drawing.Size(178, 6);
+            this.tabPageSettingsItems.TabIndex = 2;
+            this.tabPageSettingsItems.Text = "Items";
+            this.tabPageSettingsItems.UseVisualStyleBackColor = true;
+            // 
+            // checkPokeZZ
+            // 
+            this.checkPokeZZ.AutoSize = true;
+            this.checkPokeZZ.Checked = true;
+            this.checkPokeZZ.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkPokeZZ.Location = new System.Drawing.Point(468, 43);
+            this.checkPokeZZ.Name = "checkPokeZZ";
+            this.checkPokeZZ.Size = new System.Drawing.Size(65, 17);
+            this.checkPokeZZ.TabIndex = 23;
+            this.checkPokeZZ.Text = "PokeZZ";
+            this.checkPokeZZ.UseVisualStyleBackColor = true;
+            // 
+            // checkPogoFeed
+            // 
+            this.checkPogoFeed.AutoSize = true;
+            this.checkPogoFeed.Location = new System.Drawing.Point(468, 66);
+            this.checkPogoFeed.Name = "checkPogoFeed";
+            this.checkPogoFeed.Size = new System.Drawing.Size(81, 17);
+            this.checkPogoFeed.TabIndex = 24;
+            this.checkPogoFeed.Text = "POGO-feed";
+            this.checkPogoFeed.UseVisualStyleBackColor = true;
+            // 
             // globalSettingsControl
             // 
             this.globalSettingsControl.AutoScroll = true;
@@ -1177,38 +1264,14 @@ namespace PoGo.NecroBot.GUI
             this.globalSettingsControl.Size = new System.Drawing.Size(672, 420);
             this.globalSettingsControl.TabIndex = 36;
             // 
-            // tabPageSettingsSniping
-            // 
-            this.tabPageSettingsSniping.AutoScroll = true;
-            this.tabPageSettingsSniping.Controls.Add(this.snipingSettingsControl);
-            this.tabPageSettingsSniping.Location = new System.Drawing.Point(4, 22);
-            this.tabPageSettingsSniping.Name = "tabPageSettingsSniping";
-            this.tabPageSettingsSniping.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSettingsSniping.Size = new System.Drawing.Size(0, 0);
-            this.tabPageSettingsSniping.TabIndex = 3;
-            this.tabPageSettingsSniping.Text = "Sniping";
-            this.tabPageSettingsSniping.UseVisualStyleBackColor = true;
-            // 
             // snipingSettingsControl
             // 
             this.snipingSettingsControl.AutoScroll = true;
             this.snipingSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.snipingSettingsControl.Location = new System.Drawing.Point(3, 3);
             this.snipingSettingsControl.Name = "snipingSettingsControl";
-            this.snipingSettingsControl.Size = new System.Drawing.Size(0, 0);
+            this.snipingSettingsControl.Size = new System.Drawing.Size(172, 0);
             this.snipingSettingsControl.TabIndex = 0;
-            // 
-            // tabPageSettingsPokemons
-            // 
-            this.tabPageSettingsPokemons.AutoScroll = true;
-            this.tabPageSettingsPokemons.Controls.Add(this.pokemonSettingsControl);
-            this.tabPageSettingsPokemons.Location = new System.Drawing.Point(4, 22);
-            this.tabPageSettingsPokemons.Name = "tabPageSettingsPokemons";
-            this.tabPageSettingsPokemons.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSettingsPokemons.Size = new System.Drawing.Size(0, 0);
-            this.tabPageSettingsPokemons.TabIndex = 1;
-            this.tabPageSettingsPokemons.Text = "Pokemons";
-            this.tabPageSettingsPokemons.UseVisualStyleBackColor = true;
             // 
             // pokemonSettingsControl
             // 
@@ -1216,20 +1279,8 @@ namespace PoGo.NecroBot.GUI
             this.pokemonSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pokemonSettingsControl.Location = new System.Drawing.Point(3, 3);
             this.pokemonSettingsControl.Name = "pokemonSettingsControl";
-            this.pokemonSettingsControl.Size = new System.Drawing.Size(0, 0);
+            this.pokemonSettingsControl.Size = new System.Drawing.Size(172, 0);
             this.pokemonSettingsControl.TabIndex = 0;
-            // 
-            // tabPageSettingsItems
-            // 
-            this.tabPageSettingsItems.AutoScroll = true;
-            this.tabPageSettingsItems.Controls.Add(this.itemSettingsControl);
-            this.tabPageSettingsItems.Location = new System.Drawing.Point(4, 22);
-            this.tabPageSettingsItems.Name = "tabPageSettingsItems";
-            this.tabPageSettingsItems.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSettingsItems.Size = new System.Drawing.Size(678, 426);
-            this.tabPageSettingsItems.TabIndex = 2;
-            this.tabPageSettingsItems.Text = "Items";
-            this.tabPageSettingsItems.UseVisualStyleBackColor = true;
             // 
             // itemSettingsControl
             // 
@@ -1237,7 +1288,7 @@ namespace PoGo.NecroBot.GUI
             this.itemSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.itemSettingsControl.Location = new System.Drawing.Point(3, 3);
             this.itemSettingsControl.Name = "itemSettingsControl";
-            this.itemSettingsControl.Size = new System.Drawing.Size(672, 420);
+            this.itemSettingsControl.Size = new System.Drawing.Size(172, 0);
             this.itemSettingsControl.TabIndex = 0;
             // 
             // GUI
@@ -1387,6 +1438,10 @@ namespace PoGo.NecroBot.GUI
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
+        private System.Windows.Forms.CheckBox checkMaxPokemons;
+        private System.Windows.Forms.CheckBox checkSnipeAllPokemon;
+        private System.Windows.Forms.CheckBox checkPogoFeed;
+        private System.Windows.Forms.CheckBox checkPokeZZ;
     }
 }
 

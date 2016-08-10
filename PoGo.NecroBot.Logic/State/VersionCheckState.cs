@@ -36,92 +36,94 @@ namespace PoGo.NecroBot.Logic.State
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            await CleanupOldFiles();
-            var autoUpdate = session.LogicSettings.AutoUpdate;
-            var isLatest = IsLatest();
-            if ( isLatest || !autoUpdate )
-            {
-                if ( isLatest )
-                {
-                    session.EventDispatcher.Send(new UpdateEvent
-                    {
-                        Message =
-                            session.Translation.GetTranslation(TranslationString.GotUpToDateVersion, Assembly.GetExecutingAssembly().GetName().Version.ToString(3))
-                    });
-                    return new LoginState();
-                }
-                session.EventDispatcher.Send(new UpdateEvent
-                {
-                    Message = session.Translation.GetTranslation(TranslationString.AutoUpdaterDisabled, LatestRelease)
-                });
+            return new LoginState();
 
-                return new LoginState();
-            } else
-            {
-                Logger.Write( "New update detected, would you like to update? Y/N", LogLevel.Update );
+            //await CleanupOldFiles();
+            //var autoUpdate = session.LogicSettings.AutoUpdate;
+            //var isLatest = IsLatest();
+            //if ( isLatest || !autoUpdate )
+            //{
+            //    if ( isLatest )
+            //    {
+            //        session.EventDispatcher.Send(new UpdateEvent
+            //        {
+            //            Message =
+            //                session.Translation.GetTranslation(TranslationString.GotUpToDateVersion, Assembly.GetExecutingAssembly().GetName().Version.ToString(3))
+            //        });
+            //        return new LoginState();
+            //    }
+            //    session.EventDispatcher.Send(new UpdateEvent
+            //    {
+            //        Message = session.Translation.GetTranslation(TranslationString.AutoUpdaterDisabled, LatestRelease)
+            //    });
 
-                bool boolBreak = false;
-                while( !boolBreak )
-                {
-                    string strInput = Console.ReadLine().ToLower();
+            //    return new LoginState();
+            //} else
+            //{
+            //    Logger.Write( "New update detected, would you like to update? Y/N", LogLevel.Update );
 
-                    switch( strInput )
-                    {
-                        case "y":
-                            boolBreak = true;
-                            break;
-                        case "n":
-                            Logger.Write( "Update Skipped", LogLevel.Update );
-                            return new LoginState();
-                        default:
-                            Logger.Write( session.Translation.GetTranslation( TranslationString.PromptError, "Y", "N" ), LogLevel.Error );
-                            continue;
-                    }
-                }
-            }
+            //    bool boolBreak = false;
+            //    while( !boolBreak )
+            //    {
+            //        string strInput = Console.ReadLine().ToLower();
 
-            session.EventDispatcher.Send(new UpdateEvent
-            {
-                Message = session.Translation.GetTranslation(TranslationString.DownloadingUpdate)
-            });
-            var remoteReleaseUrl =
-                $"https://github.com/NecronomiconCoding/NecroBot/releases/download/v{RemoteVersion}/";
-            const string zipName = "Release.zip";
-            var downloadLink = remoteReleaseUrl + zipName;
-            var baseDir = Directory.GetCurrentDirectory();
-            var downloadFilePath = Path.Combine(baseDir, zipName);
-            var tempPath = Path.Combine(baseDir, "tmp");
-            var extractedDir = Path.Combine(tempPath, "Release");
-            var destinationDir = baseDir + Path.DirectorySeparatorChar;
-            Console.WriteLine(downloadLink);
+            //        switch( strInput )
+            //        {
+            //            case "y":
+            //                boolBreak = true;
+            //                break;
+            //            case "n":
+            //                Logger.Write( "Update Skipped", LogLevel.Update );
+            //                return new LoginState();
+            //            default:
+            //                Logger.Write( session.Translation.GetTranslation( TranslationString.PromptError, "Y", "N" ), LogLevel.Error );
+            //                continue;
+            //        }
+            //    }
+            //}
 
-            if (!DownloadFile(downloadLink, downloadFilePath))
-                return new LoginState();
+            //session.EventDispatcher.Send(new UpdateEvent
+            //{
+            //    Message = session.Translation.GetTranslation(TranslationString.DownloadingUpdate)
+            //});
+            //var remoteReleaseUrl =
+            //    $"https://github.com/NecronomiconCoding/NecroBot/releases/download/v{RemoteVersion}/";
+            //const string zipName = "Release.zip";
+            //var downloadLink = remoteReleaseUrl + zipName;
+            //var baseDir = Directory.GetCurrentDirectory();
+            //var downloadFilePath = Path.Combine(baseDir, zipName);
+            //var tempPath = Path.Combine(baseDir, "tmp");
+            //var extractedDir = Path.Combine(tempPath, "Release");
+            //var destinationDir = baseDir + Path.DirectorySeparatorChar;
+            //Console.WriteLine(downloadLink);
 
-            session.EventDispatcher.Send(new UpdateEvent
-            {
-                Message = session.Translation.GetTranslation(TranslationString.FinishedDownloadingRelease)
-            });
+            //if (!DownloadFile(downloadLink, downloadFilePath))
+            //    return new LoginState();
 
-            if (!UnpackFile(downloadFilePath, tempPath))
-                return new LoginState();
+            //session.EventDispatcher.Send(new UpdateEvent
+            //{
+            //    Message = session.Translation.GetTranslation(TranslationString.FinishedDownloadingRelease)
+            //});
 
-            session.EventDispatcher.Send(new UpdateEvent
-            {
-                Message = session.Translation.GetTranslation(TranslationString.FinishedUnpackingFiles)
-            });
+            //if (!UnpackFile(downloadFilePath, tempPath))
+            //    return new LoginState();
 
-            if (!MoveAllFiles(extractedDir, destinationDir))
-                return new LoginState();
+            //session.EventDispatcher.Send(new UpdateEvent
+            //{
+            //    Message = session.Translation.GetTranslation(TranslationString.FinishedUnpackingFiles)
+            //});
 
-            session.EventDispatcher.Send(new UpdateEvent
-            {
-                Message = session.Translation.GetTranslation(TranslationString.UpdateFinished)
-            });
+            //if (!MoveAllFiles(extractedDir, destinationDir))
+            //    return new LoginState();
 
-            if( TransferConfig( baseDir, session ) )
-                Utils.ErrorHandler.ThrowFatalError( session.Translation.GetTranslation( TranslationString.FinishedTransferringConfig ), 5, LogLevel.Update );
-            
+            //session.EventDispatcher.Send(new UpdateEvent
+            //{
+            //    Message = session.Translation.GetTranslation(TranslationString.UpdateFinished)
+            //});
+
+            //if( TransferConfig( baseDir, session ) )
+            //    Utils.ErrorHandler.ThrowFatalError( session.Translation.GetTranslation( TranslationString.FinishedTransferringConfig ), 5, LogLevel.Update );
+
 
             await Task.Delay(2000, cancellationToken);
 

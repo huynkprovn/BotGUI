@@ -60,6 +60,7 @@ namespace PoGo.NecroBot.GUI.Utils
         public static long _StatsExperience { get; set; }
         public static int _StatsSessionExperience = 0;
         public static int _StatsSessionPokemon = 0;
+        public static int _StartSessionStardust = 0;
 
         // Inventory
         public static Dictionary<ulong, PokemonData> MyPokemons = new Dictionary<ulong, PokemonData>();
@@ -117,6 +118,7 @@ namespace PoGo.NecroBot.GUI.Utils
             _Session.Navigation.UpdatePositionEvent += Navigation_UpdatePositionEvent;
 
             _Machine.AsyncStart(new VersionCheckState(), _Session);
+
             if (_Session.LogicSettings.UseSnipeLocationServer)
                 SnipePokemonTask.AsyncStart(_Session);
 

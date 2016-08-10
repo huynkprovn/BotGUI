@@ -3,6 +3,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using PoGo.NecroBot.Logic.Tasks;
+using PoGo.NecroBot.Logic.Event;
 
 #endregion
 
@@ -12,60 +13,72 @@ namespace PoGo.NecroBot.Logic.State
     {
         public async Task<IState> Execute(ISession session, CancellationToken cancellationToken)
         {
-
-            if (session.LogicSettings.EvolveAllPokemonAboveIv || session.LogicSettings.EvolveAllPokemonWithEnoughCandy)
+            if (session.GUISettings.isFarmingMaxPokemons)
             {
-                await EvolvePokemonTask.Execute(session, cancellationToken);
-            }
+                session.EventDispatcher.Send(new NoticeEvent
+                {
+                    Message = "Using Farming Max Pokemon configuration"
+                });
 
-            if (session.LogicSettings.TransferDuplicatePokemon)
-            {
-                await TransferDuplicatePokemonTask.Execute(session, cancellationToken);
-            }
-
-            if (session.LogicSettings.AutomaticallyLevelUpPokemon)
-            {
-                await LevelUpPokemonTask.Execute(session, cancellationToken);
-            }
-
-            if (session.LogicSettings.UseLuckyEggConstantly)
-            {
-                await UseLuckyEggConstantlyTask.Execute(session, cancellationToken);
-            }
-
-            if (session.LogicSettings.UseIncenseConstantly)
-            {
-                await UseIncenseConstantlyTask.Execute(session, cancellationToken);
-            }
-
-            await GetPokeDexCount.Execute(session, cancellationToken);
-
-            if (session.LogicSettings.RenamePokemon)
-            {
-                await RenamePokemonTask.Execute(session, cancellationToken);
-            }
-
-            if (session.LogicSettings.AutoFavoritePokemon)
-            {
-                await FavoritePokemonTask.Execute(session, cancellationToken);
-            }
-
-            await RecycleItemsTask.Execute(session, cancellationToken);
-
-            if (session.LogicSettings.UseEggIncubators)
-            {
-                await UseIncubatorsTask.Execute(session, cancellationToken);
-            }
-
-            if (session.LogicSettings.UseGpxPathing)
-            {
-                await FarmPokestopsGpxTask.Execute(session, cancellationToken);
+                RecycleItemsTask.Execute(session, cancellationToken).Wait(cancellationToken);
+                TransferDuplicatePokemonTask.Execute(session, cancellationToken).Wait(cancellationToken);
+                FarmPokestopsTask.Execute(session, cancellationToken).Wait(cancellationToken);
             }
             else
             {
-                await FarmPokestopsTask.Execute(session, cancellationToken);
-            }
+                if (session.LogicSettings.EvolveAllPokemonAboveIv || session.LogicSettings.EvolveAllPokemonWithEnoughCandy)
+                {
+                    await EvolvePokemonTask.Execute(session, cancellationToken);
+                }
 
+                if (session.LogicSettings.TransferDuplicatePokemon)
+                {
+                    await TransferDuplicatePokemonTask.Execute(session, cancellationToken);
+                }
+
+                if (session.LogicSettings.AutomaticallyLevelUpPokemon)
+                {
+                    await LevelUpPokemonTask.Execute(session, cancellationToken);
+                }
+
+                if (session.LogicSettings.UseLuckyEggConstantly)
+                {
+                    await UseLuckyEggConstantlyTask.Execute(session, cancellationToken);
+                }
+
+                if (session.LogicSettings.UseIncenseConstantly)
+                {
+                    await UseIncenseConstantlyTask.Execute(session, cancellationToken);
+                }
+
+                await GetPokeDexCount.Execute(session, cancellationToken);
+
+                if (session.LogicSettings.RenamePokemon)
+                {
+                    await RenamePokemonTask.Execute(session, cancellationToken);
+                }
+
+                if (session.LogicSettings.AutoFavoritePokemon)
+                {
+                    await FavoritePokemonTask.Execute(session, cancellationToken);
+                }
+
+                await RecycleItemsTask.Execute(session, cancellationToken);
+
+                if (session.LogicSettings.UseEggIncubators)
+                {
+                    await UseIncubatorsTask.Execute(session, cancellationToken);
+                }
+
+                if (session.LogicSettings.UseGpxPathing)
+                {
+                    await FarmPokestopsGpxTask.Execute(session, cancellationToken);
+                }
+                else
+                {
+                    await FarmPokestopsTask.Execute(session, cancellationToken);
+                }
+            }
             return this;
         }
     }

@@ -81,7 +81,12 @@ namespace PoGo.NecroBot.GUI.Tasks
                                         Bitmap bmp = new Bitmap(40, 30);
                                         Bot.imagesList.TryGetValue("pokemon_" + ((int)pokemon.PokemonId).ToString(), out bmp);
                                         Bot.GUI.DataGridSnipeCaught.Invoke(new Action(() => Bot.GUI.DataGridSnipeCaught.Rows.Add(bmp, pokemon.PokemonId.ToString(), pokemon.Cp, PokemonInfo.CalculateMaxCp(pokemon), Math.Round(PokemonInfo.CalculatePokemonPerfection(pokemon)), PokemonInfo.GetLevel(pokemon), DateTime.Now)));
-                                        Bot._Session.GUISettings.PokemonSnipeCaught.Remove(pokemon);
+                                        try
+                                        {
+                                            Bot._Session.GUISettings.PokemonSnipeCaught.Remove(pokemon);
+                                        }
+                                        catch { }
+                                        
                                     }
                                 }
 
@@ -108,9 +113,9 @@ namespace PoGo.NecroBot.GUI.Tasks
                                     if ((Bot.PokemonSnipeFeed.Where(p => p.Id == msg.Id && Math.Round(p.Latitude,5) == Math.Round(msg.Latitude,5) && Math.Round(p.Longitude,5) == Math.Round(msg.Longitude,5)).Count() == 0 && msg.Id != PokemonId.Missingno) &&
                                         (Bot.PokemonSnipeFeedDeleted.Where(p => p.Id == msg.Id && Math.Round(p.Latitude, 5) == Math.Round(msg.Latitude, 5) && Math.Round(p.Longitude, 5) == Math.Round(msg.Longitude, 5)).Count() == 0 && msg.Id != PokemonId.Missingno))
                                     {
-                                        if (Bot.GUI.AutoSnipe)
+                                        if (Bot.GUI.AutoSnipe || Bot.GUI.AutoSnipeAll)
                                         {
-                                            if (Bot._Session.LogicSettings.PokemonToSnipe.Pokemon.Contains(msg.Id) && msg.IV >= Bot.GUI.MinSnipeIV)
+                                            if ((Bot._Session.LogicSettings.PokemonToSnipe.Pokemon.Contains(msg.Id) && msg.IV >= Bot.GUI.MinSnipeIV) || Bot.GUI.AutoSnipeAll)
                                             {
                                                 Logger.Write("Auto Sniping (Pogo-Feed): " + msg.ToString(), LogLevel.Warning);
                                                 Logic.Tasks.SniperInfo pokeSnipeInfo = new Logic.Tasks.SniperInfo();
@@ -151,7 +156,14 @@ namespace PoGo.NecroBot.GUI.Tasks
                                             Bot.PokemonSnipeFeedDeleted.Add(pokemon);
                                             var row = Bot.GUI.DataGridSnipePokemons.Rows.Cast<DataGridViewRow>().FirstOrDefault(p => (PokemonId)p.Cells["dataSnipingFeederColName"].Value == pokemon.Id && (double)p.Cells["dataSnipingFeederColLat"].Value == pokemon.Latitude && (double)p.Cells["dataSnipingFeederColLng"].Value == pokemon.Longitude);
                                             if(row != null)
-                                                Bot.GUI.DataGridSnipePokemons.Invoke(new Action(() => Bot.GUI.DataGridSnipePokemons.Rows.Remove(row)));
+                                            {
+                                                try
+                                                {
+                                                    Bot.GUI.DataGridSnipePokemons.Invoke(new Action(() => Bot.GUI.DataGridSnipePokemons.Rows.Remove(row)));
+                                                }
+                                                catch { }
+                                            }
+
                                         }
                                     }
                                 }
@@ -266,4 +278,5 @@ namespace PoGo.NecroBot.GUI.Tasks
                    + (ExpirationTimestamp != default(DateTime) ? ", expiration: " + ExpirationTimestamp : "");
         }
     }
+ 
 }

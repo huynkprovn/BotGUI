@@ -125,6 +125,9 @@
     <Reference Include="System.Xml">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
+    <Reference Include="WebSocket4Net">
+      <HintPath>..\packages\WebSocket4Net.0.14.1\lib\net45\WebSocket4Net.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GUI.cs">
@@ -153,6 +156,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tasks\GetPokemonToSnipe.cs" />
+    <Compile Include="Tasks\GetPokemonToSnipePokeZZ.cs" />
     <Compile Include="Util\Bot.cs" />
     <Compile Include="Tasks\ManualEvolvePokemon.cs" />
     <Compile Include="Tasks\ManualPowerUpPokemon.cs" />

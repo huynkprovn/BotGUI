@@ -60,13 +60,13 @@ namespace PoGo.NecroBot.GUI.Aggregators
         public void HandleEvent(ItemRecycledEvent evt, Session session)
         {
             _guiItems.UpdateItemByValue(evt.Id, evt.Count*-1);
+            _guiItems.SetItems(session.Inventory);
             _guiItems.Dirty(session.Inventory);
         }
 
         public void HandleEvent(InventoryListEvent evt, Session session)
         {
-            _guiItems.SetItems(session.Inventory);
-            _guiItems.Dirty(session.Inventory);
+    
         }
 
         public void HandleEvent(EggIncubatorStatusEvent evt, Session session)
@@ -77,6 +77,7 @@ namespace PoGo.NecroBot.GUI.Aggregators
         public void HandleEvent(FortUsedEvent evt, Session session)
         {
             _guiItems.UpdateItemByItemsString(evt.Items);
+            _guiItems.SetItems(session.Inventory);
             _guiItems.Dirty(session.Inventory);
         }
 

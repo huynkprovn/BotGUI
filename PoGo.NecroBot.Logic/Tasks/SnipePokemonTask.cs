@@ -6,10 +6,12 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using PoGo.NecroBot.Logic.Common;
 using PoGo.NecroBot.Logic.Event;
 using PoGo.NecroBot.Logic.PoGoUtils;
@@ -18,6 +20,7 @@ using POGOProtos.Enums;
 using POGOProtos.Inventory.Item;
 using POGOProtos.Map.Pokemon;
 using POGOProtos.Networking.Responses;
+using Quobject.SocketIoClientDotNet.Client;
 
 #endregion
 
@@ -467,7 +470,6 @@ namespace PoGo.NecroBot.Logic.Tasks
             return scanResult;
         }
 
-
         private static List<SniperInfo> GetSniperInfoFrom_pokezz(ISession session, List<PokemonId> pokemonIds)
         {
 
@@ -545,7 +547,7 @@ namespace PoGo.NecroBot.Logic.Tasks
 
                 try
                 {
-                    var lClient = new TcpClient();
+                    var lClient = new System.Net.Sockets.TcpClient();
                     lClient.Connect(session.LogicSettings.SnipeLocationServer,
                         session.LogicSettings.SnipeLocationServerPort);
 
@@ -576,7 +578,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                         }
                     }
                 }
-                catch (SocketException)
+                catch (System.Net.Sockets.SocketException)
                 {
                     // this is spammed to often. Maybe add it to debug log later
                 }

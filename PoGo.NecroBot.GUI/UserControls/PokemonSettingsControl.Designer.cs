@@ -339,7 +339,7 @@
             this.dataPokemon.RowHeadersWidth = 10;
             this.dataPokemon.RowTemplate.Height = 40;
             this.dataPokemon.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataPokemon.Size = new System.Drawing.Size(913, 955);
+            this.dataPokemon.Size = new System.Drawing.Size(878, 741);
             this.dataPokemon.TabIndex = 137;
             // 
             // dataPokemonColID

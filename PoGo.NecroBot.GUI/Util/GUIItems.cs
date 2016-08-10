@@ -137,8 +137,13 @@ namespace PoGo.NecroBot.GUI.Util
                     if (row != null)
                         Bot.GUI.DataGridMyItems.Invoke(new Action(() => Bot.GUI.DataGridMyItems[3, row.Index].Value = item.Value < 0 ? 0:item.Value));
                 }
-                total += item.Value;
             }
+
+            for (int i = 0; i < Bot.GUI.DataGridMyItems.Rows.Count; ++i)
+            {
+                total += Convert.ToInt32(Bot.GUI.DataGridMyItems.Rows[i].Cells[3].Value);
+            }
+
             Bot.GUI.Invoke(new Action(() => Bot.GUI.DataGridMyItemsTab = "Items (" + total.ToString() + "/" + Bot._ProfilePlayerMaxBagSpace.ToString()));
 
             // Candies

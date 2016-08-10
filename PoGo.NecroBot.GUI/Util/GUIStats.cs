@@ -27,6 +27,9 @@ namespace PoGo.NecroBot.GUI.Util
             Bot._ProfilePlayerStardust = profile.PlayerData.Currencies[1].Amount;
             Bot._ProfilePlayerPokecoins = profile.PlayerData.Currencies[0].Amount;
 
+            if(Bot._StartSessionStardust == 0)
+                Bot._StartSessionStardust = profile.PlayerData.Currencies[1].Amount;
+
             UpdateProfile();
         }
 
@@ -105,7 +108,7 @@ namespace PoGo.NecroBot.GUI.Util
         public override string ToString()
         {
             return
-                $"{Bot._ProfilePlayerName} - Lvl: {Bot._ProfilePlayerLevel.ToString()} (Runtime: {FormatRuntime()})";
+                $"{Bot._ProfilePlayerName} - Lvl: {Bot._ProfilePlayerLevel.ToString()} (Runtime: {FormatRuntime()}) (Stardust/hr: {Math.Round((Bot._ProfilePlayerStardust-Bot._StartSessionStardust) / GetRuntime(), 0).ToString()})";
         }
     }
 }

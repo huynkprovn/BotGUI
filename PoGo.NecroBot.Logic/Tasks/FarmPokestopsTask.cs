@@ -97,15 +97,29 @@ namespace PoGo.NecroBot.Logic.Tasks
                 var distance = LocationUtils.CalculateDistanceInMeters(session.Client.CurrentLatitude,
                     session.Client.CurrentLongitude, pokeStop.Latitude, pokeStop.Longitude);
                 var fortInfo = await session.Client.Fort.GetFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
-                if (session.GUISettings.ExecutePokestops)
+
+                var totalItems = await session.Inventory.GetTotalItemCount();
+
+                // Start filling inventory under 200 items
+                if(session.GUISettings.isFarmingMaxPokemons && totalItems < 200)
                 {
-                    session.EventDispatcher.Send(new FortTargetEvent { Name = fortInfo.Name, Distance = distance });
+                    session.GUISettings.isFillingInventory = true;
                 }
+                // Fill inventory until we hit 320
+                if(session.GUISettings.isFarmingMaxPokemons && session.GUISettings.isFillingInventory && totalItems > 320)
+                {
+                    session.GUISettings.isFillingInventory = false;
+                }
+
+                //if (session.GUISettings.ExecutePokestops || (session.GUISettings.isFarmingMaxPokemons && session.GUISettings.isFillingInventory))
+                //{
+                    session.EventDispatcher.Send(new FortTargetEvent { Name = fortInfo.Name, Distance = distance });
+                //}
                 await session.Navigation.Move(new GeoCoordinate(pokeStop.Latitude, pokeStop.Longitude, LocationUtils.getElevation(pokeStop.Latitude, pokeStop.Longitude)),
                     session.LogicSettings.WalkingSpeedInKilometerPerHour,
                     async () =>
                     {
-                        if (session.GUISettings.ExecutePokemons)
+                        if (session.GUISettings.ExecutePokemons || session.GUISettings.isFarmingMaxPokemons)
                         {
                             // Catch normal map Pokemon
                             await CatchNearbyPokemonsTask.Execute(session, cancellationToken);
@@ -116,12 +130,12 @@ namespace PoGo.NecroBot.Logic.Tasks
                     }, cancellationToken, session.LogicSettings.DisableHumanWalking);
 
                 //Catch Lure Pokemon
-                if (pokeStop.LureInfo != null && session.GUISettings.ExecutePokemons)
+                if (pokeStop.LureInfo != null && (session.GUISettings.ExecutePokemons || session.GUISettings.isFarmingMaxPokemons))
                 {
                     await CatchLurePokemonsTask.Execute(session, pokeStop, cancellationToken);
                 }
 
-                FortSearchResponse fortSearch;
+                FortSearchResponse fortSearch = new FortSearchResponse();
                 var timesZeroXPawarded = 0;
                 var fortTry = 0; //Current check
                 const int retryNumber = 50; //How many times it needs to check to clear softban
@@ -130,50 +144,57 @@ namespace PoGo.NecroBot.Logic.Tasks
                 {
                     cancellationToken.ThrowIfCancellationRequested();
 
-                    fortSearch =
-                        await session.Client.Fort.SearchFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
-                    if (fortSearch.ExperienceAwarded > 0 && timesZeroXPawarded > 0) timesZeroXPawarded = 0;
-                    if (fortSearch.ExperienceAwarded == 0)
+                    if (session.GUISettings.ExecutePokestops || (session.GUISettings.isFarmingMaxPokemons && session.GUISettings.isFillingInventory))
                     {
-                        await RecycleItemsTask.Execute(session, cancellationToken);
-
-                        timesZeroXPawarded++;
-
-                        if (timesZeroXPawarded > zeroCheck)
+                        fortSearch =
+                            await session.Client.Fort.SearchFort(pokeStop.Id, pokeStop.Latitude, pokeStop.Longitude);
+                        if (fortSearch.ExperienceAwarded > 0 && timesZeroXPawarded > 0) timesZeroXPawarded = 0;
+                        if (fortSearch.ExperienceAwarded == 0)
                         {
-                            if ((int) fortSearch.CooldownCompleteTimestampMs != 0)
+                            await RecycleItemsTask.Execute(session, cancellationToken);
+
+                            timesZeroXPawarded++;
+
+                            if (timesZeroXPawarded > zeroCheck)
                             {
-                                break;
+                                if ((int)fortSearch.CooldownCompleteTimestampMs != 0)
+                                {
+                                    break;
                                     // Check if successfully looted, if so program can continue as this was "false alarm".
+                                }
+
+                                fortTry += 1;
+
+                                session.EventDispatcher.Send(new FortFailedEvent
+                                {
+                                    Name = fortInfo.Name,
+                                    Try = fortTry,
+                                    Max = retryNumber - zeroCheck
+                                });
+
+                                DelayingUtils.Delay(session.LogicSettings.DelayBetweenPlayerActions, 400);
                             }
-
-                            fortTry += 1;
-
-                            session.EventDispatcher.Send(new FortFailedEvent
+                        }
+                        else
+                        {
+                            session.EventDispatcher.Send(new FortUsedEvent
                             {
+                                Id = pokeStop.Id,
                                 Name = fortInfo.Name,
-                                Try = fortTry,
-                                Max = retryNumber - zeroCheck
+                                Exp = fortSearch.ExperienceAwarded,
+                                Gems = fortSearch.GemsAwarded,
+                                Items = StringUtils.GetSummedFriendlyNameOfItemAwardList(fortSearch.ItemsAwarded),
+                                Latitude = pokeStop.Latitude,
+                                Longitude = pokeStop.Longitude,
+                                InventoryFull = fortSearch.Result == FortSearchResponse.Types.Result.InventoryFull
                             });
 
-                            DelayingUtils.Delay(session.LogicSettings.DelayBetweenPlayerActions, 400);
+                            break; //Continue with program as loot was succesfull.
                         }
                     }
                     else
                     {
-                        session.EventDispatcher.Send(new FortUsedEvent
-                        {
-                            Id = pokeStop.Id,
-                            Name = fortInfo.Name,
-                            Exp = fortSearch.ExperienceAwarded,
-                            Gems = fortSearch.GemsAwarded,
-                            Items = StringUtils.GetSummedFriendlyNameOfItemAwardList(fortSearch.ItemsAwarded),
-                            Latitude = pokeStop.Latitude,
-                            Longitude = pokeStop.Longitude,
-                            InventoryFull = fortSearch.Result == FortSearchResponse.Types.Result.InventoryFull
-                        });
-
-                        break; //Continue with program as loot was succesfull.
+                        break;
                     }
                 } while (fortTry < retryNumber - zeroCheck);
                 //Stop trying if softban is cleaned earlier or if 40 times fort looting failed.
@@ -256,6 +277,11 @@ namespace PoGo.NecroBot.Logic.Tasks
                 {
                     await SnipePokemonTask.Execute(session, cancellationToken);
                 }
+
+                //if (session.GUISettings.isFarmingMaxPokemons)
+                //{
+                //    await SnipePokemonTask.ExecutePokeZZ(session, cancellationToken);
+                //}
             }
         }
 

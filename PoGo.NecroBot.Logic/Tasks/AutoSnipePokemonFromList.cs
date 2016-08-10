@@ -28,18 +28,38 @@ namespace PoGo.NecroBot.Logic.Tasks
                 {
                     Message = "Starting to snipe list"
                 });
-                int count = 0, total = session.GUISettings.PokemonSnipeAuto.Count;
-                foreach (var pokeSnipe in session.GUISettings.PokemonSnipeAuto.ToList())
+
+                if(session.GUISettings.isFarmingMaxPokemons)
                 {
-                    count++;
-                    session.EventDispatcher.Send(new WarnEvent
+                    int count = 0, total = session.GUISettings.PokemonSnipeAuto.Count;
+                    foreach (var pokeSnipe in session.GUISettings.PokemonSnipeAuto.OrderBy(p => p.ExpirationTimestamp.TimeOfDay).Take(10).ToList())
                     {
-                        Message = "Sniping " + count.ToString() + "/" + total.ToString()
-                    });
-                    snipeList.Clear();
-                    snipeList.Add((PokemonId)Enum.Parse(typeof(PokemonId), pokeSnipe.Id.ToString()), new PointLatLng(pokeSnipe.Latitude, pokeSnipe.Longitude));
-                    await SnipePokemonTask.AsyncStart(session, snipeList, default(CancellationToken));
-                    session.GUISettings.PokemonSnipeAuto.Remove(pokeSnipe);
+                        count++;
+                        session.EventDispatcher.Send(new WarnEvent
+                        {
+                            Message = "Sniping " + count.ToString() + "/" + total.ToString()
+                        });
+                        snipeList.Clear();
+                        snipeList.Add((PokemonId)Enum.Parse(typeof(PokemonId), pokeSnipe.Id.ToString()), new PointLatLng(pokeSnipe.Latitude, pokeSnipe.Longitude));
+                        await SnipePokemonTask.AsyncStart(session, snipeList, default(CancellationToken));
+                        session.GUISettings.PokemonSnipeAuto.Remove(pokeSnipe);
+                    }
+                }
+                else
+                {
+                    int count = 0, total = session.GUISettings.PokemonSnipeAuto.Count;
+                    foreach (var pokeSnipe in session.GUISettings.PokemonSnipeAuto.ToList())
+                    {
+                        count++;
+                        session.EventDispatcher.Send(new WarnEvent
+                        {
+                            Message = "Sniping " + count.ToString() + "/" + total.ToString()
+                        });
+                        snipeList.Clear();
+                        snipeList.Add((PokemonId)Enum.Parse(typeof(PokemonId), pokeSnipe.Id.ToString()), new PointLatLng(pokeSnipe.Latitude, pokeSnipe.Longitude));
+                        await SnipePokemonTask.AsyncStart(session, snipeList, default(CancellationToken));
+                        session.GUISettings.PokemonSnipeAuto.Remove(pokeSnipe);
+                    }
                 }
             }
             session.GUISettings.isSniping = false;

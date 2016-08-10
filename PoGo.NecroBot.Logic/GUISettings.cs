@@ -23,6 +23,8 @@ namespace PoGo.NecroBot.Logic
         public bool isSniping = false;
         public bool ExecutePokestops = true;
         public bool ExecutePokemons = true;
+        public bool isFarmingMaxPokemons = false;
+        public bool isFillingInventory = false;
         public List<FortData> CurrentPokestopList = new List<FortData>();
         public List<MapPokemon> CurrentMapPokemonList = new List<MapPokemon>();
         public List<Tasks.SniperInfo> PokemonSnipeAuto = new List<Tasks.SniperInfo>();
