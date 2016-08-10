@@ -31,7 +31,7 @@ namespace PoGo.NecroBot.Logic.Tasks
 
                 if(session.GUISettings.isFarmingMaxPokemons)
                 {
-                    int count = 0, total = session.GUISettings.PokemonSnipeAuto.Count;
+                    int count = 0, total = 10;
                     foreach (var pokeSnipe in session.GUISettings.PokemonSnipeAuto.OrderBy(p => p.ExpirationTimestamp.TimeOfDay).Take(10).ToList())
                     {
                         count++;
