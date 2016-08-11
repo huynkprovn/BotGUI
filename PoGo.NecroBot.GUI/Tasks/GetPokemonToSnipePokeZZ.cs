@@ -86,8 +86,9 @@ namespace PoGo.NecroBot.GUI.Tasks
                                     pokezzElement.time = Convert.ToDouble(pokemonDefinitionElements[3], CultureInfo.InvariantCulture);
                                     pokezzElement.verified = (pokemonDefinitionElements[4] == "0") ? false : true;
                                     pokezzElement.iv = pokemonDefinitionElements[5];
-
-                                    pokemons.Add(pokezzElement);
+                                    DateTime dateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(pokezzElement.time).ToLocalTime();
+                                    if (pokezzElement.verified && dateTime > DateTime.Now)
+                                        pokemons.Add(pokezzElement);
                                 }
                                 catch (Exception)
                                 {
@@ -144,7 +145,7 @@ namespace PoGo.NecroBot.GUI.Tasks
                                 //SnipInfo.TimeStampAdded = DateTime.Now;
                                 SnipInfo.ExpirationTimestamp = new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(pokemon.time).ToLocalTime();
                                 SnipInfo.IV = pokemon._iv;
-                                if (pokemon.verified)
+                                if (pokemon.verified && SnipInfo.ExpirationTimestamp > DateTime.Now)
                                     SnipeLocations.Add(SnipInfo);
 
                                 // Check name + lat/lng so we don't add same pokemon twice and not add Missingno
@@ -155,7 +156,7 @@ namespace PoGo.NecroBot.GUI.Tasks
                                     {
                                         if ((Bot._Session.LogicSettings.PokemonToSnipe.Pokemon.Contains(SnipInfo.Id) && SnipInfo.IV >= Bot.GUI.MinSnipeIV) || Bot.GUI.AutoSnipeAll)
                                         {
-                                            Logger.Write("Auto Sniping (PogoZZ): " + SnipInfo.ToString(), LogLevel.Warning);
+                                            Logger.Write("Auto Sniping (PokeZZ): " + SnipInfo.ToString(), LogLevel.Warning);
                                             Logic.Tasks.SniperInfo pokeSnipeInfo = new Logic.Tasks.SniperInfo();
                                             pokeSnipeInfo.Id = SnipInfo.Id;
                                             pokeSnipeInfo.IV = SnipInfo.IV;
