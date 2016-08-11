@@ -14,6 +14,7 @@ using PoGo.NecroBot.Logic.Utils;
 using PokemonGo.RocketAPI.Extensions;
 using POGOProtos.Map.Fort;
 using POGOProtos.Networking.Responses;
+using POGOProtos.Inventory.Item;
 
 #endregion
 
@@ -101,15 +102,17 @@ namespace PoGo.NecroBot.Logic.Tasks
                 var totalItems = await session.Inventory.GetTotalItemCount();
 
                 // Start filling inventory under 200 items
-                if(session.GUISettings.isFarmingMaxPokemons && totalItems < 200)
+                if(session.GUISettings.isFarmingMaxPokemons && totalItems < 250)
                 {
                     session.GUISettings.isFillingInventory = true;
                 }
                 // Fill inventory until we hit 320
-                if(session.GUISettings.isFarmingMaxPokemons && session.GUISettings.isFillingInventory && totalItems > 320)
+                if(session.GUISettings.isFarmingMaxPokemons && session.GUISettings.isFillingInventory && totalItems >= 350)
                 {
                     session.GUISettings.isFillingInventory = false;
                 }
+
+                session.GUISettings.isFillingInventory = true;
 
                 //if (session.GUISettings.ExecutePokestops || (session.GUISettings.isFarmingMaxPokemons && session.GUISettings.isFillingInventory))
                 //{
@@ -201,9 +204,14 @@ namespace PoGo.NecroBot.Logic.Tasks
 
                 await eggWalker.ApplyDistance(distance, cancellationToken);
 
-                if(session.GUISettings.PokemonSnipeAuto.Count > 0)
+                var pokeBallsCount = await session.Inventory.GetItemAmountByType(ItemId.ItemPokeBall);
+                pokeBallsCount += await session.Inventory.GetItemAmountByType(ItemId.ItemGreatBall);
+                pokeBallsCount += await session.Inventory.GetItemAmountByType(ItemId.ItemUltraBall);
+                pokeBallsCount += await session.Inventory.GetItemAmountByType(ItemId.ItemMasterBall);
+
+                if (session.GUISettings.PokemonSnipeAuto.Count > 0 && pokeBallsCount >= 20)
                 {
-                    await AutoSnipePokemonFromList.Execute(session);
+                    await AutoSnipePokemonFromList.Execute(session, pokeBallsCount);
                 }
 
                 if (session.GUISettings.isAwaitingPaused == true)
@@ -277,11 +285,6 @@ namespace PoGo.NecroBot.Logic.Tasks
                 {
                     await SnipePokemonTask.Execute(session, cancellationToken);
                 }
-
-                //if (session.GUISettings.isFarmingMaxPokemons)
-                //{
-                //    await SnipePokemonTask.ExecutePokeZZ(session, cancellationToken);
-                //}
             }
         }
 

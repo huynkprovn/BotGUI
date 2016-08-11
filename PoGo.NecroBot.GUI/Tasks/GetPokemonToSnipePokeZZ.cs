@@ -149,21 +149,27 @@ namespace PoGo.NecroBot.GUI.Tasks
                                     SnipeLocations.Add(SnipInfo);
 
                                 // Check name + lat/lng so we don't add same pokemon twice and not add Missingno
-                                if ((Bot.PokemonSnipeFeed.Where(p => p.Id == SnipInfo.Id && Math.Round(p.Latitude, 5) == Math.Round(SnipInfo.Latitude, 5) && Math.Round(p.Longitude, 5) == Math.Round(SnipInfo.Longitude, 5)).Count() == 0 && SnipInfo.Id != PokemonId.Missingno) &&
-                                    (Bot.PokemonSnipeFeedDeleted.Where(p => p.Id == SnipInfo.Id && Math.Round(p.Latitude, 5) == Math.Round(SnipInfo.Latitude, 5) && Math.Round(p.Longitude, 5) == Math.Round(SnipInfo.Longitude, 5)).Count() == 0 && SnipInfo.Id != PokemonId.Missingno))
+                                if ((Bot.PokemonSnipeFeed.Where(p => p.Id == SnipInfo.Id && Math.Round(p.Latitude, 5) == Math.Round(SnipInfo.Latitude, 5) && Math.Round(p.Longitude, 5) == Math.Round(SnipInfo.Longitude, 5)).ToList().Count() == 0 && SnipInfo.Id != PokemonId.Missingno) &&
+                                    (Bot.PokemonSnipeFeedDeleted.Where(p => p.Id == SnipInfo.Id && Math.Round(p.Latitude, 5) == Math.Round(SnipInfo.Latitude, 5) && Math.Round(p.Longitude, 5) == Math.Round(SnipInfo.Longitude, 5)).ToList().Count() == 0 && SnipInfo.Id != PokemonId.Missingno))
                                 {
                                     if (Bot.GUI.AutoSnipe || Bot.GUI.AutoSnipeAll)
                                     {
                                         if ((Bot._Session.LogicSettings.PokemonToSnipe.Pokemon.Contains(SnipInfo.Id) && SnipInfo.IV >= Bot.GUI.MinSnipeIV) || Bot.GUI.AutoSnipeAll)
                                         {
-                                            Logger.Write("Auto Sniping (PokeZZ): " + SnipInfo.ToString(), LogLevel.Warning);
+                                            //Logger.Write("Auto Sniping (PokeZZ): " + SnipInfo.ToString(), LogLevel.Warning);
                                             Logic.Tasks.SniperInfo pokeSnipeInfo = new Logic.Tasks.SniperInfo();
                                             pokeSnipeInfo.Id = SnipInfo.Id;
                                             pokeSnipeInfo.IV = SnipInfo.IV;
                                             pokeSnipeInfo.Latitude = SnipInfo.Latitude;
                                             pokeSnipeInfo.Longitude = SnipInfo.Longitude;
+                                            pokeSnipeInfo.ExpirationTimestamp = SnipInfo.ExpirationTimestamp;
                                             Bot._Session.GUISettings.PokemonSnipeAuto.Add(pokeSnipeInfo);
                                             Bot.PokemonSnipeFeedDeleted.Add(SnipInfo);
+                                            int sort = Bot.GUI.DataGridSnipePokemons.Rows.Count + 1;
+                                            Bitmap bmp = new Bitmap(40, 30);
+                                            Bot.imagesList.TryGetValue("pokemon_" + ((int)SnipInfo.Id).ToString(), out bmp);
+                                            Bot.GUI.DataGridSnipeWaitingPokemons.Invoke(new Action(() => Bot.GUI.DataGridSnipeWaitingPokemons.Rows.Add(bmp, SnipInfo.Id, SnipInfo.IV, SnipInfo.Latitude, SnipInfo.Longitude, SnipInfo.ExpirationTimestamp, sort, SnipInfo.EncounterId)));
+                                            Bot.GUI.DataGridSnipeWaitingPokemons.Invoke(new Action(() => Bot.GUI.DataGridSnipeWaitingPokemons.Sort(Bot.GUI.DataGridSnipeWaitingPokemons.Columns["dataSnipingWaitingColTimestamp"], System.ComponentModel.ListSortDirection.Descending)));
                                         }
                                         else
                                         {
@@ -183,6 +189,18 @@ namespace PoGo.NecroBot.GUI.Tasks
                                         Bot.GUI.DataGridSnipePokemons.Invoke(new Action(() => Bot.GUI.DataGridSnipePokemons.Sort(Bot.GUI.DataGridSnipePokemons.Columns["dataSnipingFeederColTimestamp"], System.ComponentModel.ListSortDirection.Descending)));
                                         Bot.PokemonSnipeFeed.Add(SnipInfo);
                                         //Logger.Write(msg.ToString(), LogLevel.Warning);
+                                    }
+
+                                    // Remove pokemons that have been sniped
+                                    var currentPokemonWaitingList = Bot.GUI.DataGridSnipeWaitingPokemons.Rows.OfType<DataGridViewRow>().ToArray();
+                                    var currentWaitSnipe = Bot._Session.GUISettings.PokemonSnipeAuto.ToList();
+
+                                    foreach (var awaitingLine in currentPokemonWaitingList)
+                                    {
+                                        if (currentWaitSnipe.Where(p => p.Id == (PokemonId)awaitingLine.Cells[1].Value).ToList().Count == 0)
+                                        {
+                                            Bot.GUI.DataGridSnipeWaitingPokemons.Invoke(new Action(() => Bot.GUI.DataGridSnipeWaitingPokemons.Rows.Remove(awaitingLine)));
+                                        }
                                     }
 
                                     // Remove pokemons that have expired
@@ -206,6 +224,10 @@ namespace PoGo.NecroBot.GUI.Tasks
 
                                         }
                                     }
+                                }
+                                else
+                                {
+                                    //Logger.Write("Pokemon already added", LogLevel.Warning);
                                 }
                             }
 

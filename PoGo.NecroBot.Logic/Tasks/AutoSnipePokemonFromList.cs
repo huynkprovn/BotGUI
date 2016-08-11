@@ -17,7 +17,7 @@ namespace PoGo.NecroBot.Logic.Tasks
 {
     class AutoSnipePokemonFromList
     {
-        public async static Task Execute(ISession session)
+        public async static Task Execute(ISession session, int pokeBallsCount)
         {
             session.GUISettings.isSniping = true;
             Dictionary<PokemonId, PointLatLng> snipeList = new Dictionary<PokemonId, PointLatLng>();
@@ -31,18 +31,43 @@ namespace PoGo.NecroBot.Logic.Tasks
 
                 if(session.GUISettings.isFarmingMaxPokemons)
                 {
-                    int count = 0, total = session.GUISettings.PokemonSnipeAuto.Count > 10? 10 : session.GUISettings.PokemonSnipeAuto.Count;
-                    foreach (var pokeSnipe in session.GUISettings.PokemonSnipeAuto.OrderBy(p => p.ExpirationTimestamp.TimeOfDay).Take(10).ToList())
+                    // Remove pokemons that have expired (autosnipe)
+                    foreach (var pokemonToRemove in session.GUISettings.PokemonSnipeAuto.ToList())
+                    {
+                        if (pokemonToRemove.ExpirationTimestamp < DateTime.Now)
+                        {
+                            try
+                            {
+                                session.GUISettings.PokemonSnipeAuto.Remove(pokemonToRemove);
+                            }
+                            catch { }
+                        }
+                    }
+
+                    int count = 0, total = session.GUISettings.PokemonSnipeAuto.Count > 10? pokeBallsCount-15 : session.GUISettings.PokemonSnipeAuto.Count;
+                    foreach (var pokeSnipe in session.GUISettings.PokemonSnipeAuto.OrderBy(p => p.ExpirationTimestamp.TimeOfDay).ThenByDescending(p => p.IV).Take(total).ToList())
                     {
                         count++;
-                        session.EventDispatcher.Send(new WarnEvent
+                        if(pokeSnipe.ExpirationTimestamp > DateTime.Now)
                         {
-                            Message = "Sniping " + count.ToString() + "/" + total.ToString()
-                        });
-                        snipeList.Clear();
-                        snipeList.Add((PokemonId)Enum.Parse(typeof(PokemonId), pokeSnipe.Id.ToString()), new PointLatLng(pokeSnipe.Latitude, pokeSnipe.Longitude));
-                        await SnipePokemonTask.AsyncStart(session, snipeList, default(CancellationToken));
-                        session.GUISettings.PokemonSnipeAuto.Remove(pokeSnipe);
+                            await Task.Delay(6000);
+                            session.EventDispatcher.Send(new WarnEvent
+                            {
+                                Message = "Sniping (" + pokeSnipe.ExpirationTimestamp.ToString() + ") " + pokeSnipe.Id + " " + pokeSnipe.IV + " " + count.ToString() + "/" + total.ToString() + " (" + (session.GUISettings.PokemonSnipeAuto.ToList().Count - total).ToString() + " waiting)"
+                            });
+                            snipeList.Clear();
+                            snipeList.Add((PokemonId)Enum.Parse(typeof(PokemonId), pokeSnipe.Id.ToString()), new PointLatLng(pokeSnipe.Latitude, pokeSnipe.Longitude));
+                            await SnipePokemonTask.AsyncStart(session, snipeList, default(CancellationToken));
+                            session.GUISettings.PokemonSnipeAuto.Remove(pokeSnipe);
+                        }
+                        else
+                        {
+                            session.EventDispatcher.Send(new WarnEvent
+                            {
+                                Message = "Sniping expired (" + pokeSnipe.ExpirationTimestamp.ToString() + ") " + count.ToString() + "/" + total.ToString() + " (" + (session.GUISettings.PokemonSnipeAuto.ToList().Count - total).ToString() + " waiting)"
+                            });
+                            session.GUISettings.PokemonSnipeAuto.Remove(pokeSnipe);
+                        }
                     }
                 }
                 else

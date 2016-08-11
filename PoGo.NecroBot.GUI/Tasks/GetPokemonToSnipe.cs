@@ -110,21 +110,30 @@ namespace PoGo.NecroBot.GUI.Tasks
                                 foreach(var msg in msgList)
                                 {
                                     // Check name + lat/lng so we don't add same pokemon twice and not add Missingno
-                                    if ((Bot.PokemonSnipeFeed.Where(p => p.Id == msg.Id && Math.Round(p.Latitude,5) == Math.Round(msg.Latitude,5) && Math.Round(p.Longitude,5) == Math.Round(msg.Longitude,5)).Count() == 0 && msg.Id != PokemonId.Missingno) &&
-                                        (Bot.PokemonSnipeFeedDeleted.Where(p => p.Id == msg.Id && Math.Round(p.Latitude, 5) == Math.Round(msg.Latitude, 5) && Math.Round(p.Longitude, 5) == Math.Round(msg.Longitude, 5)).Count() == 0 && msg.Id != PokemonId.Missingno))
+                                    if ((Bot.PokemonSnipeFeed.Where(p => p.Id == msg.Id && Math.Round(p.Latitude,5) == Math.Round(msg.Latitude,5) && Math.Round(p.Longitude,5) == Math.Round(msg.Longitude,5)).ToList().Count() == 0 && msg.Id != PokemonId.Missingno) &&
+                                        (Bot.PokemonSnipeFeedDeleted.Where(p => p.Id == msg.Id && Math.Round(p.Latitude, 5) == Math.Round(msg.Latitude, 5) && Math.Round(p.Longitude, 5) == Math.Round(msg.Longitude, 5)).ToList().Count() == 0 && msg.Id != PokemonId.Missingno))
                                     {
                                         if (Bot.GUI.AutoSnipe || Bot.GUI.AutoSnipeAll)
                                         {
                                             if ((Bot._Session.LogicSettings.PokemonToSnipe.Pokemon.Contains(msg.Id) && msg.IV >= Bot.GUI.MinSnipeIV) || Bot.GUI.AutoSnipeAll)
                                             {
-                                                Logger.Write("Auto Sniping (Pogo-Feed): " + msg.ToString(), LogLevel.Warning);
+                                                //Logger.Write("Auto Sniping (Pogo-Feed): " + msg.ToString(), LogLevel.Warning);
                                                 Logic.Tasks.SniperInfo pokeSnipeInfo = new Logic.Tasks.SniperInfo();
                                                 pokeSnipeInfo.Id = msg.Id;
                                                 pokeSnipeInfo.IV = msg.IV;
                                                 pokeSnipeInfo.Latitude = msg.Latitude;
                                                 pokeSnipeInfo.Longitude = msg.Longitude;
-                                                Bot._Session.GUISettings.PokemonSnipeAuto.Add(pokeSnipeInfo);
-                                                Bot.PokemonSnipeFeedDeleted.Add(msg);
+                                                pokeSnipeInfo.ExpirationTimestamp = msg.ExpirationTimestamp;
+                                                if(pokeSnipeInfo.ExpirationTimestamp > DateTime.Now)
+                                                {
+                                                    Bot._Session.GUISettings.PokemonSnipeAuto.Add(pokeSnipeInfo);
+                                                    Bot.PokemonSnipeFeedDeleted.Add(msg);
+                                                    int sort = Bot.GUI.DataGridSnipePokemons.Rows.Count + 1;
+                                                    Bitmap bmp = new Bitmap(40, 30);
+                                                    Bot.imagesList.TryGetValue("pokemon_" + ((int)msg.Id).ToString(), out bmp);
+                                                    Bot.GUI.DataGridSnipeWaitingPokemons.Invoke(new Action(() => Bot.GUI.DataGridSnipeWaitingPokemons.Rows.Add(bmp, msg.Id, msg.IV, msg.Latitude, msg.Longitude, msg.ExpirationTimestamp, sort, msg.EncounterId)));
+                                                    Bot.GUI.DataGridSnipeWaitingPokemons.Invoke(new Action(() => Bot.GUI.DataGridSnipeWaitingPokemons.Sort(Bot.GUI.DataGridSnipeWaitingPokemons.Columns["dataSnipingWaitingColTimestamp"], System.ComponentModel.ListSortDirection.Descending)));
+                                                }
                                             }
                                             else
                                             {
@@ -147,8 +156,20 @@ namespace PoGo.NecroBot.GUI.Tasks
                                         }
                                     }
 
+                                    // Remove pokemons that have been sniped
+                                    var currentPokemonWaitingList = Bot.GUI.DataGridSnipeWaitingPokemons.Rows.OfType<DataGridViewRow>().ToArray();
+                                    var currentWaitSnipe = Bot._Session.GUISettings.PokemonSnipeAuto.ToList();
+
+                                    foreach (var awaitingLine in currentPokemonWaitingList)
+                                    {
+                                        if (currentWaitSnipe.Where(p => p.Id == (PokemonId)awaitingLine.Cells[1].Value).ToList().Count == 0)
+                                        {
+                                            Bot.GUI.DataGridSnipeWaitingPokemons.Invoke(new Action(() => Bot.GUI.DataGridSnipeWaitingPokemons.Rows.Remove(awaitingLine)));
+                                        }
+                                    }
+
                                     // Remove pokemons that have expired
-                                    foreach(var pokemon in Bot.PokemonSnipeFeed.ToList())
+                                    foreach (var pokemon in Bot.PokemonSnipeFeed.ToList())
                                     {
                                         if(pokemon.ExpirationTimestamp < DateTime.Now)
                                         {
@@ -271,11 +292,12 @@ namespace PoGo.NecroBot.GUI.Tasks
 
         public override string ToString()
         {
-            return "SniperInfo: id: " + Id
+            return (ExpirationTimestamp != default(DateTime) ? "(" + ExpirationTimestamp : ") ")
+                   + "id: " + Id
                    + ", Latitude: " + Latitude
                    + ", Longitude: " + Longitude
                    + (IV != default(double) ? ", IV: " + IV + "%" : "")
-                   + (ExpirationTimestamp != default(DateTime) ? ", expiration: " + ExpirationTimestamp : "");
+                   ;
         }
     }
  
