@@ -235,6 +235,7 @@ namespace PoGo.NecroBot.GUI.Tasks
                         else
                         {
                             session.EventDispatcher.Send(new ErrorEvent { Message = "(Pokezz.com) Connection Error" });
+                            await Task.Delay(20000);
                         }
 
                         Task.Delay(delay);
