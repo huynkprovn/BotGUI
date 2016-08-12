@@ -45,6 +45,8 @@ namespace PoGo.NecroBot.Logic.Tasks
                     }
 
                     int count = 0, total = session.GUISettings.PokemonSnipeAuto.Count > 10? pokeBallsCount-15 : session.GUISettings.PokemonSnipeAuto.Count;
+                    int waiting = session.GUISettings.PokemonSnipeAuto.Count - total;
+
                     foreach (var pokeSnipe in session.GUISettings.PokemonSnipeAuto.OrderBy(p => p.ExpirationTimestamp.TimeOfDay).ThenByDescending(p => p.IV).Take(total).ToList())
                     {
                         count++;
@@ -53,7 +55,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                             await Task.Delay(6000);
                             session.EventDispatcher.Send(new WarnEvent
                             {
-                                Message = "Sniping (" + pokeSnipe.ExpirationTimestamp.ToString() + ") " + pokeSnipe.Id + " " + pokeSnipe.IV + " " + count.ToString() + "/" + total.ToString() + " (" + (session.GUISettings.PokemonSnipeAuto.ToList().Count - total).ToString() + " waiting)"
+                                Message = "Sniping (" + pokeSnipe.ExpirationTimestamp.ToString() + ") " + pokeSnipe.Id + " " + pokeSnipe.IV + " " + count.ToString() + "/" + total.ToString() + " (" + waiting + " waiting)"
                             });
                             snipeList.Clear();
                             snipeList.Add((PokemonId)Enum.Parse(typeof(PokemonId), pokeSnipe.Id.ToString()), new PointLatLng(pokeSnipe.Latitude, pokeSnipe.Longitude));
@@ -64,7 +66,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                         {
                             session.EventDispatcher.Send(new WarnEvent
                             {
-                                Message = "Sniping expired (" + pokeSnipe.ExpirationTimestamp.ToString() + ") " + count.ToString() + "/" + total.ToString() + " (" + (session.GUISettings.PokemonSnipeAuto.ToList().Count - total).ToString() + " waiting)"
+                                Message = "Sniping expired (" + pokeSnipe.ExpirationTimestamp.ToString() + ") " + count.ToString() + "/" + total.ToString() + " (" + waiting + " waiting)"
                             });
                             session.GUISettings.PokemonSnipeAuto.Remove(pokeSnipe);
                         }

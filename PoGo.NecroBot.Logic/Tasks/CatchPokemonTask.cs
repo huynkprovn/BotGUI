@@ -241,6 +241,7 @@ namespace PoGo.NecroBot.Logic.Tasks
                 evt.Distance = distance;
                 evt.Pokeball = pokeball;
                 evt.Attempt = attemptCounter;
+
                 await session.Inventory.RefreshCachedInventory();
                 evt.BallAmount = await session.Inventory.GetItemAmountByType(pokeball);
 
@@ -255,9 +256,22 @@ namespace PoGo.NecroBot.Logic.Tasks
                             ? encounter.WildPokemon?.PokemonData
                             : encounter?.PokemonData;
                     session.GUISettings.PokemonSnipeCaught.Add(pokeData);
+
                 }
 
                 DelayingUtils.Delay(session.LogicSettings.DelayBetweenPokemonCatch, 2000);
+
+                // If sniping pokemon is failed to catch, check it's IV to see if we retry or not
+                if((caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed ||
+                     caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchEscape) && session.GUISettings.isSniping)
+                {
+                    if(evt.Perfection < 85)
+                    {
+                        Logger.Write("Skipping pokemon since IV < 85", LogLevel.Warning);
+                        break;
+                    }
+                }
+
             } while (caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchMissed ||
                      caughtPokemonResponse.Status == CatchPokemonResponse.Types.CatchStatus.CatchEscape);
         }

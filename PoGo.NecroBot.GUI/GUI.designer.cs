@@ -107,6 +107,16 @@ namespace PoGo.NecroBot.GUI
             this.dataSnipingFeederColBtnSnipe = new System.Windows.Forms.DataGridViewButtonColumn();
             this.dataSnipingFeederColSort = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataSnipingFeederColEncounterId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabAutoSnipeWaiting = new System.Windows.Forms.TabPage();
+            this.dataSnipingWaiting = new System.Windows.Forms.DataGridView();
+            this.dataGridViewImageColumn3 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataSnipingWaitingColTimestamp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabAutoSnipeCaught = new System.Windows.Forms.TabPage();
             this.dataSnipingCaught = new System.Windows.Forms.DataGridView();
             this.dataGridViewImageColumn2 = new System.Windows.Forms.DataGridViewImageColumn();
@@ -134,16 +144,6 @@ namespace PoGo.NecroBot.GUI
             this.tabPageSettingsItems = new System.Windows.Forms.TabPage();
             this.toolTransferSelected = new System.Windows.Forms.ToolTip(this.components);
             this.toolEvolveSelected = new System.Windows.Forms.ToolTip(this.components);
-            this.tabAutoSnipeWaiting = new System.Windows.Forms.TabPage();
-            this.dataSnipingWaiting = new System.Windows.Forms.DataGridView();
-            this.dataGridViewImageColumn3 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataSnipingWaitingColTimestamp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.globalSettingsControl = new PoGo.NecroBot.GUI.UserControls.GlobalSettingsControl();
             this.snipingSettingsControl = new PoGo.NecroBot.GUI.UserControls.SnipingSettingsControl();
             this.pokemonSettingsControl = new PoGo.NecroBot.GUI.UserControls.PokemonSettingsControl();
@@ -164,6 +164,8 @@ namespace PoGo.NecroBot.GUI
             this.tabControlAutoSniping.SuspendLayout();
             this.tabAutoSnipeList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataSnipingFeeder)).BeginInit();
+            this.tabAutoSnipeWaiting.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSnipingWaiting)).BeginInit();
             this.tabAutoSnipeCaught.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataSnipingCaught)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMinSnipeIV)).BeginInit();
@@ -173,8 +175,6 @@ namespace PoGo.NecroBot.GUI
             this.tabPageSettingsSniping.SuspendLayout();
             this.tabPageSettingsPokemons.SuspendLayout();
             this.tabPageSettingsItems.SuspendLayout();
-            this.tabAutoSnipeWaiting.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSnipingWaiting)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridConsole
@@ -1020,13 +1020,111 @@ namespace PoGo.NecroBot.GUI
             this.dataSnipingFeederColEncounterId.Visible = false;
             this.dataSnipingFeederColEncounterId.Width = 90;
             // 
+            // tabAutoSnipeWaiting
+            // 
+            this.tabAutoSnipeWaiting.Controls.Add(this.dataSnipingWaiting);
+            this.tabAutoSnipeWaiting.Location = new System.Drawing.Point(4, 22);
+            this.tabAutoSnipeWaiting.Name = "tabAutoSnipeWaiting";
+            this.tabAutoSnipeWaiting.Size = new System.Drawing.Size(169, 0);
+            this.tabAutoSnipeWaiting.TabIndex = 2;
+            this.tabAutoSnipeWaiting.Text = "Waiting to snipe";
+            this.tabAutoSnipeWaiting.UseVisualStyleBackColor = true;
+            // 
+            // dataSnipingWaiting
+            // 
+            this.dataSnipingWaiting.AllowUserToAddRows = false;
+            this.dataSnipingWaiting.AllowUserToDeleteRows = false;
+            this.dataSnipingWaiting.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataSnipingWaiting.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataSnipingWaiting.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataSnipingWaiting.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewImageColumn3,
+            this.dataGridViewTextBoxColumn7,
+            this.dataGridViewTextBoxColumn8,
+            this.dataGridViewTextBoxColumn9,
+            this.dataGridViewTextBoxColumn10,
+            this.dataSnipingWaitingColTimestamp,
+            this.dataGridViewTextBoxColumn12,
+            this.dataGridViewTextBoxColumn13});
+            this.dataSnipingWaiting.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataSnipingWaiting.Location = new System.Drawing.Point(0, 0);
+            this.dataSnipingWaiting.Name = "dataSnipingWaiting";
+            this.dataSnipingWaiting.ReadOnly = true;
+            this.dataSnipingWaiting.RowHeadersWidth = 10;
+            this.dataSnipingWaiting.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataSnipingWaiting.Size = new System.Drawing.Size(169, 0);
+            this.dataSnipingWaiting.TabIndex = 19;
+            // 
+            // dataGridViewImageColumn3
+            // 
+            this.dataGridViewImageColumn3.HeaderText = "";
+            this.dataGridViewImageColumn3.Name = "dataGridViewImageColumn3";
+            this.dataGridViewImageColumn3.ReadOnly = true;
+            this.dataGridViewImageColumn3.Width = 5;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.HeaderText = "Pokemon";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            this.dataGridViewTextBoxColumn7.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn7.Width = 58;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.HeaderText = "IV";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.ReadOnly = true;
+            this.dataGridViewTextBoxColumn8.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn8.Width = 23;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.HeaderText = "Lat";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.ReadOnly = true;
+            this.dataGridViewTextBoxColumn9.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn9.Width = 28;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.HeaderText = "Lng";
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewTextBoxColumn10.ReadOnly = true;
+            this.dataGridViewTextBoxColumn10.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataGridViewTextBoxColumn10.Width = 31;
+            // 
+            // dataSnipingWaitingColTimestamp
+            // 
+            this.dataSnipingWaitingColTimestamp.HeaderText = "TimeStamp";
+            this.dataSnipingWaitingColTimestamp.Name = "dataSnipingWaitingColTimestamp";
+            this.dataSnipingWaitingColTimestamp.ReadOnly = true;
+            this.dataSnipingWaitingColTimestamp.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.dataSnipingWaitingColTimestamp.Width = 66;
+            // 
+            // dataGridViewTextBoxColumn12
+            // 
+            this.dataGridViewTextBoxColumn12.HeaderText = "Sort";
+            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            this.dataGridViewTextBoxColumn12.ReadOnly = true;
+            this.dataGridViewTextBoxColumn12.Visible = false;
+            this.dataGridViewTextBoxColumn12.Width = 51;
+            // 
+            // dataGridViewTextBoxColumn13
+            // 
+            this.dataGridViewTextBoxColumn13.HeaderText = "EncounterId";
+            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
+            this.dataGridViewTextBoxColumn13.ReadOnly = true;
+            this.dataGridViewTextBoxColumn13.Visible = false;
+            this.dataGridViewTextBoxColumn13.Width = 90;
+            // 
             // tabAutoSnipeCaught
             // 
             this.tabAutoSnipeCaught.Controls.Add(this.dataSnipingCaught);
             this.tabAutoSnipeCaught.Location = new System.Drawing.Point(4, 22);
             this.tabAutoSnipeCaught.Name = "tabAutoSnipeCaught";
             this.tabAutoSnipeCaught.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAutoSnipeCaught.Size = new System.Drawing.Size(671, 258);
+            this.tabAutoSnipeCaught.Size = new System.Drawing.Size(169, 0);
             this.tabAutoSnipeCaught.TabIndex = 1;
             this.tabAutoSnipeCaught.Text = "Caught";
             this.tabAutoSnipeCaught.UseVisualStyleBackColor = true;
@@ -1052,7 +1150,7 @@ namespace PoGo.NecroBot.GUI
             this.dataSnipingCaught.ReadOnly = true;
             this.dataSnipingCaught.RowHeadersWidth = 10;
             this.dataSnipingCaught.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataSnipingCaught.Size = new System.Drawing.Size(665, 252);
+            this.dataSnipingCaught.Size = new System.Drawing.Size(163, 0);
             this.dataSnipingCaught.TabIndex = 19;
             // 
             // dataGridViewImageColumn2
@@ -1247,7 +1345,7 @@ namespace PoGo.NecroBot.GUI
             this.tabPageSettingsSniping.Location = new System.Drawing.Point(4, 22);
             this.tabPageSettingsSniping.Name = "tabPageSettingsSniping";
             this.tabPageSettingsSniping.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSettingsSniping.Size = new System.Drawing.Size(677, 426);
+            this.tabPageSettingsSniping.Size = new System.Drawing.Size(175, 3);
             this.tabPageSettingsSniping.TabIndex = 3;
             this.tabPageSettingsSniping.Text = "Sniping";
             this.tabPageSettingsSniping.UseVisualStyleBackColor = true;
@@ -1259,7 +1357,7 @@ namespace PoGo.NecroBot.GUI
             this.tabPageSettingsPokemons.Location = new System.Drawing.Point(4, 22);
             this.tabPageSettingsPokemons.Name = "tabPageSettingsPokemons";
             this.tabPageSettingsPokemons.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSettingsPokemons.Size = new System.Drawing.Size(677, 426);
+            this.tabPageSettingsPokemons.Size = new System.Drawing.Size(175, 3);
             this.tabPageSettingsPokemons.TabIndex = 1;
             this.tabPageSettingsPokemons.Text = "Pokemons";
             this.tabPageSettingsPokemons.UseVisualStyleBackColor = true;
@@ -1271,108 +1369,10 @@ namespace PoGo.NecroBot.GUI
             this.tabPageSettingsItems.Location = new System.Drawing.Point(4, 22);
             this.tabPageSettingsItems.Name = "tabPageSettingsItems";
             this.tabPageSettingsItems.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSettingsItems.Size = new System.Drawing.Size(677, 426);
+            this.tabPageSettingsItems.Size = new System.Drawing.Size(175, 3);
             this.tabPageSettingsItems.TabIndex = 2;
             this.tabPageSettingsItems.Text = "Items";
             this.tabPageSettingsItems.UseVisualStyleBackColor = true;
-            // 
-            // tabAutoSnipeWaiting
-            // 
-            this.tabAutoSnipeWaiting.Controls.Add(this.dataSnipingWaiting);
-            this.tabAutoSnipeWaiting.Location = new System.Drawing.Point(4, 22);
-            this.tabAutoSnipeWaiting.Name = "tabAutoSnipeWaiting";
-            this.tabAutoSnipeWaiting.Size = new System.Drawing.Size(671, 258);
-            this.tabAutoSnipeWaiting.TabIndex = 2;
-            this.tabAutoSnipeWaiting.Text = "Waiting to snipe";
-            this.tabAutoSnipeWaiting.UseVisualStyleBackColor = true;
-            // 
-            // dataSnipingWaiting
-            // 
-            this.dataSnipingWaiting.AllowUserToAddRows = false;
-            this.dataSnipingWaiting.AllowUserToDeleteRows = false;
-            this.dataSnipingWaiting.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataSnipingWaiting.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataSnipingWaiting.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataSnipingWaiting.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewImageColumn3,
-            this.dataGridViewTextBoxColumn7,
-            this.dataGridViewTextBoxColumn8,
-            this.dataGridViewTextBoxColumn9,
-            this.dataGridViewTextBoxColumn10,
-            this.dataSnipingWaitingColTimestamp,
-            this.dataGridViewTextBoxColumn12,
-            this.dataGridViewTextBoxColumn13});
-            this.dataSnipingWaiting.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataSnipingWaiting.Location = new System.Drawing.Point(0, 0);
-            this.dataSnipingWaiting.Name = "dataSnipingWaiting";
-            this.dataSnipingWaiting.ReadOnly = true;
-            this.dataSnipingWaiting.RowHeadersWidth = 10;
-            this.dataSnipingWaiting.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataSnipingWaiting.Size = new System.Drawing.Size(671, 258);
-            this.dataSnipingWaiting.TabIndex = 19;
-            // 
-            // dataGridViewImageColumn3
-            // 
-            this.dataGridViewImageColumn3.HeaderText = "";
-            this.dataGridViewImageColumn3.Name = "dataGridViewImageColumn3";
-            this.dataGridViewImageColumn3.ReadOnly = true;
-            this.dataGridViewImageColumn3.Width = 5;
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.HeaderText = "Pokemon";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.ReadOnly = true;
-            this.dataGridViewTextBoxColumn7.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataGridViewTextBoxColumn7.Width = 58;
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.HeaderText = "IV";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            this.dataGridViewTextBoxColumn8.ReadOnly = true;
-            this.dataGridViewTextBoxColumn8.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataGridViewTextBoxColumn8.Width = 23;
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.HeaderText = "Lat";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.ReadOnly = true;
-            this.dataGridViewTextBoxColumn9.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataGridViewTextBoxColumn9.Width = 28;
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.HeaderText = "Lng";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            this.dataGridViewTextBoxColumn10.ReadOnly = true;
-            this.dataGridViewTextBoxColumn10.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataGridViewTextBoxColumn10.Width = 31;
-            // 
-            // dataSnipingWaitingColTimestamp
-            // 
-            this.dataSnipingWaitingColTimestamp.HeaderText = "TimeStamp";
-            this.dataSnipingWaitingColTimestamp.Name = "dataSnipingWaitingColTimestamp";
-            this.dataSnipingWaitingColTimestamp.ReadOnly = true;
-            this.dataSnipingWaitingColTimestamp.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.dataSnipingWaitingColTimestamp.Width = 66;
-            // 
-            // dataGridViewTextBoxColumn12
-            // 
-            this.dataGridViewTextBoxColumn12.HeaderText = "Sort";
-            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
-            this.dataGridViewTextBoxColumn12.ReadOnly = true;
-            this.dataGridViewTextBoxColumn12.Visible = false;
-            this.dataGridViewTextBoxColumn12.Width = 51;
-            // 
-            // dataGridViewTextBoxColumn13
-            // 
-            this.dataGridViewTextBoxColumn13.HeaderText = "EncounterId";
-            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
-            this.dataGridViewTextBoxColumn13.ReadOnly = true;
-            this.dataGridViewTextBoxColumn13.Visible = false;
-            this.dataGridViewTextBoxColumn13.Width = 90;
             // 
             // globalSettingsControl
             // 
@@ -1389,7 +1389,7 @@ namespace PoGo.NecroBot.GUI
             this.snipingSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.snipingSettingsControl.Location = new System.Drawing.Point(3, 3);
             this.snipingSettingsControl.Name = "snipingSettingsControl";
-            this.snipingSettingsControl.Size = new System.Drawing.Size(671, 420);
+            this.snipingSettingsControl.Size = new System.Drawing.Size(169, 0);
             this.snipingSettingsControl.TabIndex = 0;
             // 
             // pokemonSettingsControl
@@ -1398,7 +1398,7 @@ namespace PoGo.NecroBot.GUI
             this.pokemonSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pokemonSettingsControl.Location = new System.Drawing.Point(3, 3);
             this.pokemonSettingsControl.Name = "pokemonSettingsControl";
-            this.pokemonSettingsControl.Size = new System.Drawing.Size(671, 420);
+            this.pokemonSettingsControl.Size = new System.Drawing.Size(169, 0);
             this.pokemonSettingsControl.TabIndex = 0;
             // 
             // itemSettingsControl
@@ -1407,7 +1407,7 @@ namespace PoGo.NecroBot.GUI
             this.itemSettingsControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.itemSettingsControl.Location = new System.Drawing.Point(3, 3);
             this.itemSettingsControl.Name = "itemSettingsControl";
-            this.itemSettingsControl.Size = new System.Drawing.Size(671, 420);
+            this.itemSettingsControl.Size = new System.Drawing.Size(169, 0);
             this.itemSettingsControl.TabIndex = 0;
             // 
             // GUI
@@ -1440,6 +1440,8 @@ namespace PoGo.NecroBot.GUI
             this.tabControlAutoSniping.ResumeLayout(false);
             this.tabAutoSnipeList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataSnipingFeeder)).EndInit();
+            this.tabAutoSnipeWaiting.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataSnipingWaiting)).EndInit();
             this.tabAutoSnipeCaught.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataSnipingCaught)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numMinSnipeIV)).EndInit();
@@ -1449,8 +1451,6 @@ namespace PoGo.NecroBot.GUI
             this.tabPageSettingsSniping.ResumeLayout(false);
             this.tabPageSettingsPokemons.ResumeLayout(false);
             this.tabPageSettingsItems.ResumeLayout(false);
-            this.tabAutoSnipeWaiting.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataSnipingWaiting)).EndInit();
             this.ResumeLayout(false);
 
         }
